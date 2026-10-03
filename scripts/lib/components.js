@@ -28,7 +28,7 @@ const treatmentRow = (t, i, opts = {}) => `
     <span class="hover-row__num">${String(i + 1).padStart(2, '0')}</span>
     <span class="hover-row__main">
       <span class="hover-row__want">${esc(t.want)}</span>
-      <span class="hover-row__name">${esc((opts.home && t.homeName) || t.name)}</span>
+      <span class="hover-row__name">${esc(opts.home ? t.name.replace(/ — (.+)$/, ' ($1)') : t.name)}</span>
     </span>
     <span class="hover-row__meta">${t.prices ? t.durations.join('/') : t.duration} min</span>
     <span class="hover-row__price">${t.priceWas ? `<s>${idrK(t.priceWas)}</s> ` : ''}${t.prices ? t.prices.map(idrK).join(' / ') : idrK(t.price)}</span>

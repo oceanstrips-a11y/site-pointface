@@ -267,7 +267,6 @@ const treatments = [
   {
     slug: 'kobido-massage',
     name: 'Kobido Massage — Collagen Cream',
-    homeName: 'Kobido Massage', // shorter label for the home page list
     category: 'face-massages',
     badge: 'Natural facelift',
     want: 'I want a natural, non-invasive lift',
