@@ -123,18 +123,17 @@
   const expand = $('[data-expand]');
   const heroEl = $('[data-hero]');
   const dock = $('[data-dock-mark]');
-  let dockBase = null;
-  // Measure the docked (small) line, then the transform that blows it up across the hero.
+  const floatMark = $('[data-float-mark]');
+  let dockT = null;
+  // The big line is sized with real font-size (like before); scrolling only scales it DOWN
+  // into the header slot, so it can never overflow. When it arrives, the header copy takes over.
   function measureDock() {
-    if (!dock || !heroEl) return;
-    dock.style.transform = 'none';
-    const r = dock.getBoundingClientRect();
-    const inner = dock.closest('.site-header__inner');
-    const gutter = parseFloat(getComputedStyle(inner).paddingLeft) || 16;
-    // clientWidth excludes the scrollbar; keep a 2% margin so the line never touches or crosses the edge.
-    const targetW = (document.documentElement.clientWidth - gutter * 2) * 0.97;
-    const headerH = header.offsetHeight;
-    dockBase = { s: targetW / r.width, dx: gutter - r.left, dy: headerH + Math.min(24, window.innerWidth * 0.012) - r.top };
+    if (!dock || !floatMark || !heroEl) return;
+    floatMark.style.transform = 'none';
+    const b = floatMark.getBoundingClientRect();
+    const d = dock.getBoundingClientRect();
+    const s = d.width / b.width;
+    dockT = { s, dx: d.left - b.left, dy: d.top + d.height / 2 - b.height * s / 2 - b.top };
   }
   const hscroll = $('[data-hscroll]');
   const hTrack = hscroll && $('[data-hscroll-track]', hscroll);
@@ -162,15 +161,18 @@
     const vh = window.innerHeight;
 
     if (header) {
-      // Home: the big .FACE —— EXPERT FACIALS line shrinks into the centre of the header while
-      // the header is transparent; once docked the header turns beige with black text. It never hides.
-      const dist = heroEl ? vh * 0.5 : 0;
-      header.classList.toggle('is-scrolled', heroEl ? y >= dist - 1 : y > 0);
-      if (heroEl && dock && dockBase) {
-        const p = reduce ? 1 : clamp(y / dist, 0, 1);
-        const k = 1 - (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2); // 1 → 0, ease-in-out
-        const scale = 1 + (dockBase.s - 1) * k;
-        dock.style.transform = `translate(${(dockBase.dx * k).toFixed(1)}px, ${(dockBase.dy * k).toFixed(1)}px) scale(${scale.toFixed(4)})`;
+      if (heroEl) {
+        const dist = vh * 0.5;
+        const p = reduce ? (y > 0 ? 1 : 0) : clamp(y / dist, 0, 1);
+        const docked = p >= 0.999;
+        header.classList.toggle('is-scrolled', docked);
+        document.body.classList.toggle('is-docked', docked);
+        if (floatMark && dockT && !reduce) {
+          const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; // ease-in-out
+          floatMark.style.transform = `translate(${(dockT.dx * e).toFixed(1)}px, ${(dockT.dy * e).toFixed(1)}px) scale(${(1 + (dockT.s - 1) * e).toFixed(4)})`;
+        }
+      } else {
+        header.classList.toggle('is-scrolled', y > 0);
       }
     }
     if (fab) fab.classList.toggle('is-on', y > vh * 0.6);
@@ -219,12 +221,10 @@
   window.addEventListener('load', () => { setupHScroll(); measureDock(); requestTick(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measureDock(); requestTick(); });
   // Re-measure whenever the docked line changes size (web font swap, viewport change).
-  if (dock && heroEl && 'ResizeObserver' in window) {
-    let lastW = 0;
-    new ResizeObserver(([entry]) => {
-      const w = Math.round(entry.contentRect.width);
-      if (w && w !== lastW) { lastW = w; measureDock(); requestTick(); }
-    }).observe(dock);
+  if (floatMark && 'ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => { measureDock(); requestTick(); });
+    ro.observe(floatMark);
+    ro.observe(dock);
   }
   setupHScroll();
   measureDock();

@@ -133,6 +133,11 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
 .site-header__center { display: flex; justify-content: center; }
 .dock-mark { display: inline-flex; align-items: center; white-space: nowrap; font: 500 15px/1 var(--f-ui); letter-spacing: -.02em; text-transform: uppercase; transform-origin: 0 0; pointer-events: none; }
 .dock-mark .hero__mark-rule { flex: 0 0 2.4em; height: max(1px, .06em); margin: 0 .3em; }
+.dock-mark, .hero__mark--float { transition: opacity .2s linear; }
+/* Home: the big line floats over the photo and hands over to the header copy once docked. */
+.hero__mark.hero__mark--float { position: fixed; z-index: 101; transform-origin: 0 0; pointer-events: none; }
+.is-home:not(.is-docked) .dock-mark { opacity: 0; }
+.is-docked .hero__mark.hero__mark--float { opacity: 0; }
 .nav--primary { display: flex; gap: 26px; }
 .nav__link { white-space: nowrap; font: 500 11px/1 var(--f-ui); letter-spacing: .18em; text-transform: uppercase; position: relative; padding: 6px 0; }
 .nav__link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
@@ -640,9 +645,10 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
   .site-header__actions .btn { display: none; }
   .site-header__logo .logo { height: 22px; }
   .hero__pin { min-height: 520px; }
-  .dock-mark { font-size: 12.5px; }
-  .dock-mark .hero__mark-rule { flex-basis: 1.8em; }
-  .site-header__logo .logo { height: 18px; }
+  .dock-mark { font-size: 11px; }
+  .dock-mark .hero__mark-rule { flex-basis: 1.4em; }
+  .site-header__logo .logo { height: 15px; }
+  .site-header__inner { gap: 12px; }
   .hero__caption { bottom: 40px; }
   .hero__locs { left: var(--gutter); right: auto; bottom: 28px; }
   .hero__scroll { display: none; }
