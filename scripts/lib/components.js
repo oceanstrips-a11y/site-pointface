@@ -72,6 +72,7 @@ const concernTile = (c, i) => `
   <div class="concern-tile__media img-zoom">${img(c.image, c.name, { sizes: '(max-width: 760px) 50vw, 25vw' })}</div>
   <span class="concern-tile__num">${String(i + 1).padStart(2, '0')}</span>
   <span class="concern-tile__name">${esc(c.name)}</span>
+  <span class="concern-tile__arrow" aria-hidden="true">→</span>
 </a>`;
 
 const faqList = (faqs, { open = false } = {}) => `

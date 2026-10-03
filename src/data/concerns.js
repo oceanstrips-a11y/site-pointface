@@ -4,17 +4,17 @@
 module.exports = [
   {
     slug: 'fine-lines-wrinkles-bali',
-    name: 'Fine Lines & Wrinkles',
-    title: 'Fine Lines & Wrinkles Treatment in Uluwatu, Bali',
+    name: 'Anti-Aging & Firming',
+    title: 'Anti-Aging & Firming Facials in Uluwatu, Bali: Fine Lines, Wrinkles & Sagging',
     metaDescription:
-      'Non-invasive facials for fine lines and wrinkles in Uluwatu, Bali: collagen-boosting Korean Hydrafacials, caviar RF lifting and Kobido massage at POINT · FACE Ungasan & Bingin.',
+      'Non-invasive anti-aging facials in Uluwatu, Bali to prevent the signs of aging, boost collagen and firm sagging skin: Korean Hydrafacials, caviar RF lifting and Kobido massage at POINT · FACE Ungasan & Bingin.',
     image: 'caviar-anti-aging-facial',
     lede:
-      'Smooth, firm and lifted — without needles. Our anti-aging facials combine Korean peptides, radiofrequency, microcurrent and red LED to support collagen and soften the look of lines.',
+      'Prevent the signs of aging, boost collagen and keep the skin from sagging, without needles. Our anti-aging facials combine Korean peptides, radiofrequency, microcurrent and red LED to firm the skin and soften the look of lines.',
     what:
       'Fine lines are shallow creases that appear first around the eyes, mouth and forehead. Over time, as collagen and elastin decline and the skin loses water, they can deepen into wrinkles. The good news: early lines respond very well to hydration, collagen-supporting care and consistent sun protection.',
     causes: [
-      'Natural decline in collagen and elastin from our mid-twenties',
+      'Natural decline in collagen and elastin from our mid-twenties, which leads to loss of firmness and sagging',
       'UV exposure — the main driver of premature skin aging (photoaging)',
       'Dehydration, which makes lines look deeper',
       'Repeated expressions, squinting in bright light and jaw clenching',
@@ -50,13 +50,13 @@ module.exports = [
   },
   {
     slug: 'acne-breakouts-bali',
-    name: 'Acne & Breakouts',
-    title: 'Acne & Breakout Facials in Uluwatu, Bali',
+    name: 'Acne, Breakouts & Blackheads',
+    title: 'Acne, Breakouts & Blackheads Facials in Uluwatu, Bali',
     metaDescription:
-      'Why skin breaks out in Bali and how to clear it: K-Balance Acne Clear Hydrafacial, Balinese clay & turmeric facial and blue LED at POINT · FACE Uluwatu (Ungasan & Bingin).',
+      'Why skin breaks out in Bali and how to clear acne, breakouts and blackheads: K-Balance Acne Clear Hydrafacial, clay & turmeric purifying facial and blue LED at POINT · FACE Uluwatu (Ungasan & Bingin).',
     image: 'acne-clear-facial',
     lede:
-      'Humidity, sweat, sunscreen and salt water — Bali is tough on congested skin. Our acne facials deep-clean pores, rebalance oil and calm inflammation without stripping your skin.',
+      'Humidity, sweat, sunscreen and salt water — Bali is tough on congested skin. Our acne facials deep-clean pores, clear blackheads, rebalance oil and calm inflammation without stripping your skin.',
     what:
       'Breakouts happen when pores become clogged with excess sebum and dead skin cells, allowing acne-causing bacteria to multiply and trigger inflammation. They range from blackheads and whiteheads to red, inflamed papules.',
     causes: [
