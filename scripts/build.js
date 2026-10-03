@@ -69,6 +69,8 @@ function home() {
   <a href="#intro" class="hero__scroll" aria-label="Scroll to content"><span></span></a>
 </section>
 
+${C.studiosSection()}
+
 ${C.marquee(['Korean Hydrafacials', 'Glass Skin', 'HydroJelly Masks', 'PDRN Salmon DNA', 'Balinese Rituals', 'Buccal Massage', 'Kobido', 'Free Skin Analysis'])}
 
 <section class="section intro" id="intro" aria-label="About POINT · FACE">
@@ -175,8 +177,6 @@ ${C.marquee(['Korean Hydrafacials', 'Glass Skin', 'HydroJelly Masks', 'PDRN Salm
     </div>
   </div>
 </section>
-
-${C.studiosSection()}
 
 ${C.reviewsSection(reviews)}
 
