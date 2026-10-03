@@ -175,7 +175,7 @@ body.menu-open { overflow: hidden; }
 
 .hero__caption { position: absolute; z-index: 2; left: var(--gutter); bottom: clamp(28px, 5vw, 64px); max-width: 720px; padding-right: var(--gutter); }
 .hero__title { font: 300 clamp(1.9rem, 3.6vw, 3.6rem)/1.04 var(--f-display); letter-spacing: -.025em; margin-bottom: 16px; }
-.hero__lede { font-size: clamp(15px, 1.15vw, 17px); max-width: 520px; opacity: .92; margin-bottom: 28px; }
+.hero__lede { font-size: clamp(15px, 1.15vw, 17px); max-width: 520px; margin-bottom: 28px; }
 .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 28px; margin-top: 32px; }
 .hero__caption .hero__ctas { margin-top: 0; }
 .hero__locs { position: absolute; z-index: 2; right: var(--gutter); bottom: clamp(28px, 5vw, 64px); display: flex; gap: 14px; font: 500 11px/1 var(--f-ui); letter-spacing: .22em; text-transform: uppercase; }
@@ -187,7 +187,7 @@ body.menu-open { overflow: hidden; }
 /* Header sits transparent and white over the home hero, then turns solid. */
 .is-home .site-header:not(.is-scrolled) { color: var(--on-image); }
 .is-home .site-header:not(.is-scrolled) .site-header__logo { color: var(--on-image); }
-.is-home .site-header:not(.is-scrolled) .site-header__loc { color: rgba(246, 244, 240, .8); }
+.is-home .site-header:not(.is-scrolled) .site-header__loc { color: var(--on-image); }
 .is-home .site-header:not(.is-scrolled) .btn--solid { --btn-bg: var(--bg); --btn-fg: var(--ink); --btn-fill: var(--taupe); border-color: var(--bg); }
 .menu-toggle__bar { background: currentColor !important; }
 
@@ -352,7 +352,7 @@ a:hover .img-zoom img, .img-zoom:hover img { transform: scale(1.06); }
 .studio__name { font: 300 clamp(2rem, 3.6vw, 3.4rem)/1 var(--f-display); letter-spacing: -.025em; margin-bottom: 6px; }
 .studio__name a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .6s var(--ease); }
 .studio__name a:hover { background-size: 100% 1px; }
-.studio__body address, .studio__hours { font-size: 15px; opacity: .9; }
+.studio__body address, .studio__hours { font-size: 15px; }
 .studio__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 16px; }
 .btn--outline-light { --btn-fg: var(--on-image); --btn-fill: var(--taupe); --btn-fg-hover: var(--ink); border-color: var(--on-image); }
 
@@ -410,18 +410,19 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 @keyframes faqIn { from { opacity: 0; transform: translateY(-8px); } }
 
 /* ---------- Booking band ---------- */
-.book-band { background: var(--taupe); color: var(--ink); padding: clamp(72px, 9vw, 140px) 0; }
+.book-band { background: var(--taupe); color: var(--on-image); padding: clamp(72px, 9vw, 140px) 0; }
+.book-band .eyebrow { color: var(--on-image); }
 .book-band__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: end; }
 .book-band .h-display { margin-bottom: 20px; }
 .book-band__text { max-width: 460px; }
-.book-band__options { display: grid; gap: 0; border-top: 1px solid var(--ink); }
-.book-band__loc { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--ink); }
+.book-band__options { display: grid; gap: 0; border-top: 1px solid var(--on-image); }
+.book-band__loc { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--on-image); }
 .book-band__loc-name { font: 300 clamp(1.4rem, 2.2vw, 2rem)/1 var(--f-display); letter-spacing: -.015em; }
-.book-band .btn--solid { --btn-fill: var(--bg); }
-.book-band .btn--solid:hover { border-color: var(--bg); }
-.book-band .btn--ghost { --btn-fill: var(--ink); --btn-fg-hover: var(--bg); }
-.book-band .btn:hover { border-color: var(--ink); }
-.book-band .btn--solid:hover { border-color: var(--bg); }
+/* On the taupe band: #F6F4F0 buttons, filling with ink on hover. */
+.book-band .btn--solid { --btn-bg: var(--on-image); --btn-fg: var(--ink); --btn-fill: var(--ink); --btn-fg-hover: var(--on-image); border-color: var(--on-image); }
+.book-band .btn--ghost { --btn-fg: var(--on-image); --btn-fill: var(--on-image); --btn-fg-hover: var(--ink); border-color: var(--on-image); }
+.book-band .btn--solid:hover { border-color: var(--ink); }
+.book-band .btn--ghost:hover { border-color: var(--on-image); }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--surface); padding-top: clamp(64px, 8vw, 120px); overflow: hidden; }
