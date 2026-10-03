@@ -336,10 +336,10 @@ a:hover .img-zoom img, .img-zoom:hover img { transform: scale(1.06); }
 .twocol > div > p { color: var(--ink-2); max-width: 560px; }
 
 /* ---------- Studios: two full-bleed photos, white text on image ---------- */
-.studios { position: relative; color: var(--on-image); background: #2a221c; }
-.studios__head { position: absolute; z-index: 3; top: clamp(28px, 4vw, 56px); left: var(--gutter); right: var(--gutter); pointer-events: none; }
-.studios__head .h-display { max-width: 9em; }
-.studios__grid { display: grid; grid-template-columns: 1fr 1fr; }
+.studios { position: relative; }
+.studios__head { padding-top: var(--section); padding-bottom: clamp(28px, 3.5vw, 48px); }
+.intro + .studios .studios__head, .page-hero + .studios .studios__head { padding-top: 0; }
+.studios__grid { display: grid; grid-template-columns: 1fr 1fr; color: var(--on-image); background: #2a221c; }
 .studio { position: relative; height: min(100svh, 980px); min-height: 600px; overflow: hidden; isolation: isolate; }
 .studio + .studio { border-left: 1px solid rgba(246, 244, 240, .25); }
 .studio__media { position: absolute; inset: 0; z-index: -1; display: block; overflow: hidden; }

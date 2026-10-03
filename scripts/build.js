@@ -86,7 +86,7 @@ ${C.studiosSection()}
 <section class="section section--tint" aria-labelledby="want-title">
   <div class="container">
     ${C.sectionHead({ eyebrow: 'Which facial is best for my skin?', title: 'Tell us what you want.<br>We have the facial.', intro: 'Every treatment answers one wish. Hover to preview, tap to discover.', link: ['Full menu & prices', '/treatments/'] }).replace('<h2 class="h-display"', '<h2 class="h-display" id="want-title"')}
-    ${C.groupedTreatmentList(treatments, categories)}
+    ${C.groupedTreatmentList(treatments, categories, { home: true })}
   </div>
 </section>
 
@@ -337,7 +337,7 @@ ${C.bookingBand()}`;
       path: '/treatments/',
       title: 'Facial Treatments & Prices — Korean Hydrafacials, Facials, Face Massages',
       description:
-        'Full POINT · FACE menu & prices in Uluwatu: Korean Hydrafacials (glass skin, collagen, PDRN, acne), HydroJelly Hydrafacials, natural facials, Kobido, Buccal & Gua Sha massages, add-ons and packages.',
+        'Full POINT · FACE menu & prices in Uluwatu: Korean Hydrafacials (glass skin, collagen, PDRN, acne), Korean HydroJelly Hydrafacials, natural facials, Kobido, Buccal & Gua Sha massages, add-ons and packages.',
       body,
       current: '/treatments/',
       schema: S.graph(
@@ -613,7 +613,7 @@ ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/']])}
   <h1 class="h-display h-display--xl" data-split>Facial studios in Uluwatu, Bali</h1>
   <p class="page-hero__lede" data-reveal>Two POINT · FACE studios on the Bukit peninsula — Uluwatu Ungasan and Uluwatu Bingin. Same menu, same expertise, same complimentary skin analysis.</p>
 </section>
-${C.studiosSection({ title: 'Choose your studio' })}
+${C.studiosSection()}
 ${C.reviewsSection(reviews)}
 ${C.bookingBand()}`;
   write(
@@ -638,7 +638,7 @@ function locationPage(l) {
     [`Where is POINT · FACE ${l.name}?`, `${l.street}, ${l.locality}, ${l.region} ${l.postalCode}, Indonesia. Close to ${l.nearby.slice(0, 3).join(', ')}.`],
     [`What are the opening hours?`, `${l.hours.label}. We recommend booking 1–3 days ahead in high season.`],
     [`How do I book at ${l.name}?`, `Send us a WhatsApp message on ${l.phoneDisplay} or book online on Fresha.`],
-    ['Which treatments are available?', 'The full POINT · FACE menu: Korean Hydrafacials, HydroJelly Hydrafacials, natural facials, Kobido, Buccal, Gua Sha and the Relaxation Ritual, add-ons and packages.'],
+    ['Which treatments are available?', 'The full POINT · FACE menu: Korean Hydrafacials, Korean HydroJelly Hydrafacials, natural facials, Kobido, Buccal, Gua Sha and the Relaxation Ritual, add-ons and packages.'],
   ];
   const body = `
 ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}

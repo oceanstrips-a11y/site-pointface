@@ -343,7 +343,7 @@ module.exports = [
 <p>If tension sits deep in your jaw — clenching, grinding — the ${t('buccal-massage', 'Buccal Massage')} works the muscles from inside the mouth. Add it to either massage.</p>
 
 <h2>Our recommendation</h2>
-<p>Before an event: Kobido 60 min + Buccal. After a stressful week: Gua Sha or the ${t('point-face-relaxation-ritual', 'POINT · FACE Relaxation Ritual')}. Living in Bali: a <a href="/treatments/#packages">3-session massage package</a> at 20% off.</p>`,
+<p>Before an event: Kobido 60 min + Buccal. After a stressful week: Gua Sha or the ${t('point-face-relaxation-ritual', 'Relaxation Ritual')}. Living in Bali: a <a href="/treatments/#packages">3-session massage package</a> at 20% off.</p>`,
     faqs: [
       ['Can I do Gua Sha at home?', 'Yes, gently and with oil, always upward and outward. A professional session goes deeper and adds drainage techniques.'],
     ],

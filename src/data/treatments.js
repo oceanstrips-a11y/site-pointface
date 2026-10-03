@@ -11,8 +11,8 @@ const categories = [
   },
   {
     id: 'hydrojelly-hydrafacials',
-    name: 'HydroJelly Hydrafacials',
-    short: 'HydroJelly Hydrafacials',
+    name: 'Korean HydroJelly Hydrafacials',
+    short: 'Korean HydroJelly Hydrafacials',
     intro:
       'Our Hydrafacials finished with an electrolyte-infused HydroJelly mask that seals in actives — for heat-stressed, mature or pigmented skin.',
   },
@@ -267,6 +267,7 @@ const treatments = [
   {
     slug: 'kobido-massage',
     name: 'Kobido Massage — Collagen Cream',
+    homeName: 'Kobido Massage', // shorter label for the home page list
     category: 'face-massages',
     badge: 'Natural facelift',
     want: 'I want a natural, non-invasive lift',
@@ -342,7 +343,7 @@ const treatments = [
   },
   {
     slug: 'point-face-relaxation-ritual',
-    name: 'POINT · FACE Relaxation Ritual',
+    name: 'Relaxation Ritual',
     category: 'face-massages',
     badge: null,
     want: 'I want to fully switch off',
@@ -405,7 +406,7 @@ const packages = {
     ['Relaxing Gua Sha Massage', 1050000, 840000, '-20%'],
     ['Kobido Massage 30 min', 1500000, 1200000, '-20%'],
     ['Kobido Massage 60 min', 2550000, 2040000, '-20%'],
-    ['POINT · FACE Relaxation Ritual', 1650000, 1320000, '-20%'],
+    ['Relaxation Ritual', 1650000, 1320000, '-20%'],
   ],
   terms: 'Not combinable with other promotions. Valid for 5 months. Excludes add-ons.',
 };

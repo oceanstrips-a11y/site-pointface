@@ -22,13 +22,13 @@ const priceLabel = (t) =>
     : `${t.duration} min · ${idr(t.price)}`;
 
 // Editorial hover list row: hovering shows the treatment photo following the cursor.
-const treatmentRow = (t, i) => `
+const treatmentRow = (t, i, opts = {}) => `
 <li class="hover-row" data-reveal style="--d:${(i % 6) * 60}ms">
   <a href="/treatments/${t.slug}/" data-hover-img="/assets/img/${t.image}-sm.webp" data-cursor="View">
     <span class="hover-row__num">${String(i + 1).padStart(2, '0')}</span>
     <span class="hover-row__main">
       <span class="hover-row__want">${esc(t.want)}</span>
-      <span class="hover-row__name">${esc(t.name)}</span>
+      <span class="hover-row__name">${esc((opts.home && t.homeName) || t.name)}</span>
     </span>
     <span class="hover-row__meta">${t.prices ? t.durations.join('/') : t.duration} min</span>
     <span class="hover-row__price">${t.priceWas ? `<s>${idrK(t.priceWas)}</s> ` : ''}${t.prices ? t.prices.map(idrK).join(' / ') : idrK(t.price)}</span>
@@ -37,7 +37,7 @@ const treatmentRow = (t, i) => `
 </li>`;
 
 // Full menu as one numbered list, grouped by family (order follows src/data/treatments.js).
-const groupedTreatmentList = (treatments, categories) => {
+const groupedTreatmentList = (treatments, categories, opts = {}) => {
   let n = 0;
   return categories
     .map((cat) => {
@@ -45,7 +45,7 @@ const groupedTreatmentList = (treatments, categories) => {
       return `
 <div class="hover-group">
   <p class="hover-group__label" data-reveal><span>${esc(cat.short)}</span><span>${items.length}</span></p>
-  <ul class="hover-list" data-hover-list>${items.map((t) => treatmentRow(t, n++)).join('')}</ul>
+  <ul class="hover-list" data-hover-list>${items.map((t) => treatmentRow(t, n++, opts)).join('')}</ul>
 </div>`;
     })
     .join('');
@@ -186,11 +186,10 @@ function reviewsSection(reviews, { locationId, title = 'Loved in Uluwatu' } = {}
 </section>`;
 }
 
-function studiosSection({ title = 'Two studios in Uluwatu' } = {}) {
+function studiosSection({ title = 'Our studios' } = {}) {
   return `
 <section class="studios" id="studios" aria-labelledby="studios-title">
-  <div class="studios__head">
-    <p class="eyebrow" data-reveal>Our studios</p>
+  <div class="container studios__head">
     <h2 class="h-display" id="studios-title" data-split>${title}</h2>
   </div>
   <div class="studios__grid">
