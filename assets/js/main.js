@@ -10,19 +10,19 @@
   let data = { locations: [] };
   try { data = JSON.parse($('#pf-data').textContent); } catch (e) { /* keep defaults */ }
 
-  /* ---------- Fit giant wordmarks to their container width ---------- */
-  const fitMarks = () => $$('.wordmark--hero, .wordmark--giant').forEach((el) => {
-    const box = el.parentElement;
-    const avail = box.clientWidth - parseFloat(getComputedStyle(box).paddingLeft) - parseFloat(getComputedStyle(box).paddingRight);
-    el.style.width = 'auto';
-    el.style.fontSize = '100px';
-    const natural = el.scrollWidth;
-    el.style.fontSize = `${Math.floor((avail / natural) * 100 * 10) / 10}px`;
-    el.style.width = '';
-  });
-  fitMarks();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitMarks);
-  window.addEventListener('resize', fitMarks);
+  /* ---------- Fit the hero line (.FACE —— EXPERT FACIALS) to the screen width ---------- */
+  const heroMark = $('[data-hero-mark]');
+  const fitHeroMark = () => {
+    if (!heroMark) return;
+    const words = $$('.hero__mark-word', heroMark);
+    heroMark.style.setProperty('--mark-size', '100px');
+    const textW = words.reduce((w, el) => w + el.getBoundingClientRect().width, 0);
+    const avail = heroMark.clientWidth * (window.innerWidth < 760 ? 0.84 : 0.8); // leave ~20% for the rule
+    heroMark.style.setProperty('--mark-size', `${Math.floor((avail / textW) * 1000) / 10}px`);
+  };
+  fitHeroMark();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroMark);
+  window.addEventListener('resize', fitHeroMark);
 
   /* ---------- Load-in ---------- */
   requestAnimationFrame(() => requestAnimationFrame(() => {

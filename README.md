@@ -19,11 +19,12 @@ npm run dev          # build + serveur local
 | `src/data/faq.js` | FAQ générale |
 | `src/data/reviews.json` | Avis Fresha (mis à jour automatiquement, ne pas éditer à la main) |
 | `assets/css/main.css` · `assets/js/main.js` | Design et animations |
+| `assets/img/logo.svg` | Logo POINT • FACE vectorisé (couleur pilotée en CSS) |
 
 ## À compléter avant la mise en ligne (`TODO` dans `src/data/site.js`)
 
 1. **Domaine final** (`url`) — utilisé pour les canonicals, le sitemap, `llms.txt` et les données structurées.
-2. **Liens Fresha** de chaque studio (`fresha`).
+2. **Lien Fresha** du studio de Bingin (`fresha`) — celui d'Ungasan est en place.
 3. **Adresse complète du studio de Bingin** et son numéro WhatsApp s'il est différent.
 4. **Horaires** réels de chaque studio, et les **coordonnées GPS** (`geo`) depuis Google Maps.
 5. **Police Kenao** : déposer `assets/fonts/Kenao.woff2` (police sous licence). Elle est branchée automatiquement au build ; en attendant, Open Sauce Sans la remplace.
@@ -37,6 +38,14 @@ npm run dev          # build + serveur local
 - **Google** (en direct) : la fonction `/api/reviews` appelle l'API officielle Google Places (New) pour les deux studios. Les CGU de Google interdisent de stocker ces avis : ils sont donc chargés à chaque visite (cache de 15 min).
   Variables d'environnement Netlify : `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID_UNGASAN`, `GOOGLE_PLACE_ID_BINGIN`.
   L'API renvoie au maximum 5 avis par lieu, plus la note et le nombre total d'avis.
+  Configuration pas à pas :
+  1. Sur https://console.cloud.google.com, crée un projet (ex. « Point Face site »). Ajoute un compte de facturation : Google l'exige, même si l'usage du site reste en général dans le crédit gratuit mensuel.
+  2. Menu **APIs & Services → Library** : active **Places API (New)**.
+  3. **APIs & Services → Credentials → Create credentials → API key**. Dans « Edit API key », section **API restrictions**, choisis « Restrict key » et coche uniquement **Places API (New)**. Ne mets pas de restriction « Websites » : la clé est utilisée côté serveur (fonction Netlify), jamais dans le navigateur.
+  4. Trouve le **Place ID** de chaque studio sur https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder (cherche « Point Face Ungasan », puis « Point Face Bingin »). Il commence souvent par `ChIJ…`.
+  5. Sur Netlify : **Site configuration → Environment variables → Add a variable**, crée `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID_UNGASAN` et `GOOGLE_PLACE_ID_BINGIN`, puis **Deploys → Trigger deploy**.
+  6. Vérifie en ouvrant `https://ton-domaine/api/reviews` : tu dois voir la note et les avis au format JSON.
+  Ne partage jamais la clé par message ou dans le code : elle se saisit uniquement dans Netlify.
 - **Fresha** (quotidien) : Fresha n'a pas d'API publique. `.github/workflows/sync-reviews.yml` lance chaque matin `scripts/sync-fresha-reviews.js`, qui lit la note et les avis publics de chaque page Fresha, met à jour `src/data/reviews.json` et le commit. Netlify redéploie alors le site.
   Les URLs Fresha se règlent dans `site.js` ou dans les variables GitHub `FRESHA_URL_UNGASAN` / `FRESHA_URL_BINGIN`. Si une page ne peut pas être lue, les données précédentes sont conservées.
 - Seuls les avis 4★ et 5★ avec un texte sont affichés. Sans données, la section affiche des liens vers les avis Google et Fresha.

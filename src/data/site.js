@@ -33,8 +33,7 @@ module.exports = {
       // WhatsApp number in international format, digits only.
       whatsapp: '628133793880',
       phoneDisplay: '+62 813 3793 880',
-      // TODO: paste the Fresha booking link of the Ungasan studio.
-      fresha: 'https://www.fresha.com/',
+      fresha: 'https://www.fresha.com/a/point-face-bali-ungasan-kec-kuta-sel-kabupaten-badung-jalan-toya-ning-ii-no-99-no6mqclf?pId=2696384',
       // TODO: paste the Google Maps share link of the studio (used for "Directions").
       maps: 'https://www.google.com/maps/search/?api=1&query=POINT%20FACE%20Jl.%20Toya%20Ning%20II%20No.%2011%20Ungasan%20Bali',
       // TODO: confirm opening hours (used in Google structured data).

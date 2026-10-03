@@ -1,6 +1,8 @@
 const site = require('../../src/data/site');
 const { esc, abs, waLink, waText } = require('./utils');
 
+const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POINT · FACE"></span>`;
+
 const wordmark = (cls = '') =>
   `<span class="wordmark ${cls}" aria-label="POINT FACE"><span>POINT</span><span class="wordmark__dot">·</span><span>FACE</span></span>`;
 
@@ -13,7 +15,7 @@ function header(current) {
 <header class="site-header" data-header>
   <div class="site-header__inner">
     <nav class="nav nav--primary" aria-label="Main">${links}</nav>
-    <a href="/" class="site-header__logo" aria-label="POINT · FACE — home">${wordmark()}</a>
+    <a href="/" class="site-header__logo" aria-label="POINT · FACE — home">${logo()}</a>
     <div class="site-header__actions">
       <span class="site-header__loc">Ungasan · Bingin</span>
       <a href="/book/" class="btn btn--solid btn--sm" data-book data-magnetic>Book now</a>
@@ -71,7 +73,7 @@ function footer() {
     </div>
     <p class="footer__note">${site.priceNote} Every treatment includes a complimentary professional skin analysis.</p>
   </div>
-  <div class="footer__mark" aria-hidden="true">${wordmark('wordmark--giant')}</div>
+  <div class="footer__mark" aria-hidden="true">${logo('logo--giant')}</div>
   <div class="container footer__legal">
     <span>© ${new Date().getFullYear()} ${site.name} · ${site.legalName}</span>
     <span>Uluwatu Ungasan · Uluwatu Bingin · Bali, Indonesia</span>
@@ -153,4 +155,4 @@ ${bookingDialog()}
 </html>`;
 }
 
-module.exports = { page, wordmark };
+module.exports = { page, wordmark, logo };

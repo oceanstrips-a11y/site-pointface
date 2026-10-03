@@ -46,29 +46,32 @@ function home() {
 
   const body = `
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero__top container">
-    <p class="eyebrow" data-reveal>Expert facials — Uluwatu, Bali</p>
-    <p class="eyebrow hero__locs" data-reveal><span>Ungasan</span><span>Bingin</span></p>
-  </div>
-  <div class="hero__mark" data-hero-mark>${wordmark('wordmark--hero')}</div>
   <div class="hero__media" data-expand>
     <div class="hero__media-inner" data-parallax="0.12">
-      ${img('hero-glass-skin-glow', 'Glowing, hydrated glass skin after a Korean Hydrafacial at POINT · FACE Uluwatu', { eager: true, sizes: '100vw' })}
-    </div>
-    <div class="hero__caption">
-      <h1 id="hero-title" class="hero__title" data-split>Korean Hydrafacials &amp; expert facials in Uluwatu</h1>
-      <p class="hero__lede" data-reveal>Glass skin, lifting, acne and after-sun repair. Korean technology, Balinese botanicals and a complimentary skin analysis before every treatment.</p>
-      <div class="hero__ctas" data-reveal>
-        <a href="/book/" class="btn btn--light" data-book data-magnetic>Book a facial</a>
-        <a href="/treatments/" class="link link--light link--arrow">Explore treatments</a>
-      </div>
+      <picture>
+        <source media="(max-width: 760px)" srcset="/assets/img/hero-glass-skin-glow-sm.webp 514w, /assets/img/hero-glass-skin-glow.webp 1029w" sizes="100vw">
+        <img src="/assets/img/hero-glass-skin-glow-wide.webp" width="1920" height="1240" alt="Glowing, hydrated glass skin after a Korean Hydrafacial at POINT · FACE Uluwatu" fetchpriority="high" decoding="async">
+      </picture>
     </div>
   </div>
+  <div class="hero__mark" aria-hidden="true" data-hero-mark>
+    <span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span>
+  </div>
+  <div class="hero__caption">
+    <h1 id="hero-title" class="hero__title" data-split>Korean Hydrafacials &amp; expert facials in Uluwatu</h1>
+    <p class="hero__lede" data-reveal>Glass skin, lifting, acne and after-sun repair. Korean technology, Balinese botanicals and a complimentary skin analysis before every treatment.</p>
+    <div class="hero__ctas" data-reveal>
+      <a href="/book/" class="btn btn--light" data-book data-magnetic>Book a facial</a>
+      <a href="/treatments/" class="link link--light link--arrow">Explore treatments</a>
+    </div>
+  </div>
+  <p class="hero__locs" data-reveal><span>Uluwatu</span><span>Ungasan</span><span>Bingin</span></p>
+  <a href="#intro" class="hero__scroll" aria-label="Scroll to content"><span></span></a>
 </section>
 
 ${C.marquee(['Korean Hydrafacials', 'Glass Skin', 'HydroJelly Masks', 'PDRN Salmon DNA', 'Balinese Rituals', 'Buccal Massage', 'Kobido', 'Free Skin Analysis'])}
 
-<section class="section intro" aria-label="About POINT · FACE">
+<section class="section intro" id="intro" aria-label="About POINT · FACE">
   <div class="container intro__grid">
     <p class="eyebrow" data-reveal>Point · Face — your facial expert</p>
     <p class="intro__statement" data-scrub-words>We are a facial-only studio. Every skin is analysed, every treatment adapted. From 100% natural Balinese rituals to advanced Korean Hydrafacials, we combine science, precision and touch to deliver visible, lasting results — for dry, dehydrated, mature, sun-stressed and acne-prone skin.</p>

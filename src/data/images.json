@@ -1,54 +1,214 @@
 {
-  "acne-clear-facial-sm": [503,900],
-  "acne-clear-facial": [894,1600],
-  "balinese-hydrating-facial-sm": [507,900],
-  "balinese-hydrating-facial": [902,1600],
-  "brightening-pigmentation-facial-sm": [588,900],
-  "brightening-pigmentation-facial": [1046,1600],
-  "buccal-massage-jawline-sm": [480,900],
-  "buccal-massage-jawline": [854,1600],
-  "caviar-anti-aging-facial-sm": [496,900],
-  "caviar-anti-aging-facial": [882,1600],
-  "collagen-booster-facial-sm": [507,900],
-  "collagen-booster-facial": [902,1600],
-  "dewy-skin-closeup-sm": [511,900],
-  "dewy-skin-closeup": [645,1136],
-  "duo-package-friends-sm": [546,900],
-  "duo-package-friends": [1093,1800],
-  "eye-collagen-patch-sm": [519,900],
-  "eye-collagen-patch": [922,1600],
-  "facial-calm-portrait-sm": [528,900],
-  "facial-calm-portrait": [1055,1800],
-  "friends-facial-duo-sm": [464,900],
-  "friends-facial-duo": [929,1800],
-  "gua-sha-massage-sm": [545,900],
-  "gua-sha-massage": [1090,1800],
-  "happy-glowing-skin-sm": [538,900],
-  "happy-glowing-skin": [774,1296],
-  "hero-glass-skin-glow-sm": [514,900],
-  "hero-glass-skin-glow": [1029,1800],
-  "hydrojelly-mask-treatment-sm": [556,900],
-  "hydrojelly-mask-treatment": [1111,1800],
-  "kobido-lifting-massage-sm": [547,900],
-  "kobido-lifting-massage": [972,1600],
-  "korean-glass-skin-hydrafacial-sm": [503,900],
-  "korean-glass-skin-hydrafacial": [894,1600],
-  "led-light-therapy-sm": [506,900],
-  "led-light-therapy": [1013,1800],
-  "lip-scrub-sm": [600,900],
-  "lip-scrub": [736,1104],
-  "pdrn-salmon-dna-facial-sm": [507,900],
-  "pdrn-salmon-dna-facial": [902,1600],
-  "purifying-facial-texture-sm": [450,900],
-  "purifying-facial-texture": [736,1472],
-  "relaxation-ritual-sm": [528,900],
-  "relaxation-ritual": [1055,1800],
-  "serum-drop-sm": [692,900],
-  "serum-drop": [1230,1600],
-  "serum-texture-sm": [662,900],
-  "serum-texture": [1176,1600],
-  "skin-confidence-sm": [543,900],
-  "skin-confidence": [966,1600],
-  "sun-damaged-skin-sm": [547,900],
-  "sun-damaged-skin": [1093,1800]
+ "acne-clear-facial-sm": [
+  503,
+  900
+ ],
+ "acne-clear-facial": [
+  894,
+  1600
+ ],
+ "balinese-hydrating-facial-sm": [
+  507,
+  900
+ ],
+ "balinese-hydrating-facial": [
+  902,
+  1600
+ ],
+ "brightening-pigmentation-facial-sm": [
+  588,
+  900
+ ],
+ "brightening-pigmentation-facial": [
+  1046,
+  1600
+ ],
+ "buccal-massage-jawline-sm": [
+  480,
+  900
+ ],
+ "buccal-massage-jawline": [
+  854,
+  1600
+ ],
+ "caviar-anti-aging-facial-sm": [
+  496,
+  900
+ ],
+ "caviar-anti-aging-facial": [
+  882,
+  1600
+ ],
+ "collagen-booster-facial-sm": [
+  507,
+  900
+ ],
+ "collagen-booster-facial": [
+  902,
+  1600
+ ],
+ "dewy-skin-closeup-sm": [
+  511,
+  900
+ ],
+ "dewy-skin-closeup": [
+  645,
+  1136
+ ],
+ "duo-package-friends-sm": [
+  546,
+  900
+ ],
+ "duo-package-friends": [
+  1093,
+  1800
+ ],
+ "eye-collagen-patch-sm": [
+  519,
+  900
+ ],
+ "eye-collagen-patch": [
+  922,
+  1600
+ ],
+ "facial-calm-portrait-sm": [
+  528,
+  900
+ ],
+ "facial-calm-portrait": [
+  1055,
+  1800
+ ],
+ "friends-facial-duo-sm": [
+  464,
+  900
+ ],
+ "friends-facial-duo": [
+  929,
+  1800
+ ],
+ "gua-sha-massage-sm": [
+  545,
+  900
+ ],
+ "gua-sha-massage": [
+  1090,
+  1800
+ ],
+ "happy-glowing-skin-sm": [
+  538,
+  900
+ ],
+ "happy-glowing-skin": [
+  774,
+  1296
+ ],
+ "hero-glass-skin-glow-sm": [
+  514,
+  900
+ ],
+ "hero-glass-skin-glow": [
+  1029,
+  1800
+ ],
+ "hydrojelly-mask-treatment-sm": [
+  556,
+  900
+ ],
+ "hydrojelly-mask-treatment": [
+  1111,
+  1800
+ ],
+ "kobido-lifting-massage-sm": [
+  547,
+  900
+ ],
+ "kobido-lifting-massage": [
+  972,
+  1600
+ ],
+ "korean-glass-skin-hydrafacial-sm": [
+  503,
+  900
+ ],
+ "korean-glass-skin-hydrafacial": [
+  894,
+  1600
+ ],
+ "led-light-therapy-sm": [
+  506,
+  900
+ ],
+ "led-light-therapy": [
+  1013,
+  1800
+ ],
+ "lip-scrub-sm": [
+  600,
+  900
+ ],
+ "lip-scrub": [
+  736,
+  1104
+ ],
+ "pdrn-salmon-dna-facial-sm": [
+  507,
+  900
+ ],
+ "pdrn-salmon-dna-facial": [
+  902,
+  1600
+ ],
+ "purifying-facial-texture-sm": [
+  450,
+  900
+ ],
+ "purifying-facial-texture": [
+  736,
+  1472
+ ],
+ "relaxation-ritual-sm": [
+  528,
+  900
+ ],
+ "relaxation-ritual": [
+  1055,
+  1800
+ ],
+ "serum-drop-sm": [
+  692,
+  900
+ ],
+ "serum-drop": [
+  1230,
+  1600
+ ],
+ "serum-texture-sm": [
+  662,
+  900
+ ],
+ "serum-texture": [
+  1176,
+  1600
+ ],
+ "skin-confidence-sm": [
+  543,
+  900
+ ],
+ "skin-confidence": [
+  966,
+  1600
+ ],
+ "sun-damaged-skin-sm": [
+  547,
+  900
+ ],
+ "sun-damaged-skin": [
+  1093,
+  1800
+ ],
+ "hero-glass-skin-glow-wide": [
+  1920,
+  1240
+ ]
 }

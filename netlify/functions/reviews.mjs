@@ -58,7 +58,8 @@ export default async () => {
     })
   );
   out.reviews.sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  return Response.json(out, { headers: { 'Cache-Control': 'public, max-age=900' } });
+  // 15-minute cache at Netlify's edge keeps Google API calls (and cost) low on busy days.
+  return Response.json(out, { headers: { 'Cache-Control': 'public, max-age=900', 'Netlify-CDN-Cache-Control': 'public, s-maxage=900' } });
 };
 
 export const config = { path: '/api/reviews' };
