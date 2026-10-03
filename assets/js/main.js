@@ -121,8 +121,20 @@
   /* ---------- Parallax, hero expand, horizontal scroll, scrub words, progress ---------- */
   const parallax = $$('[data-parallax]');
   const expand = $('[data-expand]');
-  const growMark = reduce ? null : $('[data-grow]');
   const heroEl = $('[data-hero]');
+  const dock = $('[data-dock-mark]');
+  let dockBase = null;
+  // Measure the docked (small) line, then the transform that blows it up across the hero.
+  function measureDock() {
+    if (!dock || !heroEl) return;
+    dock.style.transform = 'none';
+    const r = dock.getBoundingClientRect();
+    const inner = dock.closest('.site-header__inner');
+    const gutter = parseFloat(getComputedStyle(inner).paddingLeft) || 16;
+    const targetW = window.innerWidth - gutter * 2;
+    const headerH = header.offsetHeight;
+    dockBase = { s: targetW / r.width, dx: gutter - r.left, dy: headerH + Math.min(24, window.innerWidth * 0.012) - r.top };
+  }
   const hscroll = $('[data-hscroll]');
   const hTrack = hscroll && $('[data-hscroll-track]', hscroll);
   const progress = $('[data-read-progress]');
@@ -149,12 +161,16 @@
     const vh = window.innerHeight;
 
     if (header) {
-      // On the home page the header stays transparent while the pinned hero is on screen.
-      const solidFrom = heroEl ? heroEl.offsetHeight - vh * 0.15 : 24;
-      header.classList.toggle('is-scrolled', y > solidFrom);
-      const hide = y > lastY && y > solidFrom + 300 && !document.body.classList.contains('menu-open');
-      header.classList.toggle('is-hidden', hide);
-      document.body.classList.toggle('header-visible', !hide && y > solidFrom);
+      // Home: the big .FACE —— EXPERT FACIALS line shrinks into the centre of the header while
+      // the header is transparent; once docked the header turns beige with black text. It never hides.
+      const dist = heroEl ? vh * 0.5 : 0;
+      header.classList.toggle('is-scrolled', heroEl ? y >= dist - 1 : y > 0);
+      if (heroEl && dock && dockBase) {
+        const p = reduce ? 1 : clamp(y / dist, 0, 1);
+        const k = 1 - (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2); // 1 → 0, ease-in-out
+        const scale = 1 + (dockBase.s - 1) * k;
+        dock.style.transform = `translate(${(dockBase.dx * k).toFixed(1)}px, ${(dockBase.dy * k).toFixed(1)}px) scale(${scale.toFixed(4)})`;
+      }
     }
     if (fab) fab.classList.toggle('is-on', y > vh * 0.6);
     lastY = y;
@@ -168,15 +184,6 @@
       const offset = (r.top + r.height / 2 - vh / 2) * -speed;
       el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
     });
-
-    if (growMark) {
-      // .FACE —— EXPERT FACIALS grows to the full width as the hero scrolls away.
-      const start = window.innerWidth < 760 ? 0.72 : 0.58;
-      const hero = growMark.closest('[data-hero]');
-      const p = clamp(y / Math.max(1, hero.offsetHeight - vh), 0, 1);
-      const eased = 1 - Math.pow(1 - p, 2);
-      growMark.style.setProperty('--grow', (start + (1 - start) * eased).toFixed(4));
-    }
 
     if (expand) {
       const r = expand.getBoundingClientRect();
@@ -207,9 +214,11 @@
   }
   const requestTick = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
   window.addEventListener('scroll', requestTick, { passive: true });
-  window.addEventListener('resize', () => { setupHScroll(); requestTick(); });
-  window.addEventListener('load', () => { setupHScroll(); requestTick(); });
+  window.addEventListener('resize', () => { setupHScroll(); measureDock(); requestTick(); });
+  window.addEventListener('load', () => { setupHScroll(); measureDock(); requestTick(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measureDock(); requestTick(); });
   setupHScroll();
+  measureDock();
   onScroll();
 
   /* ---------- Mobile menu ---------- */

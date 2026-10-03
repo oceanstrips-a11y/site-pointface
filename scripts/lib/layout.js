@@ -14,14 +14,18 @@ function header(current) {
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header" data-header>
   <div class="site-header__inner">
-    <a href="/" class="site-header__logo" aria-label="POINT · FACE — home">${logo()}</a>
-    <nav class="nav nav--primary" aria-label="Main">${links}</nav>
-    <div class="site-header__actions">
-      <span class="site-header__loc">Ungasan · Bingin</span>
-      <a href="/book/" class="btn btn--solid btn--sm" data-book data-magnetic>Book now</a>
+    <div class="site-header__left">
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
         <span class="sr-only">Menu</span><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span>
       </button>
+      <nav class="nav nav--primary" aria-label="Main">${links}</nav>
+    </div>
+    <div class="site-header__center">
+      <span class="dock-mark" aria-hidden="true" data-dock-mark><span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span></span>
+    </div>
+    <div class="site-header__actions">
+      <a href="/book/" class="btn btn--solid btn--sm" data-book data-magnetic>Book now</a>
+      <a href="/" class="site-header__logo" aria-label="POINT · FACE — home">${logo()}</a>
     </div>
   </div>
   <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>

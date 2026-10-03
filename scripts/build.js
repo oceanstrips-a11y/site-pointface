@@ -57,9 +57,6 @@ function home() {
         </picture>
       </div>
     </div>
-    <div class="hero__mark" aria-hidden="true" data-hero-mark data-grow>
-      <span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span>
-    </div>
     <div class="hero__caption">
       <h1 id="hero-title" class="hero__title" data-split>Facials, Korean Hydrafacials and Face Massage in Uluwatu</h1>
       <div class="hero__ctas" data-reveal>
