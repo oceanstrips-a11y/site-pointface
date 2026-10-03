@@ -73,10 +73,13 @@ function footer() {
     </div>
     <p class="footer__note">${site.priceNote} Every treatment includes a complimentary professional skin analysis.</p>
   </div>
-  <div class="footer__mark" aria-hidden="true">${logo('logo--giant')}</div>
+  <div class="footer__mark" aria-hidden="true">
+    <div class="hero__mark footer__line" data-hero-mark><span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span></div>
+  </div>
   <div class="container footer__legal">
     <span>© ${new Date().getFullYear()} ${site.name} · ${site.legalName}</span>
-    <span>Uluwatu Ungasan · Uluwatu Bingin · Bali, Indonesia</span>
+    <a href="/" class="footer__logo" aria-label="POINT · FACE — home">${logo()}</a>
+    <span class="footer__legal-right">Uluwatu Ungasan · Uluwatu Bingin · Bali, Indonesia</span>
   </div>
 </footer>`;
 }

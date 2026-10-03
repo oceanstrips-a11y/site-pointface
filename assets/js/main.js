@@ -11,15 +11,13 @@
   try { data = JSON.parse($('#pf-data').textContent); } catch (e) { /* keep defaults */ }
 
   /* ---------- Fit the hero line (.FACE —— EXPERT FACIALS) to the screen width ---------- */
-  const heroMark = $('[data-hero-mark]');
-  const fitHeroMark = () => {
-    if (!heroMark) return;
+  const fitHeroMark = () => $$('[data-hero-mark]').forEach((heroMark) => {
     const words = $$('.hero__mark-word', heroMark);
     heroMark.style.setProperty('--mark-size', '100px');
     const textW = words.reduce((w, el) => w + el.getBoundingClientRect().width, 0);
     const avail = heroMark.clientWidth * (window.innerWidth < 760 ? 0.84 : 0.8); // leave ~20% for the rule
     heroMark.style.setProperty('--mark-size', `${Math.floor((avail / textW) * 1000) / 10}px`);
-  };
+  });
   fitHeroMark();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroMark);
   window.addEventListener('resize', fitHeroMark);
@@ -347,7 +345,12 @@
         if (!e.isIntersecting) return;
         links.forEach((l) => l.classList.remove('is-active'));
         const a = map.get(e.target.id);
-        if (a) { a.classList.add('is-active'); a.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' }); }
+        if (a) {
+          a.classList.add('is-active');
+          // Scroll only the category bar sideways — never the page itself.
+          const bar = a.parentElement;
+          bar.scrollTo({ left: a.offsetLeft - (bar.clientWidth - a.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
+        }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     map.forEach((_, id) => { const s = document.getElementById(id); if (s) sio.observe(s); });
