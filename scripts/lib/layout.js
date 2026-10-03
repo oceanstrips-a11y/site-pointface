@@ -14,8 +14,8 @@ function header(current) {
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header" data-header>
   <div class="site-header__inner">
-    <nav class="nav nav--primary" aria-label="Main">${links}</nav>
     <a href="/" class="site-header__logo" aria-label="POINT · FACE — home">${logo()}</a>
+    <nav class="nav nav--primary" aria-label="Main">${links}</nav>
     <div class="site-header__actions">
       <span class="site-header__loc">Ungasan · Bingin</span>
       <a href="/book/" class="btn btn--solid btn--sm" data-book data-magnetic>Book now</a>

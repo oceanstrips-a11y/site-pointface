@@ -14,7 +14,7 @@
   const fitHeroMark = () => $$('[data-hero-mark]').forEach((heroMark) => {
     const words = $$('.hero__mark-word', heroMark);
     heroMark.style.setProperty('--mark-size', '100px');
-    const textW = words.reduce((w, el) => w + el.getBoundingClientRect().width, 0);
+    const textW = words.reduce((w, el) => w + el.offsetWidth, 0); // layout width, ignores the grow scale
     const avail = heroMark.clientWidth * (window.innerWidth < 760 ? 0.84 : 0.8); // leave ~20% for the rule
     heroMark.style.setProperty('--mark-size', `${Math.floor((avail / textW) * 1000) / 10}px`);
   });
@@ -121,6 +121,8 @@
   /* ---------- Parallax, hero expand, horizontal scroll, scrub words, progress ---------- */
   const parallax = $$('[data-parallax]');
   const expand = $('[data-expand]');
+  const growMark = reduce ? null : $('[data-grow]');
+  const heroEl = $('[data-hero]');
   const hscroll = $('[data-hscroll]');
   const hTrack = hscroll && $('[data-hscroll-track]', hscroll);
   const progress = $('[data-read-progress]');
@@ -147,10 +149,12 @@
     const vh = window.innerHeight;
 
     if (header) {
-      header.classList.toggle('is-scrolled', y > 24);
-      const hide = y > lastY && y > 320 && !document.body.classList.contains('menu-open');
+      // On the home page the header stays transparent while the pinned hero is on screen.
+      const solidFrom = heroEl ? heroEl.offsetHeight - vh * 0.15 : 24;
+      header.classList.toggle('is-scrolled', y > solidFrom);
+      const hide = y > lastY && y > solidFrom + 300 && !document.body.classList.contains('menu-open');
       header.classList.toggle('is-hidden', hide);
-      document.body.classList.toggle('header-visible', !hide && y > 24);
+      document.body.classList.toggle('header-visible', !hide && y > solidFrom);
     }
     if (fab) fab.classList.toggle('is-on', y > vh * 0.6);
     lastY = y;
@@ -164,6 +168,15 @@
       const offset = (r.top + r.height / 2 - vh / 2) * -speed;
       el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
     });
+
+    if (growMark) {
+      // .FACE —— EXPERT FACIALS grows to the full width as the hero scrolls away.
+      const start = window.innerWidth < 760 ? 0.72 : 0.58;
+      const hero = growMark.closest('[data-hero]');
+      const p = clamp(y / Math.max(1, hero.offsetHeight - vh), 0, 1);
+      const eased = 1 - Math.pow(1 - p, 2);
+      growMark.style.setProperty('--grow', (start + (1 - start) * eased).toFixed(4));
+    }
 
     if (expand) {
       const r = expand.getBoundingClientRect();

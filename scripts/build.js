@@ -47,27 +47,28 @@ function home() {
   ];
 
   const body = `
-<section class="hero" aria-labelledby="hero-title">
-  <div class="hero__media" data-expand>
-    <div class="hero__media-inner" data-parallax="0.12">
-      <picture>
-        <source media="(max-width: 760px)" srcset="/assets/img/hero-glass-skin-glow-sm.webp 514w, /assets/img/hero-glass-skin-glow.webp 1029w" sizes="100vw">
-        <img src="/assets/img/hero-glass-skin-glow-wide.webp" width="1920" height="1240" alt="Glowing, hydrated glass skin after a Korean Hydrafacial at POINT · FACE Uluwatu" fetchpriority="high" decoding="async">
-      </picture>
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero__pin">
+    <div class="hero__media" data-expand>
+      <div class="hero__media-inner" data-parallax="0.12">
+        <picture>
+          <source media="(max-width: 760px)" srcset="/assets/img/hero-glass-skin-glow-sm.webp 514w, /assets/img/hero-glass-skin-glow.webp 1029w" sizes="100vw">
+          <img src="/assets/img/hero-glass-skin-glow-wide.webp" width="1920" height="1240" alt="Glowing, hydrated glass skin after a Korean Hydrafacial at POINT · FACE Uluwatu" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
     </div>
-  </div>
-  <div class="hero__mark" aria-hidden="true" data-hero-mark>
-    <span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span>
-  </div>
-  <div class="hero__caption">
-    <h1 id="hero-title" class="hero__title" data-split>Facials &amp; Korean Hydrafacials in Uluwatu, Bali</h1>
-    <p class="hero__lede" data-reveal>Glass skin, lifting, acne and after-sun repair. Korean technology, expert hands and a free AI-powered skin analysis before every treatment.</p>
-    <div class="hero__ctas" data-reveal>
-      <a href="/book/" class="btn btn--light" data-book data-magnetic>Book a facial</a>
-      <a href="/treatments/" class="link link--light link--arrow">Explore treatments</a>
+    <div class="hero__mark" aria-hidden="true" data-hero-mark data-grow>
+      <span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span>
     </div>
+    <div class="hero__caption">
+      <h1 id="hero-title" class="hero__title" data-split>Facials, Korean Hydrafacials and Face Massage in Uluwatu</h1>
+      <div class="hero__ctas" data-reveal>
+        <a href="/book/" class="btn btn--light" data-book data-magnetic>Book a facial</a>
+        <a href="/treatments/" class="link link--light link--arrow">Explore treatments</a>
+      </div>
+    </div>
+    <a href="#intro" class="hero__scroll" aria-label="Scroll to content"><span></span></a>
   </div>
-  <a href="#intro" class="hero__scroll" aria-label="Scroll to content"><span></span></a>
 </section>
 
 <section class="intro" id="intro" aria-labelledby="intro-title">
