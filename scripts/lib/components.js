@@ -173,32 +173,33 @@ function reviewsSection(reviews, { locationId, title = 'Loved in Uluwatu' } = {}
 
 function studiosSection({ title = 'Two studios in Uluwatu' } = {}) {
   return `
-<section class="section studios" id="studios" aria-labelledby="studios-title">
-  <div class="container">
-    ${sectionHead({ eyebrow: 'Our studios', title, intro: 'Ungasan on the clifftop side, Bingin in the surf village. Same expertise, same menu, same complimentary skin analysis.' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="studios-title"')}
-    <div class="studios__grid">
-      ${site.locations
-        .map(
-          (l, i) => `
-      <article class="studio" data-reveal style="--d:${i * 120}ms">
-        <a href="/locations/${l.slug}/" class="studio__media img-zoom" data-cursor="Visit">
-          ${img(i === 0 ? 'relaxation-ritual' : 'skin-confidence', `POINT · FACE ${l.name} facial studio`, { sizes: '(max-width: 760px) 100vw, 50vw' })}
-          <span class="studio__index">0${i + 1}</span>
-        </a>
-        <div class="studio__body">
-          <h3 class="studio__name"><a href="/locations/${l.slug}/">${l.name}</a></h3>
-          <address>${esc(l.street)}, ${esc(l.locality)}, ${l.region}</address>
-          <p class="studio__hours">${l.hours.label}</p>
-          <div class="studio__actions">
-            <a class="btn btn--solid btn--sm" href="${waLink(l, waText(l))}" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="btn btn--ghost btn--sm" href="${l.fresha}" target="_blank" rel="noopener">Fresha</a>
-            <a class="link" href="${l.maps}" target="_blank" rel="noopener">Directions</a>
-          </div>
+<section class="studios" id="studios" aria-labelledby="studios-title">
+  <div class="studios__head">
+    <p class="eyebrow" data-reveal>Our studios</p>
+    <h2 class="h-display" id="studios-title" data-split>${title}</h2>
+  </div>
+  <div class="studios__grid">
+    ${site.locations
+      .map(
+        (l, i) => `
+    <article class="studio">
+      <a href="/locations/${l.slug}/" class="studio__media" tabindex="-1" aria-hidden="true">
+        <div class="studio__img" data-parallax="0.06">${img(i === 0 ? 'relaxation-ritual' : 'skin-confidence', `POINT · FACE ${l.name} facial studio`, { sizes: '(max-width: 760px) 100vw, 50vw' })}</div>
+      </a>
+      <div class="studio__body" data-reveal style="--d:${i * 120}ms">
+        <p class="studio__index">0${i + 1}</p>
+        <h3 class="studio__name"><a href="/locations/${l.slug}/">${l.name}</a></h3>
+        <address>${esc(l.street)}, ${esc(l.locality)}, ${l.region}</address>
+        <p class="studio__hours">${l.hours.label}</p>
+        <div class="studio__actions">
+          <a class="btn btn--light btn--sm" href="${waLink(l, waText(l))}" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn--outline-light btn--sm" href="${l.fresha}" target="_blank" rel="noopener">Fresha</a>
+          <a class="link link--light" href="${l.maps}" target="_blank" rel="noopener">Directions</a>
         </div>
-      </article>`
-        )
-        .join('')}
-    </div>
+      </div>
+    </article>`
+      )
+      .join('')}
   </div>
 </section>`;
 }
