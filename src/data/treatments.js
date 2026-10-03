@@ -18,10 +18,10 @@ const categories = [
   },
   {
     id: 'balinese-natural-facials',
-    name: 'Balinese Natural Facials',
-    short: 'Balinese Facials',
+    name: 'Natural Facials',
+    short: 'Facials',
     intro:
-      'Gentle, sensory rituals using 100% natural Balinese skincare from Utama Spice & Embun — rose, aloe, clay, turmeric, coconut and jojoba.',
+      'Gentle, sensory facials with 100% natural skincare from Utama Spice & Embun: rose, aloe, clay, turmeric, coconut and jojoba.',
   },
   {
     id: 'face-massages',
@@ -346,19 +346,19 @@ const treatments = [
     category: 'face-massages',
     badge: null,
     want: 'I want to fully switch off',
-    pillars: ['Face', 'Scalp', 'Hands'],
+    pillars: ['Face', 'Head', 'Arms'],
     duration: 45,
     price: 550000,
     priceWas: null,
     image: 'relaxation-ritual',
     recommendedFor: 'Anyone needing deep relaxation — jet lag, stress, a slow afternoon.',
     summary:
-      'A deeply relaxing ritual for the face, scalp and hands, with LED therapy and a nourishing mask.',
+      'A deeply relaxing ritual: face, head and arm massage, with LED therapy and a nourishing mask.',
     description:
-      'A full switch-off: face massage, scalp massage and hand massage, with LED therapy for cellular regeneration and a nourishing mask that works while your hands are massaged.',
+      'A full switch-off: face massage, head massage and arm massage, with LED therapy for cellular regeneration and a nourishing mask that works while your arms are massaged.',
     ingredients: ['Nourishing mask'],
-    technologies: ['Face, scalp & hand massage', 'LED therapy'],
-    results: ['Deep relaxation for face, scalp & hands', 'LED support for regeneration', 'Nourished, glowing skin'],
+    technologies: ['Face, head & arm massage', 'LED therapy'],
+    results: ['Deep relaxation for face, head & arms', 'LED support for regeneration', 'Nourished, glowing skin'],
     bestResults: 'A 3-session package is available.',
     concerns: ['dull-tired-skin-glass-skin'],
     faqs: [],
@@ -393,8 +393,8 @@ const ledColours = [
 const packages = {
   duo: { name: 'Duo Package', price: 2250000, priceWas: 3465000, description: '2 × Ultimate Korean Glass Skin & Hydralift (80 min each), in shared or separate cabins. Ideal for friends & partners.' },
   threeSessions: [
-    ['Balinese Hydrating Ritual', 2370000, 1780000, '-20%'],
-    ['Balinese Purifying Ritual', 2940000, 2200000, '-20%'],
+    ['Hydrating Ritual', 2370000, 1780000, '-20%'],
+    ['Purifying Ritual', 2940000, 2200000, '-20%'],
     ['Ultimate Glass Skin Hydralift', 5197500, 3150000, '-30%'],
     ['Advanced Collagen Booster', 4851000, 2940000, '-30%'],
     ['K-Balance Acne Clear', 3600000, 2600000, '-30%'],

@@ -36,6 +36,21 @@ const treatmentRow = (t, i) => `
   </a>
 </li>`;
 
+// Full menu as one numbered list, grouped by family (order follows src/data/treatments.js).
+const groupedTreatmentList = (treatments, categories) => {
+  let n = 0;
+  return categories
+    .map((cat) => {
+      const items = treatments.filter((t) => t.category === cat.id);
+      return `
+<div class="hover-group">
+  <p class="hover-group__label" data-reveal><span>${esc(cat.short)}</span><span>${items.length}</span></p>
+  <ul class="hover-list" data-hover-list>${items.map((t) => treatmentRow(t, n++)).join('')}</ul>
+</div>`;
+    })
+    .join('');
+};
+
 const treatmentCard = (t, opts = {}) => `
 <article class="t-card${opts.className ? ' ' + opts.className : ''}" data-reveal>
   <a href="/treatments/${t.slug}/" class="t-card__link" data-cursor="View">
@@ -216,6 +231,6 @@ const articleCard = (a, i = 0) => `
 const list = (items, cls = 'list-dash') => `<ul class="${cls}">${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
 
 module.exports = {
-  breadcrumb, sectionHead, treatmentRow, treatmentCard, concernTile, faqList, marquee, bookingBand,
+  breadcrumb, sectionHead, treatmentRow, groupedTreatmentList, treatmentCard, concernTile, faqList, marquee, bookingBand,
   reviewsSection, studiosSection, articleCard, list, priceLabel, stars,
 };

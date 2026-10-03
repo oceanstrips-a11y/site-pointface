@@ -42,7 +42,6 @@ const today = new Date().toISOString().slice(0, 10);
 /* ───────────────────────────── HOME ───────────────────────────── */
 function home() {
   const signature = bySlug['ultimate-korean-glass-skin-hydralift'];
-  const featured = ['ultimate-korean-glass-skin-hydralift', 'caviar-luxury-anti-aging-lift', 'pdrn-cellular-repair-salmon-dna', 'k-balance-acne-clear', 'cryo-skin-reset', 'bright-pigment-correct', 'advanced-collagen-booster', 'balinese-hydrating-ritual-rose-aloe', 'buccal-massage'].map((s) => bySlug[s]);
 
   const body = `
 <section class="hero" aria-labelledby="hero-title">
@@ -58,14 +57,13 @@ function home() {
     <span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span>
   </div>
   <div class="hero__caption">
-    <h1 id="hero-title" class="hero__title" data-split>Korean Hydrafacials &amp; expert facials in Uluwatu</h1>
-    <p class="hero__lede" data-reveal>Glass skin, lifting, acne and after-sun repair. Korean technology, Balinese botanicals and a complimentary skin analysis before every treatment.</p>
+    <h1 id="hero-title" class="hero__title" data-split>Facials &amp; Korean Hydrafacials in Uluwatu, Bali</h1>
+    <p class="hero__lede" data-reveal>Glass skin, lifting, acne and after-sun repair. Korean technology, expert hands and a free AI-powered skin analysis before every treatment.</p>
     <div class="hero__ctas" data-reveal>
       <a href="/book/" class="btn btn--light" data-book data-magnetic>Book a facial</a>
       <a href="/treatments/" class="link link--light link--arrow">Explore treatments</a>
     </div>
   </div>
-  <p class="hero__locs" data-reveal><span>Uluwatu</span><span>Ungasan</span><span>Bingin</span></p>
   <a href="#intro" class="hero__scroll" aria-label="Scroll to content"><span></span></a>
 </section>
 
@@ -73,11 +71,7 @@ function home() {
   ${C.marquee([...treatments.map((t) => t.name.replace(/ — .*/, '')), 'HydroJelly Masks', 'LED Light Therapy', 'Free AI Skin Analysis'])}
   <div class="container intro__inner">
     <p class="eyebrow" data-reveal>Facial studio · Uluwatu, Bali</p>
-    <h2 class="intro__statement" id="intro-title" data-scrub-words>POINT • FACE is a facial-only studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, glass-skin, anti-aging and acne facials, Balinese natural rituals and face-sculpting massages, each one tailored after a free AI-powered skin analysis.</h2>
-    <div class="intro__cols">
-      <p data-reveal>Our therapists pair Korean actives from COSRX, SKIN1004 and Beauty of Joseon with hydrodermabrasion, radiofrequency, microcurrent and LED light therapy. Every protocol is adapted to what Bali's sun, salt and humidity do to the skin: <a class="link" href="/concerns/dehydrated-skin-bali/">dehydration</a>, <a class="link" href="/concerns/sun-damaged-skin-bali/">sun damage</a>, <a class="link" href="/concerns/acne-breakouts-bali/">breakouts</a>, <a class="link" href="/concerns/fine-lines-wrinkles-bali/">fine lines</a> and <a class="link" href="/concerns/pigmentation-dark-spots-bali/">pigmentation</a>.</p>
-      <p data-reveal style="--d:120ms">Facials from IDR 790,000 and face massages from IDR 250,000, tax and service included. Book on WhatsApp or Fresha at <a class="link" href="/locations/uluwatu-ungasan/">Uluwatu Ungasan</a> or <a class="link" href="/locations/uluwatu-bingin/">Uluwatu Bingin</a>.<br><a class="link link--arrow intro__more" href="/treatments/">Explore all treatments</a></p>
-    </div>
+    <h2 class="intro__statement" id="intro-title" data-scrub-words>POINT • FACE is a facial-only studio in Uluwatu, Bali, with two studios in Ungasan and Bingin, specialised in facials and Korean Hydrafacials: glass skin, anti-aging, acne and after-sun repair, plus face-sculpting massages. Each treatment is tailored after a free AI-powered skin analysis.</h2>
     <dl class="stats">
       <div data-reveal><dt>Average review rating</dt><dd><span data-count="4.9" data-decimals="1">4.9</span><span class="stats__star" aria-hidden="true">★</span></dd></div>
       <div data-reveal style="--d:100ms"><dt>Satisfied clients</dt><dd><span data-count="2000">2000</span>+</dd></div>
@@ -92,9 +86,7 @@ ${C.studiosSection()}
 <section class="section section--tint" aria-labelledby="want-title">
   <div class="container">
     ${C.sectionHead({ eyebrow: 'Which facial is best for my skin?', title: 'Tell us what you want.<br>We have the facial.', intro: 'Every treatment answers one wish. Hover to preview, tap to discover.', link: ['Full menu & prices', '/treatments/'] }).replace('<h2 class="h-display"', '<h2 class="h-display" id="want-title"')}
-    <ul class="hover-list" data-hover-list>
-      ${featured.map((t, i) => C.treatmentRow(t, i)).join('')}
-    </ul>
+    ${C.groupedTreatmentList(treatments, categories)}
   </div>
 </section>
 
@@ -128,7 +120,7 @@ ${C.studiosSection()}
   <div class="hscroll__sticky">
     <div class="container hscroll__head">
       <p class="eyebrow">The menu</p>
-      <h2 class="h-display" id="menu-title">Korean science.<br>Balinese soul.</h2>
+      <h2 class="h-display" id="menu-title">Facials &amp;<br>Korean Hydrafacials.</h2>
       <p class="hscroll__hint" aria-hidden="true">Scroll →</p>
     </div>
     <div class="hscroll__track" data-hscroll-track>
@@ -209,7 +201,7 @@ ${C.bookingBand()}`;
       path: '/',
       title: 'POINT · FACE — Korean Hydrafacials & Expert Facials in Uluwatu, Bali',
       description:
-        'Expert facial studio in Uluwatu, Bali (Ungasan & Bingin): Korean Hydrafacials, glass skin, PDRN, acne, anti-aging, Balinese natural facials, Buccal & Kobido massage. Free skin analysis. Book on WhatsApp or Fresha.',
+        'Expert facial studio in Uluwatu, Bali (Ungasan & Bingin): facials & Korean Hydrafacials for glass skin, anti-aging, acne & after-sun, PDRN, Kobido & Buccal massage. Free AI skin analysis. Book on WhatsApp or Fresha.',
       body,
       current: '/',
       bodyClass: 'is-home',
@@ -332,7 +324,7 @@ ${categories
     ${C.sectionHead({ eyebrow: 'Protect your glow', title: 'Aftercare' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="aftercare-title"')}
     <div class="twocol">
       <div data-reveal><h3 class="h-sub">After your Hydrafacial</h3>${C.list(aftercare.hydrafacial)}</div>
-      <div data-reveal style="--d:120ms"><h3 class="h-sub">After your Balinese facial</h3>${C.list(aftercare.balinese)}</div>
+      <div data-reveal style="--d:120ms"><h3 class="h-sub">After your natural facial</h3>${C.list(aftercare.balinese)}</div>
     </div>
   </div>
 </section>
@@ -343,9 +335,9 @@ ${C.bookingBand()}`;
     '/treatments/',
     page({
       path: '/treatments/',
-      title: 'Facial Treatments & Prices — Korean Hydrafacials, Balinese Facials, Face Massages',
+      title: 'Facial Treatments & Prices — Korean Hydrafacials, Facials, Face Massages',
       description:
-        'Full POINT · FACE menu & prices in Uluwatu: Korean Hydrafacials (glass skin, collagen, PDRN, acne), HydroJelly facials, Balinese natural facials, Kobido, Buccal & Gua Sha massages, add-ons and packages.',
+        'Full POINT · FACE menu & prices in Uluwatu: Korean Hydrafacials (glass skin, collagen, PDRN, acne), HydroJelly Hydrafacials, natural facials, Kobido, Buccal & Gua Sha massages, add-ons and packages.',
       body,
       current: '/treatments/',
       schema: S.graph(
@@ -646,7 +638,7 @@ function locationPage(l) {
     [`Where is POINT · FACE ${l.name}?`, `${l.street}, ${l.locality}, ${l.region} ${l.postalCode}, Indonesia. Close to ${l.nearby.slice(0, 3).join(', ')}.`],
     [`What are the opening hours?`, `${l.hours.label}. We recommend booking 1–3 days ahead in high season.`],
     [`How do I book at ${l.name}?`, `Send us a WhatsApp message on ${l.phoneDisplay} or book online on Fresha.`],
-    ['Which treatments are available?', 'The full POINT · FACE menu: Korean Hydrafacials, HydroJelly Hydrafacials, Balinese natural facials, Kobido, Buccal and Gua Sha massages, add-ons and packages.'],
+    ['Which treatments are available?', 'The full POINT · FACE menu: Korean Hydrafacials, HydroJelly Hydrafacials, natural facials, Kobido, Buccal, Gua Sha and the Relaxation Ritual, add-ons and packages.'],
   ];
   const body = `
 ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}
@@ -677,7 +669,7 @@ ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}
 <section class="section section--tint" aria-labelledby="menu-here">
   <div class="container">
     ${C.sectionHead({ eyebrow: `Menu · ${l.name}`, title: 'Treatments at this studio', link: ['Full menu & prices', '/treatments/'] }).replace('<h2 class="h-display"', '<h2 class="h-display" id="menu-here"')}
-    <ul class="hover-list" data-hover-list>${treatments.map((t, i) => C.treatmentRow(t, i)).join('')}</ul>
+    ${C.groupedTreatmentList(treatments, categories)}
   </div>
 </section>
 
@@ -1011,7 +1003,7 @@ ${addOns.map((a) => `- ${a.name}: ${idr(a.price)}. ${a.description}`).join('\n')
 - Acne, congestion: K-Balance Acne Clear.
 - Sunburn, after surf, sensitive skin: Cryo Skin Reset or PDRN Cellular Repair.
 - Pigmentation, dark spots: Bright & Pigment Correct.
-- Dry or sensitive skin, natural products: Balinese Hydrating Ritual.
+- Dry or sensitive skin, natural products: Hydrating Ritual (Rose & Aloe).
 - Jaw tension, puffiness, contour: Buccal Massage, Kobido.
 
 ## Studios

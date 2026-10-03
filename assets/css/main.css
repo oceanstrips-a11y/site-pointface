@@ -92,7 +92,7 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
 .link--light { color: var(--on-image); }
 
 .btn {
-  --btn-bg: transparent; --btn-fg: var(--ink); --btn-fill: var(--ink); --btn-fg-hover: var(--bg);
+  --btn-bg: transparent; --btn-fg: var(--ink); --btn-fill: var(--taupe); --btn-fg-hover: var(--ink);
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   padding: 17px 30px; border: 1px solid var(--ink); background: var(--btn-bg); color: var(--btn-fg);
   font: 500 12px/1 var(--f-ui); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
@@ -103,11 +103,11 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
   transform: scaleY(0); transform-origin: 50% 100%; transition: transform .55s var(--ease);
 }
 .btn:hover::before { transform: scaleY(1); }
-.btn:hover { color: var(--btn-fg-hover); }
+.btn:hover { color: var(--btn-fg-hover); border-color: var(--taupe); }
 .btn--solid { --btn-bg: var(--ink); --btn-fg: var(--bg); --btn-fill: var(--taupe); --btn-fg-hover: var(--ink); }
 .btn--solid:hover { border-color: var(--taupe); }
 .btn--ghost { --btn-fg: var(--ink); }
-.btn--light { --btn-bg: var(--bg); --btn-fg: var(--ink); --btn-fill: var(--ink); --btn-fg-hover: var(--bg); border-color: var(--bg); }
+.btn--light { --btn-bg: var(--bg); --btn-fg: var(--ink); --btn-fill: var(--taupe); --btn-fg-hover: var(--ink); border-color: var(--bg); }
 .btn--sm { padding: 12px 20px; font-size: 11px; }
 
 .tag {
@@ -234,6 +234,8 @@ body.menu-open { overflow: hidden; }
 .stats dt { font: 400 13px/1.45 var(--f-ui); color: var(--ink-2); max-width: 220px; }
 
 /* ---------- Hover list ---------- */
+.hover-group + .hover-group { margin-top: clamp(40px, 5vw, 72px); }
+.hover-group__label { display: flex; justify-content: space-between; font: 500 11px/1 var(--f-ui); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); padding-bottom: 14px; }
 .hover-list { border-bottom: 1px solid var(--ink); }
 .hover-row { border-top: 1px solid var(--ink); }
 .hover-row a { position: relative; display: grid; grid-template-columns: 56px 1fr 110px 170px 40px; align-items: center; gap: 20px; padding: clamp(20px, 2.4vw, 32px) 0; isolation: isolate; }
@@ -352,7 +354,7 @@ a:hover .img-zoom img, .img-zoom:hover img { transform: scale(1.06); }
 .studio__name a:hover { background-size: 100% 1px; }
 .studio__body address, .studio__hours { font-size: 15px; opacity: .9; }
 .studio__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 16px; }
-.btn--outline-light { --btn-fg: var(--on-image); --btn-fill: var(--bg); --btn-fg-hover: var(--ink); border-color: var(--on-image); }
+.btn--outline-light { --btn-fg: var(--on-image); --btn-fill: var(--taupe); --btn-fg-hover: var(--ink); border-color: var(--on-image); }
 
 /* ---------- Reviews ---------- */
 .ratings { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
@@ -417,7 +419,9 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .book-band__loc-name { font: 300 clamp(1.4rem, 2.2vw, 2rem)/1 var(--f-display); letter-spacing: -.015em; }
 .book-band .btn--solid { --btn-fill: var(--bg); }
 .book-band .btn--solid:hover { border-color: var(--bg); }
-.book-band .btn--ghost { --btn-fill: var(--ink); }
+.book-band .btn--ghost { --btn-fill: var(--ink); --btn-fg-hover: var(--bg); }
+.book-band .btn:hover { border-color: var(--ink); }
+.book-band .btn--solid:hover { border-color: var(--bg); }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--surface); padding-top: clamp(64px, 8vw, 120px); overflow: hidden; }
@@ -621,7 +625,7 @@ body.header-visible .cat-nav { top: var(--header-h); }
   .site-header__actions .btn { display: none; }
   .site-header__logo .logo { height: 22px; }
   .hero { min-height: 520px; }
-  .hero__caption { bottom: 72px; }
+  .hero__caption { bottom: 40px; }
   .hero__locs { left: var(--gutter); right: auto; bottom: 28px; }
   .hero__scroll { display: none; }
   .stats { grid-template-columns: 1fr 1fr; row-gap: 36px; }
