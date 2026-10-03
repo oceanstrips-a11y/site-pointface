@@ -69,22 +69,25 @@ function home() {
   <a href="#intro" class="hero__scroll" aria-label="Scroll to content"><span></span></a>
 </section>
 
-${C.studiosSection()}
-
-${C.marquee(['Korean Hydrafacials', 'Glass Skin', 'HydroJelly Masks', 'PDRN Salmon DNA', 'Balinese Rituals', 'Buccal Massage', 'Kobido', 'Free Skin Analysis'])}
-
-<section class="section intro" id="intro" aria-label="About POINT · FACE">
-  <div class="container intro__grid">
-    <p class="eyebrow" data-reveal>Point · Face — your facial expert</p>
-    <p class="intro__statement" data-scrub-words>We are a facial-only studio. Every skin is analysed, every treatment adapted. From 100% natural Balinese rituals to advanced Korean Hydrafacials, we combine science, precision and touch to deliver visible, lasting results — for dry, dehydrated, mature, sun-stressed and acne-prone skin.</p>
+<section class="intro" id="intro" aria-labelledby="intro-title">
+  ${C.marquee([...treatments.map((t) => t.name.replace(/ — .*/, '')), 'HydroJelly Masks', 'LED Light Therapy', 'Free AI Skin Analysis'])}
+  <div class="container intro__inner">
+    <p class="eyebrow" data-reveal>Facial studio · Uluwatu, Bali</p>
+    <h2 class="intro__statement" id="intro-title" data-scrub-words>POINT • FACE is a facial-only studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, glass-skin, anti-aging and acne facials, Balinese natural rituals and face-sculpting massages, each one tailored after a free AI-powered skin analysis.</h2>
+    <div class="intro__cols">
+      <p data-reveal>Our therapists pair Korean actives from COSRX, SKIN1004 and Beauty of Joseon with hydrodermabrasion, radiofrequency, microcurrent and LED light therapy. Every protocol is adapted to what Bali's sun, salt and humidity do to the skin: <a class="link" href="/concerns/dehydrated-skin-bali/">dehydration</a>, <a class="link" href="/concerns/sun-damaged-skin-bali/">sun damage</a>, <a class="link" href="/concerns/acne-breakouts-bali/">breakouts</a>, <a class="link" href="/concerns/fine-lines-wrinkles-bali/">fine lines</a> and <a class="link" href="/concerns/pigmentation-dark-spots-bali/">pigmentation</a>.</p>
+      <p data-reveal style="--d:120ms">Facials from IDR 790,000 and face massages from IDR 250,000, tax and service included. Book on WhatsApp or Fresha at <a class="link" href="/locations/uluwatu-ungasan/">Uluwatu Ungasan</a> or <a class="link" href="/locations/uluwatu-bingin/">Uluwatu Bingin</a>.<br><a class="link link--arrow intro__more" href="/treatments/">Explore all treatments</a></p>
+    </div>
     <dl class="stats">
-      <div data-reveal><dt>Studios in Uluwatu</dt><dd data-count="2">2</dd></div>
-      <div data-reveal style="--d:100ms"><dt>Steps in our signature facial</dt><dd><span data-count="17">17</span>+</dd></div>
-      <div data-reveal style="--d:200ms"><dt>LED wavelengths</dt><dd data-count="7">7</dd></div>
-      <div data-reveal style="--d:300ms"><dt>Complimentary skin analysis</dt><dd>Free</dd></div>
+      <div data-reveal><dt>Average review rating</dt><dd><span data-count="4.9" data-decimals="1">4.9</span><span class="stats__star" aria-hidden="true">★</span></dd></div>
+      <div data-reveal style="--d:100ms"><dt>Satisfied clients</dt><dd><span data-count="2000">2000</span>+</dd></div>
+      <div data-reveal style="--d:200ms"><dt>Facial &amp; Hydrafacial studio in Uluwatu</dt><dd>Top 1</dd></div>
+      <div data-reveal style="--d:300ms"><dt>Skin analysis with AI-powered diagnostic technology</dt><dd>Free</dd></div>
     </dl>
   </div>
 </section>
+
+${C.studiosSection()}
 
 <section class="section section--tint" aria-labelledby="want-title">
   <div class="container">
@@ -984,7 +987,8 @@ Key facts:
 - Two studios in Uluwatu, Bali: ${site.locations.map((l) => `${l.fullName} (${l.street}, ${l.locality}, ${l.region} ${l.postalCode})`).join('; ')}.
 - Hours: ${site.locations[0].hours.label}.
 - Booking: WhatsApp (${site.locations.map((l) => `${l.name}: +${l.whatsapp}`).join(', ')}) or online on Fresha.
-- Every treatment includes a complimentary professional skin analysis.
+- Every treatment includes a free skin analysis using AI-powered diagnostic technology.
+- 4.9 average review rating; more than 2,000 satisfied clients.
 - ${site.priceNote}
 - Skincare brands: ${site.brands.join(', ')}.
 - Technologies: hydrodermabrasion (Hydrafacial), ultrasonic infusion, oxygen therapy, radiofrequency, microcurrent, high frequency, cold hammer, cryo globes, 7-colour LED.

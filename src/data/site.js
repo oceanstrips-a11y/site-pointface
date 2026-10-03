@@ -11,7 +11,7 @@ module.exports = {
   url: 'https://www.pointfacebali.com',
   locale: 'en',
   description:
-    'POINT · FACE is an expert facial studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, HydroJelly facials, Balinese natural facials and face-sculpting massages (Kobido, Buccal, Gua Sha). Every treatment starts with a complimentary professional skin analysis.',
+    'POINT · FACE is an expert facial studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, HydroJelly facials, Balinese natural facials and face-sculpting massages (Kobido, Buccal, Gua Sha). Every treatment starts with a free skin analysis using AI-powered diagnostic technology. Rated 4.9 by more than 2,000 clients.',
   instagram: 'https://www.instagram.com/pointfacebali/',
   instagramHandle: '@pointfacebali',
   email: '', // TODO: add a public contact email if you want it displayed

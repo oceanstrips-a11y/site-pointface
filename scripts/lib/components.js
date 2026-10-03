@@ -73,7 +73,7 @@ const faqList = (faqs, { open = false } = {}) => `
 </div>`;
 
 const marquee = (items) => {
-  const row = items.map((i) => `<span>${esc(i)}</span><span class="marquee__star" aria-hidden="true">✦</span>`).join('');
+  const row = items.map((i) => `<span>${esc(i)}</span><span class="marquee__dot" aria-hidden="true"></span>`).join('');
   return `<div class="marquee" aria-hidden="true"><div class="marquee__track">${row}${row}</div></div>`;
 };
 
