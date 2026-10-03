@@ -131,7 +131,8 @@
     const r = dock.getBoundingClientRect();
     const inner = dock.closest('.site-header__inner');
     const gutter = parseFloat(getComputedStyle(inner).paddingLeft) || 16;
-    const targetW = window.innerWidth - gutter * 2;
+    // clientWidth excludes the scrollbar; keep a 2% margin so the line never touches or crosses the edge.
+    const targetW = (document.documentElement.clientWidth - gutter * 2) * 0.98;
     const headerH = header.offsetHeight;
     dockBase = { s: targetW / r.width, dx: gutter - r.left, dy: headerH + Math.min(24, window.innerWidth * 0.012) - r.top };
   }
@@ -217,6 +218,14 @@
   window.addEventListener('resize', () => { setupHScroll(); measureDock(); requestTick(); });
   window.addEventListener('load', () => { setupHScroll(); measureDock(); requestTick(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measureDock(); requestTick(); });
+  // Re-measure whenever the docked line changes size (web font swap, viewport change).
+  if (dock && heroEl && 'ResizeObserver' in window) {
+    let lastW = 0;
+    new ResizeObserver(([entry]) => {
+      const w = Math.round(entry.contentRect.width);
+      if (w && w !== lastW) { lastW = w; measureDock(); requestTick(); }
+    }).observe(dock);
+  }
   setupHScroll();
   measureDock();
   onScroll();

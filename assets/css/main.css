@@ -128,13 +128,13 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
   background: rgba(246, 244, 240, .94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line); transition: background-color .4s, border-color .4s, color .4s;
 }
-.site-header__inner { height: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+.site-header__inner { height: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 24px; }
 .site-header__left { display: flex; align-items: center; gap: 16px; }
 .site-header__center { display: flex; justify-content: center; }
-.dock-mark { display: inline-flex; align-items: center; white-space: nowrap; font: 500 19px/1 var(--f-ui); letter-spacing: -.02em; text-transform: uppercase; transform-origin: 0 0; pointer-events: none; }
+.dock-mark { display: inline-flex; align-items: center; white-space: nowrap; font: 500 15px/1 var(--f-ui); letter-spacing: -.02em; text-transform: uppercase; transform-origin: 0 0; pointer-events: none; }
 .dock-mark .hero__mark-rule { flex: 0 0 2.4em; height: max(1px, .06em); margin: 0 .3em; }
 .nav--primary { display: flex; gap: 26px; }
-.nav__link { font: 500 11px/1 var(--f-ui); letter-spacing: .18em; text-transform: uppercase; position: relative; padding: 6px 0; }
+.nav__link { white-space: nowrap; font: 500 11px/1 var(--f-ui); letter-spacing: .18em; text-transform: uppercase; position: relative; padding: 6px 0; }
 .nav__link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
 .nav__link:hover::after, .nav__link.is-current::after { transform: scaleX(1); transform-origin: left; }
 .site-header__actions { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
@@ -618,9 +618,11 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .notfound { padding-top: calc(var(--header-h) + 15vh); min-height: 70vh; }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
   .nav--primary { display: none; }
   .menu-toggle { display: block; }
+}
+@media (max-width: 1100px) {
   .site-header__loc { display: none; }
   .concern-grid { grid-template-columns: repeat(2, 1fr); }
   .addons { grid-template-columns: repeat(2, 1fr); }
