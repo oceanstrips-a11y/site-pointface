@@ -64,7 +64,7 @@ const treatments = [
     slug: 'advanced-collagen-booster',
     name: 'Advanced Collagen Booster',
     category: 'korean-hydrafacials',
-    badge: 'Most Loved',
+    badge: 'Best Seller',
     want: 'I want firmer, lifted & younger-looking skin',
     pillars: ['Firmness', 'Collagen', 'Lift'],
     duration: 70,

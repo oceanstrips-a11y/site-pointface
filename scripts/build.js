@@ -41,7 +41,10 @@ const today = new Date().toISOString().slice(0, 10);
 
 /* ───────────────────────────── HOME ───────────────────────────── */
 function home() {
-  const signature = bySlug['ultimate-korean-glass-skin-hydralift'];
+  const bestSellers = [
+    [bySlug['ultimate-korean-glass-skin-hydralift'], 'COSRX, SKIN1004 &amp; Beauty of Joseon', 'Discover the 17 steps'],
+    [bySlug['advanced-collagen-booster'], 'COSRX, SKIN1004, Mediheal &amp; Medicube', 'Discover the treatment'],
+  ];
 
   const body = `
 <section class="hero" aria-labelledby="hero-title">
@@ -91,28 +94,39 @@ ${C.studiosSection()}
 </section>
 
 <section class="section signature" aria-labelledby="sig-title">
-  <div class="container signature__grid">
-    <div class="signature__media">
-      <div class="signature__sticky">
-        <div class="clip-reveal" data-reveal>${img(signature.image, 'Ultimate Korean Glass Skin & Hydralift facial result', { sizes: '(max-width: 760px) 100vw, 45vw' })}</div>
-        <span class="tag tag--float">★ Our signature · Bestseller</span>
-      </div>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Our guests' favourites</p>
+      <h2 class="h-display" id="sig-title" data-split>Our signature best sellers</h2>
     </div>
-    <div class="signature__content">
-      <p class="eyebrow" data-reveal>Signature treatment · 80 min</p>
-      <h2 class="h-display" id="sig-title" data-split>Ultimate Korean Glass Skin &amp; Hydralift</h2>
-      <p class="signature__lede" data-reveal>${esc(signature.summary)} Features COSRX, SKIN1004 &amp; Beauty of Joseon.</p>
-      <div class="signature__cols">
-        <div data-reveal><p class="eyebrow">Key ingredients</p>${C.list(signature.ingredients)}</div>
-        <div data-reveal style="--d:100ms"><p class="eyebrow">Technologies</p>${C.list(signature.technologies)}</div>
-        <div data-reveal style="--d:200ms"><p class="eyebrow">Results</p>${C.list(signature.results)}</div>
+    ${bestSellers
+      .map(
+        ([t, brands, more], i) => `
+    <article class="signature__grid${i % 2 ? ' signature__grid--rev' : ''}">
+      <div class="signature__media">
+        <div class="signature__sticky">
+          <div class="clip-reveal" data-reveal>${img(t.image, `${t.name} facial result`, { sizes: '(max-width: 760px) 100vw, 45vw' })}</div>
+          <span class="tag tag--float">★ Best seller · 0${i + 1}</span>
+        </div>
       </div>
-      <p class="signature__price" data-reveal><s>${idr(signature.priceWas)}</s> <strong>${idr(signature.price)}</strong> <span class="tag">25% off</span></p>
-      <div class="signature__ctas" data-reveal>
-        <a href="/book/" class="btn btn--solid" data-book data-treatment="${esc(signature.name)}" data-magnetic>Book the signature</a>
-        <a class="link link--arrow" href="/treatments/${signature.slug}/">Discover the 17 steps</a>
+      <div class="signature__content">
+        <p class="eyebrow" data-reveal>${esc(catById[t.category].short)} · ${t.duration} min</p>
+        <h3 class="h-display h-display--md signature__name" data-split>${esc(t.name)}</h3>
+        <p class="signature__lede" data-reveal>${esc(t.summary)} Features ${brands}.</p>
+        <div class="signature__cols">
+          <div data-reveal><p class="eyebrow">Key ingredients</p>${C.list(t.ingredients.map(esc))}</div>
+          <div data-reveal style="--d:100ms"><p class="eyebrow">Technologies</p>${C.list(t.technologies.map(esc))}</div>
+          <div data-reveal style="--d:200ms"><p class="eyebrow">Results</p>${C.list(t.results.map(esc))}</div>
+        </div>
+        <p class="signature__price" data-reveal>${t.priceWas ? `<s>${idr(t.priceWas)}</s> ` : ''}<strong>${idr(t.price)}</strong>${t.priceWas ? ' <span class="tag">25% off</span>' : ''}</p>
+        <div class="signature__ctas" data-reveal>
+          <a href="/book/" class="btn btn--solid" data-book data-treatment="${esc(t.name)}" data-magnetic>Book this facial</a>
+          <a class="link link--arrow" href="/treatments/${t.slug}/">${more}</a>
+        </div>
       </div>
-    </div>
+    </article>`
+      )
+      .join('')}
   </div>
 </section>
 
