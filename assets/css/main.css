@@ -150,7 +150,7 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
 .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(1) { transform: translateY(3.5px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
-.mobile-menu { position: fixed; inset: var(--header-h) 0 0; background: var(--surface); padding: 32px var(--gutter); display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+.mobile-menu { position: fixed; top: var(--header-h); left: 0; right: 0; height: calc(100vh - var(--header-h)); height: calc(100dvh - var(--header-h)); /* explicit height: the blurred header is the containing block */ background: var(--surface); padding: 32px var(--gutter); display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
 /* The hidden attribute always wins over component display rules (mobile menu, booking options). */
 [hidden] { display: none !important; }
 .mobile-menu nav { display: flex; flex-direction: column; }
@@ -678,6 +678,8 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .site-header.is-compact .nav--primary { display: none; }
 .site-header.is-compact .menu-toggle { display: block; }
 @media (max-width: 1100px) {
+  .nav--primary { display: none; }
+  .menu-toggle { display: block; }
   .site-header__loc { display: none; }
   .concern-grid { grid-template-columns: repeat(2, 1fr); }
   .addons { grid-template-columns: repeat(2, 1fr); }
