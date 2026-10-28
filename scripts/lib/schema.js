@@ -109,7 +109,7 @@ function service(t, category) {
     description: t.summary,
     url: abs(`/treatments/${t.slug}/`),
     image: abs(`/assets/img/${t.image}.webp`),
-    provider: site.locations.map((l) => ({ '@id': bizId(l) })),
+    provider: site.locations.filter((l) => !t.onlyAt || t.onlyAt === l.id).map((l) => ({ '@id': bizId(l) })),
     areaServed: { '@type': 'Place', name: 'Uluwatu, Bali' },
     offers: (t.prices || [t.price]).map((p, i) => ({
       '@type': 'Offer',

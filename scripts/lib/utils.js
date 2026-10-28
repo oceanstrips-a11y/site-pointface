@@ -40,7 +40,7 @@ const bookAttrs = (t) => {
   return (
     `data-book data-treatment="${esc(treatmentLabel(t))}"` +
     (t.onlyAt ? ` data-only="${t.onlyAt}"` : '') +
-    site.locations.map((l) => ` data-fresha-${l.id}="${esc(freshaFor(t, l))}"`).join('')
+    locationsFor(t).map((l) => ` data-fresha-${l.id}="${esc(freshaFor(t, l))}"`).join('')
   );
 };
 

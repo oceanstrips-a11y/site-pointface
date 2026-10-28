@@ -476,10 +476,12 @@ ${C.bookingBand(t)}`;
     page({
       path: p,
       title: `${t.name} in Uluwatu, Bali — ${t.prices ? t.durations.join('/') : t.duration} min`,
-      description: `${t.summary} ${t.prices ? t.durations.join('/') : t.duration} min from ${idr(t.price)} at POINT · FACE Uluwatu (Ungasan & Bingin). Free skin analysis.`.slice(0, 300),
+      description: `${t.summary} ${t.prices ? t.durations.join('/') : t.duration} min from ${idr(t.price)} at POINT · FACE Uluwatu (${locationsFor(t).map((l) => l.name.replace('Uluwatu ', '')).join(' & ')}). Free skin analysis.`.slice(0, 300),
       body,
       image: t.image,
       current: '/treatments/',
+      // Header, menu, footer and floating "Book" buttons book this treatment too.
+      book: bookAttrs(t),
       schema: S.graph(
         S.webPage(p, t.name, t.summary, { mainEntity: { '@id': abs(p + '#service') } }),
         S.service(t, cat),

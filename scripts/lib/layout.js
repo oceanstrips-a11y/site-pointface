@@ -6,7 +6,7 @@ const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POI
 const wordmark = (cls = '') =>
   `<span class="wordmark ${cls}" aria-label="POINT FACE"><span>POINT</span><span class="wordmark__dot">·</span><span>FACE</span></span>`;
 
-function header(current) {
+function header(current, book) {
   const links = site.nav
     .filter((n) => !n.mobileOnly)
     .map((n) => `<a href="${n.href}" class="nav__link${current === n.href ? ' is-current' : ''}"${current === n.href ? ' aria-current="page"' : ''}>${n.label}</a>`)
@@ -25,7 +25,7 @@ function header(current) {
       <span class="dock-mark" aria-hidden="true" data-dock-mark><span class="hero__mark-word">.Face</span><span class="hero__mark-rule"></span><span class="hero__mark-word">Expert Facials</span></span>
     </div>
     <div class="site-header__actions">
-      <a href="/book/" class="btn btn--solid btn--sm" data-book data-magnetic>Book now</a>
+      <a href="/book/" class="btn btn--solid btn--sm" ${book} data-magnetic>Book now</a>
       <a href="/" class="site-header__logo" aria-label="POINT · FACE — home">${logo()}</a>
     </div>
   </div>
@@ -35,14 +35,14 @@ function header(current) {
       <a href="/faq/" style="--i:${site.nav.length}">FAQ</a>
     </nav>
     <div class="mobile-menu__foot">
-      <a href="/book/" class="btn btn--solid" data-book>Book a treatment</a>
+      <a href="/book/" class="btn btn--solid" ${book}>Book a treatment</a>
       <a href="${site.instagram}" class="link" rel="noopener" target="_blank">${site.instagramHandle}</a>
     </div>
   </div>
 </header>`;
 }
 
-function footer() {
+function footer(book) {
   const locs = site.locations
     .map(
       (l) => `
@@ -61,7 +61,7 @@ function footer() {
     <div class="footer__top">
       <div class="footer__col footer__col--intro">
         <p class="footer__claim">Expert facials, Korean Hydrafacials & face sculpting in Uluwatu, Bali.</p>
-        <a href="/book/" class="btn btn--solid" data-book data-magnetic>Book your glow</a>
+        <a href="/book/" class="btn btn--solid" ${book} data-magnetic>Book your glow</a>
       </div>
       ${locs}
       <div class="footer__col">
@@ -111,7 +111,7 @@ function bookingDialog() {
 </dialog>`;
 }
 
-function page({ path, title, description, body, schema, image, current, bodyClass = '', type = 'website', noindex = false }) {
+function page({ path, title, description, body, schema, image, current, bodyClass = '', type = 'website', noindex = false, book = 'data-book' }) {
   const fullTitle = path === '/' ? title : `${title} | POINT · FACE Uluwatu`;
   const ogImage = abs(image ? `/assets/img/${image}.webp` : '/assets/img/og-default.jpg');
   const pfData = JSON.stringify({
@@ -148,13 +148,13 @@ ${noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" cont
 <script type="application/ld+json">${schema}</script>
 </head>
 <body class="${bodyClass}">
-${header(current)}
+${header(current, book)}
 <main id="main">
 ${body}
 </main>
-${footer()}
+${footer(book)}
 ${bookingDialog()}
-<a href="/book/" class="book-fab" data-book>Book now</a>
+<a href="/book/" class="book-fab" ${book}>Book now</a>
 <div class="cursor" aria-hidden="true" data-cursor-el><span class="cursor__label" data-cursor-label></span></div>
 <div class="hover-float" aria-hidden="true" data-hover-float><div class="hover-float__inner"></div></div>
 <script type="application/json" id="pf-data">${pfData}</script>
