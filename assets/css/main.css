@@ -321,6 +321,7 @@ a:hover .img-zoom img, .img-zoom:hover img { transform: scale(1.06); }
 
 .js [data-reveal] { opacity: 0; transform: translate3d(0, 32px, 0); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
+.clip-reveal { overflow: hidden; } /* the pre-reveal zoom must not widen the page on phones */
 .js .clip-reveal[data-reveal] { opacity: 1; transform: none; clip-path: inset(100% 0 0 0); transition: clip-path 1.4s var(--ease-in-out); }
 .js .clip-reveal[data-reveal] img { transform: scale(1.25); transition: transform 1.8s var(--ease); }
 .js .clip-reveal[data-reveal].is-in { clip-path: inset(0 0 0 0); }
