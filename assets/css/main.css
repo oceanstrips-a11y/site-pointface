@@ -303,7 +303,7 @@ body.menu-open { overflow: hidden; }
 .hscroll__head { display: grid; grid-template-columns: 1fr auto; align-items: end; margin-bottom: clamp(28px, 4vw, 56px); }
 .hscroll__head .eyebrow { grid-column: 1 / -1; }
 .hscroll__hint { font: 500 11px var(--f-ui); letter-spacing: .2em; text-transform: uppercase; }
-.hscroll__track { display: flex; gap: clamp(16px, 2vw, 28px); padding: 0 var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; will-change: transform; }
+.hscroll__track { display: flex; gap: clamp(16px, 2vw, 28px); padding: 0 var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); /* snapped cards keep the page margin */ scrollbar-width: none; will-change: transform; }
 .hscroll__track::-webkit-scrollbar { display: none; }
 .hscroll.is-pinned .hscroll__track { overflow: visible; }
 .cat-card { flex: 0 0 clamp(280px, 30vw, 440px); scroll-snap-align: start; display: block; }
