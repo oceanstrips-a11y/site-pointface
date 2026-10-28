@@ -3,7 +3,7 @@
 // from the address bar (it contains "oiid=sv%3A…"). Leave '' to fall back to the studio page.
 // Keys are treatment slugs (see src/data/treatments.js); ungasan / bingin are the studios.
 module.exports = {
-  'ultimate-korean-glass-skin-hydralift': { ungasan: '', bingin: '' },
+  'ultimate-korean-glass-skin-hydralift': { ungasan: 'https://www.fresha.com/a/point-face-facial-spa-uluwatu-bali-ungasan-kec-kuta-sel-kabupaten-badung-jalan-toya-ning-ii-no-99-asjb69tt/booking?offerItems=sv%3A25278582&pId=2696384', bingin: '' },
   'advanced-collagen-booster': { ungasan: '', bingin: '' },
   'pdrn-cellular-repair-salmon-dna': { ungasan: '', bingin: '' },
   'k-balance-acne-clear': { ungasan: '', bingin: '' },
