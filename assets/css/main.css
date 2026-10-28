@@ -783,5 +783,9 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 @media (max-width: 760px) { .pairs--media { display: none; } .pairs--inline { display: block; margin: 0 0 28px; border-top: 0; } }
 /* Phones: shorter home page, the best sellers and the Duo stay on desktop (and on the treatment / packages pages) */
 @media (max-width: 760px) { .is-home .signature, .is-home .duo { display: none; } }
-/* Phones: less zoom on the home photo (the parallax only needs a small margin) */
-@media (max-width: 760px) { .hero__media-inner { inset: -5% 0; } .is-loaded .hero__media-inner img { transform: none; } }
+/* Phones: home photo zoomed out — no parallax margin, slightly shorter hero */
+@media (max-width: 760px) {
+  .hero__pin { height: 86svh; }
+  .hero__media-inner { inset: 0; transform: none !important; }
+  .is-loaded .hero__media-inner img { transform: none; }
+}
