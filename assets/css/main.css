@@ -775,3 +775,6 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 @media (max-width: 760px) { .pairs__list { grid-template-columns: 1fr; } }
 /* Keep photo + add-ons within the screen while the column is sticky */
 @media (min-width: 761px) { .treatment__sticky--pairs .clip-reveal img { max-height: max(300px, calc(100svh - var(--header-h) - 360px)); } }
+/* Add-ons: under the photo on desktop, after the price & Book button on phones */
+.pairs--inline { display: none; }
+@media (max-width: 760px) { .pairs--media { display: none; } .pairs--inline { display: block; margin: 0 0 28px; border-top: 0; } }

@@ -381,6 +381,20 @@ const pairedAddOns = (t) =>
 function treatmentPage(t) {
   const cat = catById[t.category];
   const pairs = pairedAddOns(t);
+  // Shown under the photo on desktop and right after the price / Book button on phones.
+  const pairsBlock = (cls) =>
+    pairs.length
+      ? `<div class="pairs ${cls}" data-reveal>
+    <p class="eyebrow">Perfect add-ons</p>
+    <ul class="pairs__list">${pairs
+      .map((a) => {
+        const inner = `<span class="pairs__img">${img(a.image, a.name, { sizes: '44px' })}</span><span class="pairs__name">${esc(a.name.replace(' — 7 colours', ''))}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</span><span class="pairs__meta">${a.duration ? a.duration + ' min · ' : ''}+${idrK(a.price)}</span>`;
+        return `<li>${a.href ? `<a class="pairs__item" href="${a.href}">${inner}</a>` : `<a class="pairs__item" href="#boost-title">${inner}</a>`}</li>`;
+      })
+      .join('')}</ul>
+    <p class="pairs__note">Ask for them when you book · added to the same appointment</p>
+  </div>`
+      : '';
   const p = `/treatments/${t.slug}/`;
   const tConcerns = concerns.filter((c) => t.concerns.includes(c.slug));
   const related = treatments.filter((x) => x.slug !== t.slug && (x.category === t.category || x.concerns.some((c) => t.concerns.includes(c)))).slice(0, 3);
@@ -397,20 +411,7 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
         <div class="clip-reveal" data-reveal>
           ${img(t.image, `${t.name} — ${cat.short} at POINT · FACE Uluwatu`, { eager: true, sizes: '(max-width: 760px) 100vw, 45vw' })}
         </div>
-        ${
-          pairs.length
-            ? `<div class="pairs" data-reveal>
-          <p class="eyebrow">Perfect add-ons</p>
-          <ul class="pairs__list">${pairs
-            .map((a) => {
-              const inner = `<span class="pairs__img">${img(a.image, a.name, { sizes: '44px' })}</span><span class="pairs__name">${esc(a.name.replace(' — 7 colours', ''))}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</span><span class="pairs__meta">${a.duration ? a.duration + ' min · ' : ''}+${idrK(a.price)}</span>`;
-              return `<li>${a.href ? `<a class="pairs__item" href="${a.href}">${inner}</a>` : `<a class="pairs__item" href="#boost-title">${inner}</a>`}</li>`;
-            })
-            .join('')}</ul>
-          <p class="pairs__note">Ask for them when you book · added to the same appointment</p>
-        </div>`
-            : ''
-        }
+        ${pairsBlock('pairs--media')}
       </div>
     </div>
     <div class="treatment__content">
@@ -423,6 +424,7 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
         <a href="/book/" class="btn btn--solid" ${bookAttrs(t)} data-magnetic>Book this treatment</a>
         <p class="fine">${site.priceNote} ${t.onlyAt ? `<strong>Only at ${C.studioName(t.onlyAt)}.</strong>` : 'Available at Uluwatu Ungasan &amp; Uluwatu Bingin.'}</p>
       </div>
+      ${pairsBlock('pairs--inline')}
       <div class="answer-box" data-reveal>
         <p class="eyebrow">In short</p>
         <p>${esc(t.summary)} <strong>Recommended for:</strong> ${esc(t.recommendedFor)}</p>
