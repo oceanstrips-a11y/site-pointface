@@ -151,7 +151,8 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
 .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
 .mobile-menu { position: fixed; inset: var(--header-h) 0 0; background: var(--surface); padding: 32px var(--gutter); display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
-.mobile-menu[hidden] { display: none; }
+/* The hidden attribute always wins over component display rules (mobile menu, booking options). */
+[hidden] { display: none !important; }
 .mobile-menu nav { display: flex; flex-direction: column; }
 .mobile-menu nav a { font: 300 clamp(2.2rem, 9vw, 3.4rem)/1.15 var(--f-display); letter-spacing: -.02em; border-bottom: 1px solid var(--line); padding: 10px 0; opacity: 0; transform: translateY(24px); animation: menuIn .7s var(--ease) forwards; animation-delay: calc(var(--i) * 60ms + 80ms); }
 .mobile-menu__foot { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; padding-top: 32px; }
