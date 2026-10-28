@@ -785,7 +785,7 @@ ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}
       </div>
     </div>
     <div class="concern-hero__media clip-reveal" data-reveal>
-      <div data-parallax="0.1">${img(l.id === 'ungasan' ? 'studio-ungasan' : 'skin-confidence', `Facial at POINT · FACE ${l.name}`, { attrs: l.id === 'ungasan' ? 'style="object-position: 72% 50%"' : '', eager: true, sizes: '(max-width: 760px) 100vw, 45vw' })}</div>
+      <div data-parallax="0.1">${img(l.id === 'ungasan' ? 'relaxation-ritual' : 'skin-confidence', `Facial at POINT · FACE ${l.name}`, { eager: true, sizes: '(max-width: 760px) 100vw, 45vw' })}</div>
     </div>
   </div>
 </section>
