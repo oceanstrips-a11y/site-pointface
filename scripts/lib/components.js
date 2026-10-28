@@ -207,7 +207,7 @@ function studiosSection({ title = 'Our studios' } = {}) {
         (l, i) => `
     <article class="studio">
       <a href="/locations/${l.slug}/" class="studio__media" tabindex="-1" aria-hidden="true">
-        <div class="studio__img" data-parallax="0.06">${img(i === 0 ? 'relaxation-ritual' : 'skin-confidence', `POINT · FACE ${l.name} facial studio`, { sizes: '(max-width: 760px) 100vw, 50vw' })}</div>
+        <div class="studio__img" data-parallax="0.06">${img(l.id === 'ungasan' ? 'studio-ungasan' : 'skin-confidence', `POINT · FACE ${l.name} facial studio`, { attrs: l.id === 'ungasan' ? 'style="object-position: 72% 50%"' : '', sizes: '(max-width: 760px) 100vw, 50vw' })}</div>
       </a>
       <div class="studio__body" data-reveal style="--d:${i * 120}ms">
         <p class="studio__index">0${i + 1}</p>
