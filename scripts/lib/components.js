@@ -1,5 +1,5 @@
 const site = require('../../src/data/site');
-const { esc, idr, idrK, img, waLink, waText, fmtDate, freshaFor, locationsFor } = require('./utils');
+const { esc, idr, idrK, img, waLink, waText, fmtDate, freshaLinks, freshaFor, locationsFor } = require('./utils');
 
 const breadcrumb = (items) => `
 <nav class="breadcrumb container" aria-label="Breadcrumb">
@@ -94,6 +94,13 @@ const marquee = (items) => {
   return `<div class="marquee" aria-hidden="true"><div class="marquee__track">${row}${row}</div></div>`;
 };
 
+// One Fresha button, or one per duration when the treatment has a link for each.
+const freshaButtons = (t, l) => {
+  const links = t && freshaLinks(t, l);
+  const list = links && typeof links === 'object' ? Object.entries(links) : [['', freshaFor(t, l)]];
+  return list.map(([label, url]) => `<a class="btn btn--ghost" href="${url}" target="_blank" rel="noopener">Fresha${label ? ' · ' + label : ''}</a>`).join('');
+};
+
 const bookingBand = (treatment) => `
 <section class="book-band" aria-labelledby="book-band-title">
   <div class="container book-band__inner">
@@ -109,7 +116,7 @@ const bookingBand = (treatment) => `
       <div class="book-band__loc">
         <p class="book-band__loc-name">${l.name}</p>
         <a class="btn btn--solid" href="${waLink(l, waText(l, treatment))}" target="_blank" rel="noopener" data-magnetic>WhatsApp</a>
-        <a class="btn btn--ghost" href="${freshaFor(typeof treatment === 'object' ? treatment : null, l)}" target="_blank" rel="noopener">Fresha</a>
+        ${freshaButtons(typeof treatment === 'object' ? treatment : null, l)}
       </div>`
         )
         .join('')}

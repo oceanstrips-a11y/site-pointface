@@ -179,7 +179,7 @@ ${C.studiosSection()}
       <p class="duo__price" data-reveal><s>${idr(packages.duo.priceWas)}</s> <strong>${idr(packages.duo.price)}</strong></p>
       <p data-reveal>Living in Bali? Our 3-session packages save up to 30% on facials and 20% on face massages.</p>
       <div class="signature__ctas" data-reveal>
-        <a href="/book/" class="btn btn--solid" data-book data-treatment="Duo Package" data-magnetic>Book for two</a>
+        <a href="/book/" class="btn btn--solid" ${bookAttrs('Duo Package')} data-magnetic>Book for two</a>
         <a class="link link--arrow" href="/packages/">See all packages</a>
       </div>
     </div>

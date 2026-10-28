@@ -27,8 +27,18 @@ const waText = (loc, treatment) => {
   return `Hi POINT · FACE ${loc.name}! I'd like to book ${what}. Could you tell me your availability?`;
 };
 
-// Direct Fresha link for a treatment at a studio, falling back to the studio page.
-const freshaFor = (t, loc) => (t && bookingLinks[t.slug] && bookingLinks[t.slug][loc.id]) || loc.fresha;
+// Fresha link(s) of a treatment (or a package name such as "Duo Package") at a studio:
+// a URL, { '30 min': url, '60 min': url } for several durations, or '' when unknown.
+const freshaLinks = (t, loc) => {
+  const key = typeof t === 'string' ? t.toLowerCase().replace(/[^a-z0-9]+/g, '-') : t && t.slug;
+  return (key && bookingLinks[key] && bookingLinks[key][loc.id]) || '';
+};
+
+// Single direct Fresha link (first duration when there are several), falling back to the studio page.
+const freshaFor = (t, loc) => {
+  const l = freshaLinks(t, loc);
+  return (typeof l === 'object' ? Object.values(l)[0] : l) || loc.fresha;
+};
 
 // Studios offering a treatment (HydroJelly: Ungasan only, Body: Bingin only).
 const locationsFor = (t) => site.locations.filter((l) => !t || !t.onlyAt || t.onlyAt === l.id);
@@ -36,11 +46,16 @@ const locationsFor = (t) => site.locations.filter((l) => !t || !t.onlyAt || t.on
 // Attributes for any "Book" button: the booking panel reads them to personalise WhatsApp + Fresha.
 const bookAttrs = (t) => {
   if (!t) return 'data-book';
-  if (typeof t === 'string') return `data-book data-treatment="${esc(t)}"`;
+  const fresha = (l) => {
+    const links = freshaLinks(t, l);
+    // Several durations are passed as JSON for the booking panel to list them.
+    return ` data-fresha-${l.id}="${esc(typeof links === 'object' ? JSON.stringify(links) : links || l.fresha)}"`;
+  };
+  if (typeof t === 'string') return `data-book data-treatment="${esc(t)}"` + site.locations.map(fresha).join('');
   return (
     `data-book data-treatment="${esc(treatmentLabel(t))}"` +
     (t.onlyAt ? ` data-only="${t.onlyAt}"` : '') +
-    locationsFor(t).map((l) => ` data-fresha-${l.id}="${esc(freshaFor(t, l))}"`).join('')
+    locationsFor(t).map(fresha).join('')
   );
 };
 
@@ -67,4 +82,4 @@ function img(name, alt, opts = {}) {
 const fmtDate = (iso) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-module.exports = { esc, stripTags, idr, idrK, abs, waLink, waText, img, fmtDate, treatmentLabel, freshaFor, locationsFor, bookAttrs };
+module.exports = { esc, stripTags, idr, idrK, abs, waLink, waText, img, fmtDate, treatmentLabel, freshaLinks, freshaFor, locationsFor, bookAttrs };

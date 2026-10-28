@@ -277,12 +277,26 @@
         if (loc) a.href = `https://wa.me/${loc.whatsapp}?text=${encodeURIComponent(waText(loc, t))}`;
       });
       // Direct Fresha link of the treatment when known, otherwise the studio page.
+      // A JSON value lists one link per duration: each gets its own choice in the panel.
+      $$('[data-fresha-variant]', dialog).forEach((a) => a.remove());
+      const split = [];
       $$('[data-fresha]', dialog).forEach((a) => {
         const loc = data.locations.find((l) => l.id === a.dataset.fresha);
-        a.href = trigger.getAttribute(`data-fresha-${a.dataset.fresha}`) || (loc && loc.fresha) || a.href;
+        const value = trigger.getAttribute(`data-fresha-${a.dataset.fresha}`) || '';
+        a.href = (loc && loc.fresha) || a.href;
+        if (value.charAt(0) !== '{') { if (value) a.href = value; return; }
+        Object.entries(JSON.parse(value)).forEach(([label, url]) => {
+          const v = a.cloneNode(true);
+          v.removeAttribute('data-fresha');
+          v.setAttribute('data-fresha-variant', '');
+          v.href = url;
+          v.firstElementChild.textContent = `${loc ? loc.name : ''} · ${label}`;
+          a.before(v);
+        });
+        split.push(a);
       });
       // Studio-exclusive treatments only show the studio that offers them.
-      $$('[data-loc]', dialog).forEach((a) => { a.hidden = !!only && a.dataset.loc !== only; });
+      $$('[data-loc]', dialog).forEach((a) => { a.hidden = (!!only && a.dataset.loc !== only) || split.includes(a); });
       dialog.showModal();
       document.body.classList.add('menu-open');
     });
