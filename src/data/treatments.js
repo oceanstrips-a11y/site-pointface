@@ -13,8 +13,9 @@ const categories = [
     id: 'hydrojelly-hydrafacials',
     name: 'Korean HydroJelly Hydrafacials',
     short: 'Korean HydroJelly Hydrafacials',
+    onlyAt: 'ungasan',
     intro:
-      'Our Hydrafacials finished with an electrolyte-infused HydroJelly mask that seals in actives — for heat-stressed, mature or pigmented skin.',
+      'Hydrafacials sealed with a cooling, infusing HydroJelly mask — for heat-stressed, mature or pigmented skin. Exclusive to our Uluwatu Ungasan studio.',
   },
   {
     id: 'balinese-natural-facials',
@@ -22,6 +23,14 @@ const categories = [
     short: 'Facials',
     intro:
       'Gentle, sensory facials with 100% natural skincare from Utama Spice & Embun: rose, aloe, clay, turmeric, coconut and jojoba.',
+  },
+  {
+    id: 'korean-body-hydrafacials',
+    name: 'Korean Body Hydrafacials',
+    short: 'Korean Body Hydrafacials',
+    onlyAt: 'bingin',
+    intro:
+      'Korean skincare beyond the face: Hydrafacial technology for the back, chest and booty — breakouts, bumps, pigmentation, hydration and firmness. Exclusive to our Uluwatu Bingin studio.',
   },
   {
     id: 'face-massages',
@@ -42,11 +51,11 @@ const treatments = [
     pillars: ['Lift', 'Hydrate', 'Glass skin'],
     duration: 80,
     price: 1300000,
-    priceWas: 1732500,
+    priceWas: 1734000,
     image: 'korean-glass-skin-hydrafacial',
     recommendedFor: 'Dull, dehydrated or tired skin needing instant radiance.',
     summary:
-      'Our signature Korean Hydrafacial: 17+ advanced steps to deeply cleanse, hydrate, lift and refine the skin for a true glass-skin finish.',
+      'Our signature Korean Hydrafacial: 18+ advanced steps to deeply cleanse, hydrate, lift and refine the skin for a true glass-skin finish.',
     description:
       'The signature POINT · FACE experience. We combine Hydrafacial hydrodermabrasion with Korean actives — peptides, snail mucin, propolis, niacinamide and centella — infused with ultrasound, then finish with oxygen, high-frequency, cold hammer and dual red & green LED. Skin is decongested, plumped with water and visibly lifted, with that luminous "glass skin" reflection Korean skincare is known for. Features COSRX, SKIN1004 and Beauty of Joseon.',
     ingredients: ['6 Peptide Skin Booster', 'Snail Mucin', 'Hyaluronic Acid', 'Propolis + Niacinamide', 'BHA', 'Centella Asiatica'],
@@ -64,12 +73,12 @@ const treatments = [
     slug: 'advanced-collagen-booster',
     name: 'Advanced Collagen Booster',
     category: 'korean-hydrafacials',
-    badge: 'Best Seller',
+    badge: 'Most Loved',
     want: 'I want firmer, lifted & younger-looking skin',
     pillars: ['Firmness', 'Collagen', 'Lift'],
     duration: 70,
     price: 1250000,
-    priceWas: 1617000,
+    priceWas: 1667000,
     image: 'collagen-booster-facial',
     recommendedFor: 'Anyone looking to boost firmness and elasticity and keep a plump complexion.',
     summary:
@@ -119,7 +128,7 @@ const treatments = [
     badge: null,
     want: 'I want clearer, calmer & balanced skin',
     pillars: ['Purify', 'Balance', 'Clear'],
-    duration: 60,
+    duration: 70,
     price: 1200000,
     priceWas: null,
     image: 'acne-clear-facial',
@@ -139,10 +148,36 @@ const treatments = [
     ],
   },
   {
+    slug: 'vitamin-c-sunshine-glow',
+    name: 'Vitamin C Sunshine Glow',
+    category: 'korean-hydrafacials',
+    badge: 'New',
+    want: 'I want a brighter, smoother & more radiant complexion',
+    pillars: ['Vitamin C', 'Brightening', 'Even tone', 'Radiance'],
+    duration: 60,
+    price: 1150000,
+    priceWas: null,
+    image: 'vitamin-c-sunshine-glow',
+    recommendedFor: 'Dull skin, uneven skin tone, pigmentation concerns and lack of radiance.',
+    summary:
+      'A radiance-boosting Korean Hydrafacial powered by Vitamin C and advanced Korean brightening skincare for a brighter, smoother, more luminous complexion.',
+    description:
+      'A sunshine boost for tired, sun-dulled skin. A very gentle hydrodermabrasion and a sonic skin scrubber lift dull surface cells, then Vitamin C from Mediheal, niacinamide, COSRX peptides and Advanced Snail 96 Mucin Essence are infused with ultrasound. Radiofrequency, oxygen infusion, cold hammer and yellow & green LED refine and calm, and SKIN1004 Tone Brightening Capsule Cream seals in the glow.',
+    ingredients: ['Vitamin C (Mediheal)', 'Niacinamide', 'BHA (COSRX Blackhead Power Liquid)', 'Centella Asiatica (SKIN1004)', 'Peptides (COSRX)', 'Advanced Snail 96 Mucin Essence (COSRX)', 'Tone Brightening Capsule Cream (SKIN1004)'],
+    technologies: ['Hydrodermabrasion (very gentle mode)', 'Ultrasonic infusion', 'Skin scrubber (sonic knife)', 'Radiofrequency', 'Oxygen infusion', 'Cold Hammer', 'LED light therapy (yellow & green)'],
+    results: ['Brighter-looking skin', 'More even skin tone', 'Enhanced radiance', 'Smoother-looking texture', 'Improved hydration', 'Reduced appearance of dark spots'],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart, followed by regular maintenance and daily SPF protection.',
+    concerns: ['dull-tired-skin-glass-skin', 'pigmentation-dark-spots-bali'],
+    faqs: [
+      ['Vitamin C Sunshine Glow or Bright & Pigment Correct?', 'Vitamin C Sunshine Glow is a radiance and even-tone booster, available at both studios. Bright & Pigment Correct targets stubborn dark spots with a HydroJelly mask and is exclusive to Uluwatu Ungasan.'],
+      ['Is Vitamin C suitable for sensitive skin?', 'Yes, the protocol uses a very gentle hydrodermabrasion mode. Your therapist adapts it after the skin analysis if your skin is reactive.'],
+    ],
+  },
+  {
     slug: 'caviar-luxury-anti-aging-lift',
     name: 'Caviar Luxury Anti-Aging & Lift',
     category: 'hydrojelly-hydrafacials',
-    badge: 'Most Loved',
+    badge: 'Client Favourite',
     want: 'I want lifted, plump & youthful skin',
     pillars: ['Lift', 'Firm', 'Anti-aging'],
     duration: 70,
@@ -174,12 +209,12 @@ const treatments = [
     duration: 60,
     price: 1050000,
     priceWas: null,
-    image: 'hydrojelly-mask-treatment',
+    image: 'cryo-mask-treatment',
     recommendedFor: 'Sun-exposed, overheated, sensitive or reactive skin.',
     summary:
       'A refreshing Hydrafacial with cryo-globe massage and a cooling HydroJelly mask to calm overheated, sun-stressed skin.',
     description:
-      'Made for Bali days. Gentle hydrodermabrasion and ultrasonic infusion of vitamin C & E, centella and hyaluronic acid, then a cryo-globe massage that instantly cools the skin and reduces the look of redness. A glacial clay & aloe step and a Blue Glacier Cryo HydroJelly mask restore comfort, finished with red & yellow LED. Features COSRX and SKIN1004.',
+      'Made for Bali days. Gentle hydrodermabrasion and ultrasonic infusion of vitamin C & E, centella and hyaluronic acid, then a cryo-globe massage that instantly cools the skin and reduces the look of redness. A glacial clay & aloe step and a Blue Glacier Cryo HydroJelly mask restore comfort, finished with red & yellow LED. Features COSRX, SKIN1004 and Esthemax.',
     ingredients: ['Cryo HydroJelly Mask', 'Vitamin C & E', 'Centella Asiatica', 'Glacial Clay & Aloe Vera', 'Hyaluronic Acid', 'Snail Mucin'],
     technologies: ['Hydrodermabrasion', 'Ultrasonic infusion', 'Oxygen infusion', 'LED light therapy (red & yellow)', 'High Frequency therapy', 'Cryo globe massage'],
     results: ['Calms overheated skin instantly', 'Tightened-looking pores', 'Reduced redness', 'Restored hydration'],
@@ -233,7 +268,7 @@ const treatments = [
     ingredients: ['Aloe vera', 'Rose extract', 'Coconut oil (Utama Spice & Embun)'],
     technologies: ['Manual techniques', 'Aloe mask + rose serum', 'Relaxing coconut oil massage'],
     results: ['Soft & hydrated skin', 'Comfort restored', 'Natural radiant glow'],
-    bestResults: 'A lovely first facial in Bali, or a monthly comfort ritual.',
+    bestResults: 'A gentle, sensory ritual — perfect as a monthly hydration boost or before a special occasion.',
     concerns: ['dehydrated-skin-bali', 'sensitive-reactive-skin'],
     faqs: [
       ['What is the difference between a facial and a Hydrafacial?', 'A traditional facial relies on manual techniques and natural products — a gentle, sensory ritual. A Hydrafacial adds technology (hydrodermabrasion, ultrasound, RF, LED) for deeper cleansing and more visible, measurable results.'],
@@ -258,10 +293,210 @@ const treatments = [
     ingredients: ['Clay', 'Turmeric', 'Jojoba oil (Utama Spice & Embun)'],
     technologies: ['Deep cleansing', 'Gentle extractions', 'Clay & turmeric detox mask', 'Jojoba balancing massage'],
     results: ['Clean, purified pores', 'Balanced oil levels', 'Fresh, healthy complexion'],
-    bestResults: 'Every 4–6 weeks for regular deep cleansing.',
+    bestResults: 'Ideal as a regular deep-cleansing ritual for normal to combination skin.',
     concerns: ['acne-breakouts-bali'],
     faqs: [
       ['Will turmeric stain my skin?', 'No. We use a cosmetic turmeric formulation that is fully removed at the end of the treatment.'],
+    ],
+  },
+  {
+    slug: 'signature-back-acne-pore-clear',
+    name: "Signature Back Acne & Pore Clear",
+    category: 'korean-body-hydrafacials',
+    zone: 'Back',
+    badge: "Signature",
+    want: "I want clearer, smoother & more radiant back skin",
+    pillars: ["Back breakouts", "Purifying", "Clearer skin"],
+    duration: 70,
+    price: 1100000,
+    priceWas: null,
+    image: 'back-acne-pore-clear',
+    recommendedFor: "Back breakouts, oily skin and clogged pores.",
+    summary: "An intensive Korean back facial that targets blemishes, clogged pores and excess sebum across the back.",
+    description: "Deep cleansing, targeted exfoliation, Hydrafacial technology and calming Korean skincare remove surface impurities, refine rough texture and improve the appearance of congestion. With SKIN1004 Tea-Trica and soothing finishing care, the back is left purified, refreshed and balanced.",
+    ingredients: ["Tea-Trica (SKIN1004)", "Niacinamide", "BHA (Salicylic Acid)", "Centella Asiatica", "Hyaluronic Acid"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "High Frequency therapy", "Cold Hammer"],
+    results: ["Reduced back breakouts", "Purified, clearer skin", "Refined pores & smoother texture", "Less excess sebum", "Healthier, more balanced skin"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["acne-breakouts-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'back-smooth-hydrating',
+    name: "Back Smooth & Hydrating",
+    category: 'korean-body-hydrafacials',
+    zone: 'Back',
+    badge: null,
+    want: "I want deep hydration, smoother texture & softer skin",
+    pillars: ["Deep hydration", "Rough texture", "Softness"],
+    duration: 60,
+    price: 950000,
+    priceWas: null,
+    image: 'back-smooth-hydrating',
+    recommendedFor: "Dryness, dehydration and rough skin texture.",
+    summary: "A luxurious Korean back facial that restores hydration, comfort and smoothness to dry, rough or dehydrated skin.",
+    description: "Gentle Hydrafacial cleansing, ultrasonic hydration and hyaluronic acid-infused Korean skincare replenish moisture and improve uneven texture. A nourishing mask, cooling therapy and a relaxing back massage leave the skin silky-soft, supple and refreshed.",
+    ingredients: ["Hyaluronic Acid", "Niacinamide", "Centella Asiatica", "Korean botanical extracts", "Nourishing mask"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Relaxing back massage"],
+    results: ["Deep, long-lasting hydration", "Smoother, softer skin", "Improved skin texture", "More comfortable, supple skin", "Healthier, more radiant back skin"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["dehydrated-skin-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'signature-chest-firm-collagen',
+    name: "Signature Chest Firm & Collagen",
+    category: 'korean-body-hydrafacials',
+    zone: 'Chest',
+    badge: "Signature",
+    want: "I want firmer, smoother & more youthful chest skin",
+    pillars: ["Firming", "Collagen care", "Elasticity"],
+    duration: 50,
+    price: 1000000,
+    priceWas: null,
+    image: 'chest-firm-collagen',
+    recommendedFor: "Fine lines, reduced elasticity and mature-looking skin on the chest.",
+    summary: "A luxurious Korean anti-aging treatment that improves the look of firmness, elasticity and fine lines across the chest.",
+    description: "Advanced Hydrafacial technology, peptide-rich Korean skincare and ultrasonic infusion support smoother, firmer-looking skin. A nourishing mask, cooling therapy and collagen-focused finishing skincare leave the d\u00e9collet\u00e9 supple, deeply hydrated and rejuvenated.",
+    ingredients: ["Collagen peptides", "Hyaluronic Acid", "Niacinamide", "Centella Asiatica", "Korean botanical extracts"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Firming massage"],
+    results: ["Firmer, smoother skin", "Improved skin elasticity", "Reduced appearance of fine lines", "More youthful-looking skin", "Deep, long-lasting hydration"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["fine-lines-wrinkles-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'chest-hydrating',
+    name: "Chest Hydrating",
+    category: 'korean-body-hydrafacials',
+    zone: 'Chest',
+    badge: null,
+    want: "I want soft, hydrated & glowing skin",
+    pillars: ["Deep hydration", "Fine lines", "Radiance"],
+    duration: 45,
+    price: 850000,
+    priceWas: null,
+    image: 'chest-hydrating',
+    recommendedFor: "Dry, dehydrated or dull-looking chest skin.",
+    summary: "A deeply replenishing Korean treatment that restores hydration, softness and radiance to the delicate chest.",
+    description: "Gentle Hydrafacial cleansing, ultrasonic technology and hyaluronic acid-infused Korean skincare replenish moisture, soften the appearance of fine lines and improve texture. A soothing mask, cooling therapy and a relaxing massage complete the ritual.",
+    ingredients: ["Hyaluronic Acid", "Centella Asiatica", "Niacinamide", "Korean botanical extracts", "Nourishing mask"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Relaxing massage"],
+    results: ["Deep, long-lasting hydration", "Smoother, softer skin", "Reduced appearance of fine lines", "More radiant, healthy-looking skin", "Improved skin texture"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["dehydrated-skin-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'chest-bright-pigment-correct',
+    name: "Chest Bright & Pigment Correct",
+    category: 'korean-body-hydrafacials',
+    zone: 'Chest',
+    badge: null,
+    want: "I want brighter, even & radiant skin",
+    pillars: ["Pigmentation", "Sun spots", "Even skin tone"],
+    duration: 45,
+    price: 900000,
+    priceWas: null,
+    image: 'chest-bright-pigment',
+    recommendedFor: "Sun-exposed skin, pigmentation and uneven tone on the chest.",
+    summary: "An advanced Korean brightening treatment that improves the look of sun damage, dark spots and uneven pigmentation across the chest.",
+    description: "Hydrafacial technology, Korean brightening ampoules and ultrasonic infusion refine texture, improve discoloration and restore a more luminous, even-looking d\u00e9collet\u00e9. A soothing mask, cooling therapy and targeted finishing skincare complete the ritual.",
+    ingredients: ["Vitamin C", "Niacinamide", "Centella Asiatica", "Korean botanical extracts", "Brightening mask"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Relaxing massage"],
+    results: ["Reduced appearance of sun spots", "More even skin tone", "Brighter, more radiant skin", "Improved skin texture", "Healthier, more luminous complexion"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["pigmentation-dark-spots-bali", "sun-damaged-skin-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'chest-spot-acne-clear',
+    name: "Chest Spot & Acne Clear",
+    category: 'korean-body-hydrafacials',
+    zone: 'Chest',
+    badge: null,
+    want: "I want clear, smooth & balanced skin",
+    pillars: ["Breakouts", "Clogged pores", "Sebum control"],
+    duration: 45,
+    price: 950000,
+    priceWas: null,
+    image: 'chest-spot-acne',
+    recommendedFor: "Congested, oily or blemish-prone chest skin.",
+    summary: "A purifying Korean treatment for chest skin prone to breakouts, clogged pores and excess sebum.",
+    description: "Targeted Hydrafacial cleansing, gentle exfoliation and calming Korean skincare remove surface impurities, refine uneven texture and improve the appearance of blemishes. Enriched with SKIN1004 Tea-Trica for a clearer, fresher, more balanced d\u00e9collet\u00e9.",
+    ingredients: ["Tea Tree (Tea-Trica)", "Centella Asiatica", "Niacinamide", "Korean botanical extracts", "Purifying mask"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Relaxing massage"],
+    results: ["Clearer, smoother skin", "Reduced breakouts & blemishes", "Less clogged pores", "Balanced sebum production", "Calmer, healthier-looking chest skin"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["acne-breakouts-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'signature-booty-bump-clear',
+    name: "Signature Booty Bump Clear",
+    category: 'korean-body-hydrafacials',
+    zone: 'Booty',
+    badge: "Signature",
+    want: "I want clearer, smoother & healthier-looking skin",
+    pillars: ["Small bumps", "Ingrown hairs", "Blemishes"],
+    duration: 50,
+    price: 980000,
+    priceWas: null,
+    image: 'booty-bump-clear',
+    recommendedFor: "Small bumps, ingrown hairs and blemish-prone skin.",
+    summary: "A targeted Korean booty facial that improves the look of small bumps, visible blemishes and uneven texture.",
+    description: "A deep-cleansing Hydrafacial, gentle exfoliation and calming Korean skincare remove surface impurities, refine rough texture and improve areas affected by ingrown hairs. With SKIN1004 Tea-Trica, the skin is left refreshed, balanced and noticeably smoother.",
+    ingredients: ["Tea Tree (Tea-Trica)", "Centella Asiatica", "Niacinamide", "Korean botanical extracts", "Purifying mask"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Relaxing massage"],
+    results: ["Reduced small bumps & blemishes", "Fewer ingrown hairs", "Smoother skin texture", "Cleaner, clearer skin", "More even, healthy-looking skin"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["acne-breakouts-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
+    ],
+  },
+  {
+    slug: 'booty-firm-smooth',
+    name: "Booty Firm & Smooth",
+    category: 'korean-body-hydrafacials',
+    zone: 'Booty',
+    badge: null,
+    want: "I want firmer, smoother & more radiant skin",
+    pillars: ["Firmness", "Elasticity", "Smooth skin"],
+    duration: 45,
+    price: 950000,
+    priceWas: null,
+    image: 'booty-firm-smooth',
+    recommendedFor: "Dryness, rough texture and loss of skin elasticity.",
+    summary: "A specialised Korean booty facial that boosts hydration, smoothness and the look of firmness.",
+    description: "Hydrafacial cleansing, peptide-infused Korean skincare and targeted skin-firming techniques improve uneven texture and reduced elasticity. A nourishing mask, cooling therapy and hydrating finishing care leave the skin soft, supple and revitalised.",
+    ingredients: ["Collagen peptides", "Hyaluronic Acid", "Centella Asiatica", "Niacinamide", "Korean botanical extracts"],
+    technologies: ["Hydrodermabrasion", "Ultrasonic infusion", "LED light therapy (red & green)", "Cold Hammer", "Firming massage"],
+    results: ["Firmer, smoother skin", "Improved skin elasticity", "More hydrated, supple skin", "Reduced uneven texture", "More toned, radiant skin"],
+    bestResults: 'A series of 3 sessions spaced 2–3 weeks apart is recommended, followed by regular maintenance.',
+    concerns: ["fine-lines-wrinkles-bali"],
+    faqs: [
+      ['Where can I book this body Hydrafacial?', 'Korean Body Hydrafacials are exclusive to our Uluwatu Bingin studio. Book on WhatsApp or Fresha and choose Uluwatu Bingin.'],
+      ['Is there any downtime?', 'No. Avoid direct sun, sauna and intense workouts for 24 hours and apply SPF on exposed areas.'],
     ],
   },
   {
@@ -366,18 +601,18 @@ const treatments = [
 ];
 
 const addOns = [
-  { name: 'Skin Booster HydroJelly Mask', duration: 15, price: 200000, image: 'hydrojelly-mask-treatment', description: 'The viral electrolyte-infused jelly mask that deeply hydrates, calms and boosts the penetration of actives. Choose Caviar Resilience, Illuminating Orange, Blue Glacier Cryo, Vampire PLLA Infusion or Egyptian Rose.' },
+  { name: 'Skin Booster HydroJelly Mask', duration: 15, price: 200000, image: 'hydrojelly-mask-treatment', onlyAt: 'ungasan', description: 'The viral electrolyte-infused jelly mask that deeply hydrates, calms and boosts the penetration of actives. Choose Caviar Resilience, Illuminating Orange, Blue Glacier Cryo, Vampire PLLA Infusion or Egyptian Rose.' },
   { name: 'LED Therapy — 7 colours', duration: 10, price: 100000, image: 'led-light-therapy', description: 'Blue purifies, green calms, yellow brightens, red boosts collagen, cyan refines, orange revitalises and violet regenerates.' },
   { name: 'Collagen Eye Patch', duration: null, price: 100000, image: 'eye-collagen-patch', description: 'Cooling hydrogel patches with peptides and collagen to de-puff and hydrate the eye area.' },
   { name: 'Lip Scrub', duration: null, price: 85000, image: 'lip-scrub', description: 'A creamy Korean lip scrub that buffs away dry, flaky skin while your mask develops.' },
 ];
 
 const hydrojellyMasks = [
-  ['Caviar Resilience', 'Firming · Anti-aging · Elasticity'],
-  ['Illuminating Orange', 'Brightening · Pigmentation · Glow'],
-  ['Blue Glacier Cryo', 'Cooling · Pore refining · Recovery'],
-  ['Vampire PLLA Infusion', 'Collagen boost · Firming · Wrinkles'],
-  ['Egyptian Rose', 'Hydration · Softening · Radiance'],
+  ['Caviar Resilience', 'Firming · Anti-aging · Elasticity', 'mask-caviar-resilience'],
+  ['Illuminating Orange', 'Brightening · Pigmentation · Glow', 'mask-illuminating-orange'],
+  ['Blue Glacier Cryo', 'Cooling · Pore refining · Recovery', 'mask-blue-glacier-cryo'],
+  ['Vampire PLLA Infusion', 'Collagen boost · Firming · Wrinkles', 'mask-vampire-plla'],
+  ['Egyptian Rose', 'Hydration · Softening · Radiance', 'mask-egyptian-rose'],
 ];
 
 const ledColours = [
@@ -390,25 +625,80 @@ const ledColours = [
   ['Violet', 'Combines blue purifying and red regenerating effects.'],
 ];
 
+// 3-session packages — source: menu chapter 07 (prices in IDR, tax & service included).
+// [slug, label, 3 sessions at normal price, package price]
 const packages = {
   duo: { name: 'Duo Package', price: 2250000, priceWas: 3465000, description: '2 × Ultimate Korean Glass Skin & Hydralift (80 min each), in shared or separate cabins. Ideal for friends & partners.' },
-  threeSessions: [
-    ['Hydrating Ritual', 2370000, 1780000, '-20%'],
-    ['Purifying Ritual', 2940000, 2200000, '-20%'],
-    ['Ultimate Glass Skin Hydralift', 5197500, 3150000, '-30%'],
-    ['Advanced Collagen Booster', 4851000, 2940000, '-30%'],
-    ['K-Balance Acne Clear', 3600000, 2600000, '-30%'],
-    ['PDRN Cellular Repair', 3900000, 2730000, '-30%'],
-    ['Caviar Luxury Anti-Aging & Lift', 6237000, 3780000, '-30%'],
-    ['Bright & Pigment Correct', 3300000, 2300000, '-30%'],
-    ['Cryo Skin Reset', 3150000, 2200000, '-30%'],
-    ['Relaxing Gua Sha Massage', 1050000, 840000, '-20%'],
-    ['Kobido Massage 30 min', 1500000, 1200000, '-20%'],
-    ['Kobido Massage 60 min', 2550000, 2040000, '-20%'],
-    ['Relaxation Ritual', 1650000, 1320000, '-20%'],
+  groups: [
+    { id: 'facials', title: 'Natural Facials', off: '−20%', items: [
+      ['balinese-hydrating-ritual-rose-aloe', 'Hydrating Ritual — Rose & Aloe', 2370000, 1890000],
+      ['balinese-purifying-ritual-clay-turmeric', 'Purifying Ritual — Clay & Turmeric', 2940000, 2350000],
+    ] },
+    { id: 'korean', title: 'Korean Hydrafacials', off: '−30%', items: [
+      ['ultimate-korean-glass-skin-hydralift', 'Ultimate Glass Skin & Hydralift', 5202000, 3640000],
+      ['advanced-collagen-booster', 'Advanced Collagen Booster', 5001000, 3500000],
+      ['k-balance-acne-clear', 'K-Balance Acne Clear', 3600000, 2520000],
+      ['pdrn-cellular-repair-salmon-dna', 'PDRN Cellular Repair', 3900000, 2730000],
+      ['vitamin-c-sunshine-glow', 'Vitamin C Sunshine Glow', 3450000, 2410000],
+    ] },
+    { id: 'hydrojelly', title: 'Korean HydroJelly Hydrafacials', off: '−30%', onlyAt: 'ungasan', items: [
+      ['caviar-luxury-anti-aging-lift', 'Caviar Luxury Anti-Aging & Lift', 6000000, 4200000],
+      ['bright-pigment-correct', 'Bright & Pigment Correct', 3300000, 2310000],
+      ['cryo-skin-reset', 'Cryo Skin Reset', 3150000, 2200000],
+    ] },
+    { id: 'body', title: 'Korean Body Hydrafacials', off: '−30%', onlyAt: 'bingin', items: [
+      ['chest-hydrating', 'Chest Hydrating', 2550000, 1780000],
+      ['chest-bright-pigment-correct', 'Chest Bright & Pigment Correct', 2700000, 1890000],
+      ['chest-spot-acne-clear', 'Chest Spot & Acne Clear', 2850000, 1990000],
+      ['signature-chest-firm-collagen', 'Signature Chest Firm & Collagen', 3000000, 2100000],
+      ['back-smooth-hydrating', 'Back Smooth & Hydrating', 2850000, 1990000],
+      ['signature-back-acne-pore-clear', 'Signature Back Acne & Pore Clear', 3300000, 2300000],
+      ['booty-firm-smooth', 'Booty Firm & Smooth', 2850000, 1990000],
+      ['signature-booty-bump-clear', 'Signature Booty Bump Clear', 2940000, 2050000],
+    ] },
+    { id: 'massages', title: 'Face Massages', off: '−20%', items: [
+      ['gua-sha-massage', 'Relaxing Gua Sha Massage', 1050000, 840000],
+      ['kobido-massage', 'Kobido Massage 30 min', 1500000, 1200000],
+      ['kobido-massage', 'Kobido Massage 60 min', 2550000, 2040000],
+      ['point-face-relaxation-ritual', 'Relaxation Ritual', 1650000, 1320000],
+    ] },
   ],
-  terms: 'Not combinable with other promotions. Valid for 5 months. Excludes add-ons.',
+  terms:
+    'Each package includes 3 sessions of the same treatment, valid for 5 months from the date of purchase. For individual use only, non-transferable, and redeemable exclusively at the POINT · FACE studio where purchased. Not combinable with other promotions. Excludes add-ons.',
 };
+
+// Technology table — menu "Our technology" page.
+const technology = [
+  ['Cleanse', 'Hydrodermabrasion', 'Vortex water-peel that cleanses, exfoliates and hydrates in one step'],
+  ['Cleanse', 'Ultrasonic skin scrubber', 'Gentle exfoliation that lifts dead cells and clears pores'],
+  ['Cleanse', 'Vacuum extraction', 'Painless suction of blackheads and impurities'],
+  ['Cleanse', 'Spot extraction', 'Precise clearing of blemishes and congested pores'],
+  ['Infuse', 'Oxygen infusion', 'High-pressure oxygen spray that delivers serums deep into the skin'],
+  ['Infuse', 'Ultrasonic infusion', 'Sound waves that boost the penetration of active ingredients'],
+  ['Infuse', 'Eye ultrasound', 'Targeted care that drains and smooths the eye contour'],
+  ['Lift', 'Radiofrequency', 'Gentle heat that stimulates collagen and firms the skin'],
+  ['Lift', 'Microcurrent', 'Low-level current that tones, lifts and contours the face'],
+  ['Lift', 'Multipolar lifting', 'Sculpting device that lifts, firms and drains'],
+  ['Calm', 'High frequency', 'Antibacterial action that calms breakouts and inflammation'],
+  ['Calm', 'Cryo · cold hammer', 'Cooling therapy that soothes, tightens pores and seals in care'],
+  ['Calm', 'LED light therapy', 'Different light colours to boost the skin, chosen for your skin’s needs'],
+];
+
+const skinTypes = [
+  ['Dry', 'Tight in the morning, rough or flaky patches, dull.'],
+  ['Oily', 'Shiny, oil in the T-zone, enlarged pores, blackheads.'],
+  ['Sensitive', 'Reactive to products, redness, heat or itching.'],
+  ['Combination', 'Oily T-zone, dry cheeks, pores on the nose.'],
+  ['Acne-prone', 'Frequent breakouts, often combination to oily.'],
+  ['Normal', 'Dewy, balanced, no major concerns.'],
+];
+
+// The three families of care — menu "About us" page.
+const families = [
+  ['Botanical facial', 'A traditional facial that cleanses, exfoliates, massages and nourishes the skin with manual techniques and natural skincare: a gentle, sensory ritual for a healthy glow.'],
+  ['Hydrafacial', 'A modern, technology-based facial combining hydrodermabrasion, oxygen, ultrasound, radiofrequency and LED to deeply cleanse, hydrate and rejuvenate, with instant, visible results.'],
+  ['Face massage', 'Specialised hands-on techniques: Japanese Kobido, lymphatic drainage, Gua Sha and intra-oral Buccal massage to release tension, depuff, lift and sculpt the face naturally.'],
+];
 
 const aftercare = {
   hydrafacial: [
@@ -426,4 +716,10 @@ const aftercare = {
   ],
 };
 
-module.exports = { categories, treatments, addOns, hydrojellyMasks, ledColours, packages, aftercare };
+// Treatments of a studio-exclusive family inherit its studio.
+treatments.forEach((t) => {
+  const cat = categories.find((c) => c.id === t.category);
+  if (cat && cat.onlyAt) t.onlyAt = cat.onlyAt;
+});
+
+module.exports = { categories, treatments, addOns, hydrojellyMasks, ledColours, packages, aftercare, technology, skinTypes, families };

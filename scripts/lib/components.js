@@ -1,5 +1,5 @@
 const site = require('../../src/data/site');
-const { esc, idr, idrK, img, waLink, waText, fmtDate } = require('./utils');
+const { esc, idr, idrK, img, waLink, waText, fmtDate, freshaFor, locationsFor } = require('./utils');
 
 const breadcrumb = (items) => `
 <nav class="breadcrumb container" aria-label="Breadcrumb">
@@ -42,9 +42,10 @@ const groupedTreatmentList = (treatments, categories, opts = {}) => {
   return categories
     .map((cat) => {
       const items = treatments.filter((t) => t.category === cat.id);
+      if (!items.length) return '';
       return `
 <div class="hover-group">
-  <p class="hover-group__label" data-reveal><span>${esc(cat.short)}</span><span>${items.length}</span></p>
+  <p class="hover-group__label" data-reveal><span>${esc(cat.short)}${cat.onlyAt && !opts.location ? ` · Only at ${studioName(cat.onlyAt)}` : ''}</span><span>${items.length}</span></p>
   <ul class="hover-list" data-hover-list>${items.map((t) => treatmentRow(t, n++, opts)).join('')}</ul>
 </div>`;
     })
@@ -102,13 +103,13 @@ const bookingBand = (treatment) => `
       <p class="book-band__text">Choose your studio in Uluwatu. A complimentary skin analysis is included with every treatment.</p>
     </div>
     <div class="book-band__options">
-      ${site.locations
+      ${locationsFor(typeof treatment === 'object' ? treatment : null)
         .map(
           (l) => `
       <div class="book-band__loc">
         <p class="book-band__loc-name">${l.name}</p>
         <a class="btn btn--solid" href="${waLink(l, waText(l, treatment))}" target="_blank" rel="noopener" data-magnetic>WhatsApp</a>
-        <a class="btn btn--ghost" href="${l.fresha}" target="_blank" rel="noopener">Fresha</a>
+        <a class="btn btn--ghost" href="${freshaFor(typeof treatment === 'object' ? treatment : null, l)}" target="_blank" rel="noopener">Fresha</a>
       </div>`
         )
         .join('')}
@@ -228,9 +229,29 @@ const articleCard = (a, i = 0) => `
   </a>
 </article>`;
 
+const studioName = (id) => (site.locations.find((l) => l.id === id) || {}).name || '';
+
+// 3-session package tables. opts.slug limits rows to one treatment (used on treatment pages).
+function packageTables(groups, opts = {}) {
+  return groups
+    .map((g) => {
+      const items = opts.slug ? g.items.filter(([s]) => s === opts.slug) : g.items;
+      if (!items.length) return '';
+      return `
+<div class="table-wrap pkg-table" data-reveal>
+  <table class="price-table">
+    <caption><span>${esc(g.title)}</span><span class="tag">${g.off}</span>${g.onlyAt ? `<span class="pkg-only">Only at ${studioName(g.onlyAt)}</span>` : ''}</caption>
+    <thead><tr><th scope="col">3 sessions</th><th scope="col">Normal price</th><th scope="col">Package price</th></tr></thead>
+    <tbody>${items.map(([, n, was, now]) => `<tr><th scope="row">${esc(n)}</th><td><s>${idr(was)}</s></td><td><strong>${idr(now)}</strong></td></tr>`).join('')}</tbody>
+  </table>
+</div>`;
+    })
+    .join('');
+}
+
 const list = (items, cls = 'list-dash') => `<ul class="${cls}">${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
 
 module.exports = {
   breadcrumb, sectionHead, treatmentRow, groupedTreatmentList, treatmentCard, concernTile, faqList, marquee, bookingBand,
-  reviewsSection, studiosSection, articleCard, list, priceLabel, stars,
+  reviewsSection, studiosSection, articleCard, list, priceLabel, stars, packageTables, studioName,
 };

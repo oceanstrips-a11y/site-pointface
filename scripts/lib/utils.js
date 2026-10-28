@@ -15,9 +15,34 @@ const abs = (path) => site.url + path;
 const waLink = (loc, text) =>
   `https://wa.me/${loc.whatsapp}?text=${encodeURIComponent(text)}`;
 
-const waText = (loc, treatment) =>
-  `Hi POINT · FACE ${loc.name}! I'd like to book ${treatment ? 'the ' + treatment : 'a treatment'}. ` +
-  'Could you tell me your availability?';
+const bookingLinks = require('../../src/data/booking-links');
+
+// "Ultimate Korean Glass Skin & Hydralift (80 min · IDR 1,300,000)"
+const treatmentLabel = (t) =>
+  `${t.name} (${(t.durations || [t.duration]).join('/')} min · ${(t.prices || [t.price]).map(idr).join(' / ')})`;
+
+// treatment: a treatment object (personalised message) or a free label such as "Duo Package".
+const waText = (loc, treatment) => {
+  const what = !treatment ? 'a treatment' : typeof treatment === 'string' ? `the ${treatment}` : `the ${treatmentLabel(treatment)}`;
+  return `Hi POINT · FACE ${loc.name}! I'd like to book ${what}. Could you tell me your availability?`;
+};
+
+// Direct Fresha link for a treatment at a studio, falling back to the studio page.
+const freshaFor = (t, loc) => (t && bookingLinks[t.slug] && bookingLinks[t.slug][loc.id]) || loc.fresha;
+
+// Studios offering a treatment (HydroJelly: Ungasan only, Body: Bingin only).
+const locationsFor = (t) => site.locations.filter((l) => !t || !t.onlyAt || t.onlyAt === l.id);
+
+// Attributes for any "Book" button: the booking panel reads them to personalise WhatsApp + Fresha.
+const bookAttrs = (t) => {
+  if (!t) return 'data-book';
+  if (typeof t === 'string') return `data-book data-treatment="${esc(t)}"`;
+  return (
+    `data-book data-treatment="${esc(treatmentLabel(t))}"` +
+    (t.onlyAt ? ` data-only="${t.onlyAt}"` : '') +
+    site.locations.map((l) => ` data-fresha-${l.id}="${esc(freshaFor(t, l))}"`).join('')
+  );
+};
 
 /**
  * Responsive <img> using the two generated WebP sizes.
@@ -42,4 +67,4 @@ function img(name, alt, opts = {}) {
 const fmtDate = (iso) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-module.exports = { esc, stripTags, idr, idrK, abs, waLink, waText, img, fmtDate };
+module.exports = { esc, stripTags, idr, idrK, abs, waLink, waText, img, fmtDate, treatmentLabel, freshaFor, locationsFor, bookAttrs };

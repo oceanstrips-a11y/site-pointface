@@ -8,6 +8,7 @@ const wordmark = (cls = '') =>
 
 function header(current) {
   const links = site.nav
+    .filter((n) => !n.mobileOnly)
     .map((n) => `<a href="${n.href}" class="nav__link${current === n.href ? ' is-current' : ''}"${current === n.href ? ' aria-current="page"' : ''}>${n.label}</a>`)
     .join('');
   return `
@@ -99,11 +100,11 @@ function bookingDialog() {
     <p class="book-dialog__treatment" data-book-treatment hidden></p>
     <div class="book-dialog__group">
       <p class="book-dialog__label"><span class="icon-wa" aria-hidden="true"></span>WhatsApp</p>
-      ${locs.map((l) => `<a class="book-option" data-wa="${l.id}" href="${waLink(l, waText(l))}" target="_blank" rel="noopener"><span>${l.name}</span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
+      ${locs.map((l) => `<a class="book-option" data-wa="${l.id}" data-loc="${l.id}" href="${waLink(l, waText(l))}" target="_blank" rel="noopener"><span>${l.name}</span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
     </div>
     <div class="book-dialog__group">
       <p class="book-dialog__label">Online booking · Fresha</p>
-      ${locs.map((l) => `<a class="book-option" href="${l.fresha}" target="_blank" rel="noopener"><span>${l.name}</span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
+      ${locs.map((l) => `<a class="book-option" data-fresha="${l.id}" data-loc="${l.id}" href="${l.fresha}" target="_blank" rel="noopener"><span>${l.name}</span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
     </div>
     <p class="book-dialog__note">Complimentary skin analysis included · ${site.priceNote}</p>
   </div>

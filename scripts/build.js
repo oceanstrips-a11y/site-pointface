@@ -4,13 +4,13 @@ const fs = require('fs');
 const path = require('path');
 
 const site = require('../src/data/site');
-const { categories, treatments, addOns, hydrojellyMasks, ledColours, packages, aftercare } = require('../src/data/treatments');
+const { categories, treatments, addOns, hydrojellyMasks, ledColours, packages, aftercare, technology, skinTypes, families } = require('../src/data/treatments');
 const concerns = require('../src/data/concerns');
 const articles = require('../src/data/articles').sort((a, b) => b.date.localeCompare(a.date));
 const faq = require('../src/data/faq');
 const reviews = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/data/reviews.json'), 'utf8'));
 
-const { esc, stripTags, idr, img, abs, waLink, waText, fmtDate } = require('./lib/utils');
+const { esc, stripTags, idr, img, abs, waLink, waText, fmtDate, freshaFor, locationsFor, bookAttrs } = require('./lib/utils');
 const S = require('./lib/schema');
 const C = require('./lib/components');
 const { page, wordmark } = require('./lib/layout');
@@ -42,7 +42,7 @@ const today = new Date().toISOString().slice(0, 10);
 /* ───────────────────────────── HOME ───────────────────────────── */
 function home() {
   const bestSellers = [
-    [bySlug['ultimate-korean-glass-skin-hydralift'], 'COSRX, SKIN1004 &amp; Beauty of Joseon', 'Discover the 17 steps'],
+    [bySlug['ultimate-korean-glass-skin-hydralift'], 'COSRX, SKIN1004 &amp; Beauty of Joseon', 'Discover the 18 steps'],
     [bySlug['advanced-collagen-booster'], 'COSRX, SKIN1004, Mediheal &amp; Medicube', 'Discover the treatment'],
   ];
 
@@ -119,7 +119,7 @@ ${C.studiosSection()}
         </div>
         <p class="signature__price" data-reveal>${t.priceWas ? `<s>${idr(t.priceWas)}</s> ` : ''}<strong>${idr(t.price)}</strong>${t.priceWas ? ' <span class="tag">25% off</span>' : ''}</p>
         <div class="signature__ctas" data-reveal>
-          <a href="/book/" class="btn btn--solid" data-book data-treatment="${esc(t.name)}" data-magnetic>Book this facial</a>
+          <a href="/book/" class="btn btn--solid" ${bookAttrs(t)} data-magnetic>Book this facial</a>
           <a class="link link--arrow" href="/treatments/${t.slug}/">${more}</a>
         </div>
       </div>
@@ -180,7 +180,7 @@ ${C.studiosSection()}
       <p data-reveal>Living in Bali? Our 3-session packages save up to 30% on facials and 20% on face massages.</p>
       <div class="signature__ctas" data-reveal>
         <a href="/book/" class="btn btn--solid" data-book data-treatment="Duo Package" data-magnetic>Book for two</a>
-        <a class="link link--arrow" href="/treatments/#packages">See all packages</a>
+        <a class="link link--arrow" href="/packages/">See all packages</a>
       </div>
     </div>
   </div>
@@ -220,7 +220,7 @@ ${C.bookingBand()}`;
       bodyClass: 'is-home',
       schema: S.graph(
         S.webPage('/', 'POINT · FACE — Expert Facials in Uluwatu, Bali', site.description, { about: { '@id': abs('/#organization') } }),
-        ...site.locations.map((l) => S.business(l, { treatments, reviews })),
+        ...site.locations.map((l) => S.business(l, { treatments: treatments.filter((t) => !t.onlyAt || t.onlyAt === l.id), reviews })),
         S.faqPage(faq, '/')
       ),
     }),
@@ -235,30 +235,28 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/']])}
 <section class="page-hero container">
   <p class="eyebrow" data-reveal>Treatments menu · Prices</p>
   <h1 class="h-display h-display--xl" data-split>Expert facials, Hydrafacials &amp; face massages</h1>
-  <p class="page-hero__lede" data-reveal>Four families of treatments at both Uluwatu studios — Ungasan and Bingin. ${site.priceNote} Every treatment includes a complimentary professional skin analysis.</p>
+  <p class="page-hero__lede" data-reveal>Korean Hydrafacials, HydroJelly Hydrafacials, natural facials, Korean Body Hydrafacials and face massages in Uluwatu. HydroJelly Hydrafacials are exclusive to Uluwatu Ungasan, Korean Body Hydrafacials to Uluwatu Bingin. ${site.priceNote} Every treatment includes a free AI-powered skin analysis.</p>
 </section>
 
 <nav class="cat-nav" aria-label="Treatment categories" data-scrollspy>
   <div class="container cat-nav__inner">
     ${categories.map((c) => `<a href="#${c.id}">${c.short}</a>`).join('')}
     <a href="#add-ons">Add-ons</a>
-    <a href="#packages">Packages</a>
+    <a href="#technology">Technology</a>
     <a href="#aftercare">Aftercare</a>
+    <a href="/packages/">Packages</a>
   </div>
 </nav>
 
 <section class="section section--first compare" aria-labelledby="compare-title">
-  <div class="container compare__grid">
-    <div data-reveal>
-      <p class="eyebrow">Facial</p>
-      <h2 class="h-sub" id="compare-title">A traditional facial</h2>
-      <p>Cleansing, exfoliating, massaging and nourishing the skin with manual techniques and natural skincare. A gentle, sensory ritual for visible freshness and comfort.</p>
-    </div>
-    <div data-reveal style="--d:120ms">
-      <p class="eyebrow">Hydrafacial</p>
-      <h2 class="h-sub">An advanced Hydrafacial</h2>
-      <p>A technology-based facial using hydrodermabrasion, oxygen infusion, ultrasonic penetration, radiofrequency and LED therapy for deep cleansing, hydration and instant, visible results.</p>
-    </div>
+  <h2 class="sr-only" id="compare-title">Facial, Hydrafacial or face massage?</h2>
+  <div class="container compare__grid compare__grid--3">
+    ${families.map(([n, d], i) => `
+    <div data-reveal style="--d:${i * 120}ms">
+      <p class="eyebrow">0${i + 1}</p>
+      <h3 class="h-sub">${n}</h3>
+      <p>${esc(d)}</p>
+    </div>`).join('')}
   </div>
 </section>
 
@@ -269,7 +267,7 @@ ${categories
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow" data-reveal>0${ci + 1} · ${treatments.filter((t) => t.category === cat.id).length} treatments</p>
+        <p class="eyebrow" data-reveal>0${ci + 1} · ${treatments.filter((t) => t.category === cat.id).length} treatments${cat.onlyAt ? ` · Only at ${C.studioName(cat.onlyAt)}` : ''}</p>
         <h2 class="h-display" id="${cat.id}-title" data-split>${cat.name}</h2>
       </div>
       <p class="section-head__intro" data-reveal>${esc(cat.intro)}</p>
@@ -282,7 +280,7 @@ ${categories
 
 <section class="section" id="add-ons" aria-labelledby="addons-title">
   <div class="container">
-    ${C.sectionHead({ eyebrow: '05 · Add-ons', title: 'Personalised boosters', intro: 'Add to any treatment to target a concern or deepen the results.' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="addons-title"')}
+    ${C.sectionHead({ eyebrow: 'Add-ons', title: 'Personalised boosters', intro: 'Add to any treatment to target a concern or deepen the results.' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="addons-title"')}
     <div class="addons">
       ${addOns
         .map(
@@ -290,7 +288,7 @@ ${categories
       <article class="addon" data-reveal style="--d:${i * 80}ms">
         <div class="addon__media img-zoom">${img(a.image, a.name, { sizes: '(max-width: 760px) 50vw, 20vw' })}</div>
         <h3 class="addon__name">${esc(a.name)}</h3>
-        <p class="addon__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}</p>
+        <p class="addon__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? ` · Only at ${C.studioName(a.onlyAt)}` : ''}</p>
         <p>${esc(a.description)}</p>
       </article>`
         )
@@ -298,8 +296,8 @@ ${categories
     </div>
     <div class="twocol">
       <div data-reveal>
-        <h3 class="h-sub">HydroJelly masks</h3>
-        <dl class="def-list">${hydrojellyMasks.map(([n, d]) => `<div><dt>${n}</dt><dd>${d}</dd></div>`).join('')}</dl>
+        <h3 class="h-sub">HydroJelly formulas <span class="tag">Only at Uluwatu Ungasan</span></h3>
+        <ul class="masks">${hydrojellyMasks.map(([n, d, im]) => `<li><div class="masks__img">${img(im, n + ' HydroJelly mask', { sizes: '120px' })}</div><div><p class="masks__name">${n}</p><p class="masks__desc">${d}</p></div></li>`).join('')}</ul>
       </div>
       <div data-reveal style="--d:120ms">
         <h3 class="h-sub">LED therapy — 7 colours</h3>
@@ -309,26 +307,31 @@ ${categories
   </div>
 </section>
 
-<section class="section section--tint" id="packages" aria-labelledby="packages-title">
+<section class="section section--tint" id="technology" aria-labelledby="tech-title">
   <div class="container">
-    ${C.sectionHead({ eyebrow: '06 · Packages & offers', title: 'Packages' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="packages-title"')}
-    <div class="package-duo" data-reveal>
-      <div>
-        <p class="eyebrow">Best deal · Friends & partners</p>
-        <h3 class="h-sub">${packages.duo.name}</h3>
-        <p>${esc(packages.duo.description)}</p>
-      </div>
-      <p class="package-duo__price"><s>${idr(packages.duo.priceWas)}</s><strong>${idr(packages.duo.price)}</strong></p>
-      <a href="/book/" class="btn btn--solid" data-book data-treatment="Duo Package">Book the duo</a>
-    </div>
+    ${C.sectionHead({ eyebrow: 'Our technology', title: 'Advanced Hydrafacial technology', intro: 'Professional multi-function Hydrafacial systems in both studios. Each treatment combines several technologies, chosen for your skin on the day, to cleanse, infuse, lift and calm in one non-invasive session with no downtime.' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="tech-title"')}
     <div class="table-wrap" data-reveal>
-      <table class="price-table">
-        <caption>3-session packages</caption>
-        <thead><tr><th scope="col">Treatment</th><th scope="col">Normal price (3 sessions)</th><th scope="col">Package price</th></tr></thead>
-        <tbody>${packages.threeSessions.map(([n, was, now, off]) => `<tr><th scope="row">${esc(n)}</th><td><s>${idr(was)}</s></td><td><strong>${idr(now)}</strong> <span class="tag">${off}</span></td></tr>`).join('')}</tbody>
+      <table class="price-table tech-table">
+        <thead><tr><th scope="col">Step</th><th scope="col">Technology</th><th scope="col">What it does</th></tr></thead>
+        <tbody>${technology.map(([st, n, d]) => `<tr><td>${st}</td><th scope="row">${n}</th><td>${d}</td></tr>`).join('')}</tbody>
       </table>
     </div>
-    <p class="fine">${packages.terms} ${site.priceNote}</p>
+    <div class="skin-types" data-reveal>
+      <h3 class="h-sub">What is your skin type?</h3>
+      <dl class="skin-types__grid">${skinTypes.map(([n, d], i) => `<div><dt><span>0${i + 1}</span> ${n}</dt><dd>${d}</dd></div>`).join('')}</dl>
+      <p class="fine">Every treatment begins with a professional skin analysis.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="pk-teaser">
+  <div class="container package-duo" data-reveal>
+    <div>
+      <p class="eyebrow">Packages · 3 sessions</p>
+      <h2 class="h-sub" id="pk-teaser">Consistency is the secret to glowing skin</h2>
+      <p>Save 30% on Korean Hydrafacials, HydroJelly and Body Hydrafacials, and 20% on natural facials and face massages. Valid 5 months.</p>
+    </div>
+    <a href="/packages/" class="btn btn--solid">See all packages</a>
   </div>
 </section>
 
@@ -393,8 +396,8 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
       <p class="treatment__pillars" data-reveal>${t.pillars.join(' · ')}</p>
       <div class="treatment__buy" data-reveal>
         <p class="treatment__price">${C.priceLabel(t)}${t.priceWas ? ` <s>${idr(t.priceWas)}</s> <span class="tag">25% off</span>` : ''}</p>
-        <a href="/book/" class="btn btn--solid" data-book data-treatment="${esc(t.name)}" data-magnetic>Book this treatment</a>
-        <p class="fine">${site.priceNote} Available at Uluwatu Ungasan &amp; Uluwatu Bingin.</p>
+        <a href="/book/" class="btn btn--solid" ${bookAttrs(t)} data-magnetic>Book this treatment</a>
+        <p class="fine">${site.priceNote} ${t.onlyAt ? `<strong>Only at ${C.studioName(t.onlyAt)}.</strong>` : 'Available at Uluwatu Ungasan &amp; Uluwatu Bingin.'}</p>
       </div>
       <div class="answer-box" data-reveal>
         <p class="eyebrow">In short</p>
@@ -416,6 +419,31 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
     </div>
   </div>
 </article>
+
+<section class="section boost" aria-labelledby="boost-title">
+  <div class="container">
+    ${C.sectionHead({ eyebrow: 'Add-ons & package', title: 'Boost it, or save on 3 sessions' }).replace('<h2 class="h-display"', '<h2 class="h-display" id="boost-title"')}
+    <div class="boost__grid">
+      <div>
+        <p class="eyebrow" data-reveal>Add-ons · add to this treatment</p>
+        <ul class="addon-rows">${addOns
+          .filter((a) => !a.onlyAt || !t.onlyAt || a.onlyAt === t.onlyAt)
+          .map((a) => `<li data-reveal><div class="addon-rows__img">${img(a.image, a.name, { sizes: '96px' })}</div><div><p class="addon-rows__name">${esc(a.name)}</p><p class="addon-rows__desc">${esc(a.description)}</p></div><p class="addon-rows__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</p></li>`)
+          .join('')}</ul>
+      </div>
+      <div>
+        <p class="eyebrow" data-reveal>Package</p>
+        ${
+          packages.groups.some((g) => g.items.some(([sl]) => sl === t.slug))
+            ? C.packageTables(packages.groups, { slug: t.slug }) + `<p class="fine" data-reveal>${packages.terms}</p>`
+            : `<p class="boost__none" data-reveal>No package for this treatment. Add it to any facial or Hydrafacial.</p>`
+        }
+        ${t.slug === 'ultimate-korean-glass-skin-hydralift' ? `<div class="package-duo package-duo--sm" data-reveal><div><p class="eyebrow">Duo Package · friends &amp; partners</p><p>${esc(packages.duo.description)}</p></div><p class="package-duo__price"><s>${idr(packages.duo.priceWas)}</s><strong>${idr(packages.duo.price)}</strong></p></div>` : ''}
+        <a class="link link--arrow" href="/packages/" data-reveal>All packages</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 ${
   t.faqs.length
@@ -441,7 +469,7 @@ ${
     : ''
 }
 
-${C.bookingBand(t.name)}`;
+${C.bookingBand(t)}`;
 
   write(
     p,
@@ -457,6 +485,59 @@ ${C.bookingBand(t.name)}`;
         S.service(t, cat),
         S.breadcrumbs([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]]),
         S.faqPage(t.faqs, p)
+      ),
+    }),
+    { priority: 0.8, lastmod: today }
+  );
+}
+
+
+/* ───────────────────────────── PACKAGES ───────────────────────────── */
+function packagesPage() {
+  const p = '/packages/';
+  const body = `
+${C.breadcrumb([['Home', '/'], ['Packages', p]])}
+<section class="page-hero container">
+  <p class="eyebrow" data-reveal>Packages &amp; offers · 3 sessions</p>
+  <h1 class="h-display h-display--xl" data-split>Consistency is the secret to glowing skin</h1>
+  <p class="page-hero__lede" data-reveal>Book 3 sessions of the same treatment and save 30% on Korean Hydrafacials, HydroJelly and Body Hydrafacials, or 20% on natural facials and face massages. Valid 5 months. ${site.priceNote}</p>
+</section>
+<section class="section section--first">
+  <div class="container pkg-page">
+    ${C.packageTables(packages.groups)}
+    <div class="package-duo" data-reveal>
+      <div>
+        <p class="eyebrow">Duo Package · friends &amp; partners</p>
+        <h2 class="h-sub">${packages.duo.name}</h2>
+        <p>${esc(packages.duo.description)}</p>
+      </div>
+      <p class="package-duo__price"><s>${idr(packages.duo.priceWas)}</s><strong>${idr(packages.duo.price)}</strong></p>
+      <a href="/book/" class="btn btn--solid" ${bookAttrs('Duo Package')}>Book the duo</a>
+    </div>
+    <div class="pkg-terms" data-reveal>
+      <p class="eyebrow">Conditions</p>
+      <p>${packages.terms}</p>
+    </div>
+  </div>
+</section>
+${C.bookingBand('3-session package')}`;
+  write(
+    p,
+    page({
+      path: p,
+      title: 'Facial Packages in Uluwatu — Save up to 30% on 3 Sessions',
+      description: '3-session packages at POINT · FACE Uluwatu: −30% on Korean Hydrafacials, HydroJelly and Korean Body Hydrafacials, −20% on natural facials and face massages. Valid 5 months.',
+      body,
+      current: p,
+      schema: S.graph(
+        S.webPage(p, 'Packages', 'POINT · FACE 3-session packages', {
+          mainEntity: {
+            '@type': 'OfferCatalog',
+            name: '3-session packages',
+            itemListElement: packages.groups.flatMap((g) => g.items.map(([sl, n, , now]) => ({ '@type': 'Offer', name: `${n} — 3 sessions`, price: now, priceCurrency: 'IDR', url: abs(`/treatments/${sl}/`) }))),
+          },
+        }),
+        S.breadcrumbs([['Home', '/'], ['Packages', p]])
       ),
     }),
     { priority: 0.8, lastmod: today }
@@ -554,7 +635,7 @@ ${C.breadcrumb([['Home', '/'], ['Skin concerns', '/concerns/'], [c.name, p]])}
           <p>${esc(why)}</p>
           <p class="rec__price">${C.priceLabel(t)}</p>
         </div>
-        <a href="/book/" class="btn btn--ghost btn--sm" data-book data-treatment="${esc(t.name)}">Book</a>
+        <a href="/book/" class="btn btn--ghost btn--sm" ${bookAttrs(t)}>Book</a>
       </li>`;
         })
         .join('')}
@@ -645,13 +726,15 @@ ${C.bookingBand()}`;
 
 function locationPage(l) {
   const p = `/locations/${l.slug}/`;
+  const locationsTreatments = treatments.filter((t) => !t.onlyAt || t.onlyAt === l.id);
+  const exclusive = categories.filter((c) => c.onlyAt === l.id).map((c) => c.name);
   const other = site.locations.find((x) => x.id !== l.id);
   const mapQuery = encodeURIComponent(`POINT FACE ${l.street} ${l.locality} Bali`);
   const locFaqs = [
     [`Where is POINT · FACE ${l.name}?`, `${l.street}, ${l.locality}, ${l.region} ${l.postalCode}, Indonesia. Close to ${l.nearby.slice(0, 3).join(', ')}.`],
     [`What are the opening hours?`, `${l.hours.label}. We recommend booking 1–3 days ahead in high season.`],
     [`How do I book at ${l.name}?`, `Send us a WhatsApp message on ${l.phoneDisplay} or book online on Fresha.`],
-    ['Which treatments are available?', 'The full POINT · FACE menu: Korean Hydrafacials, Korean HydroJelly Hydrafacials, natural facials, Kobido, Buccal, Gua Sha and the Relaxation Ritual, add-ons and packages.'],
+    ['Which treatments are available?', `Korean Hydrafacials, natural facials and face massages (Kobido, Buccal, Gua Sha, Relaxation Ritual), add-ons and packages${exclusive.length ? `, plus ${exclusive.join(' and ')}, exclusive to this studio` : ''}.`],
   ];
   const body = `
 ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}
@@ -682,7 +765,7 @@ ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}
 <section class="section section--tint" aria-labelledby="menu-here">
   <div class="container">
     ${C.sectionHead({ eyebrow: `Menu · ${l.name}`, title: 'Treatments at this studio', link: ['Full menu & prices', '/treatments/'] }).replace('<h2 class="h-display"', '<h2 class="h-display" id="menu-here"')}
-    ${C.groupedTreatmentList(treatments, categories)}
+    ${C.groupedTreatmentList(locationsTreatments, categories, { location: l.id })}
   </div>
 </section>
 
@@ -715,7 +798,7 @@ ${C.bookingBand()}`;
       body,
       current: '/locations/',
       schema: S.graph(
-        S.business(l, { treatments, reviews }),
+        S.business(l, { treatments: locationsTreatments, reviews }),
         S.breadcrumbs([['Home', '/'], ['Studios', '/locations/'], [l.name, p]]),
         S.faqPage(locFaqs, p)
       ),
@@ -993,6 +1076,8 @@ Key facts:
 - Hours: ${site.locations[0].hours.label}.
 - Booking: WhatsApp (${site.locations.map((l) => `${l.name}: +${l.whatsapp}`).join(', ')}) or online on Fresha.
 - Every treatment includes a free skin analysis using AI-powered diagnostic technology.
+- HydroJelly Hydrafacials are exclusive to Uluwatu Ungasan; Korean Body Hydrafacials (back, chest, booty) are exclusive to Uluwatu Bingin.
+- 3-session packages: −30% on Korean, HydroJelly and Body Hydrafacials, −20% on natural facials and face massages, valid 5 months (see ${abs('/packages/')}).
 - 4.9 average review rating; more than 2,000 satisfied clients.
 - ${site.priceNote}
 - Skincare brands: ${site.brands.join(', ')}.
@@ -1069,6 +1154,7 @@ fs.writeFileSync(path.join(OUT, 'data', 'reviews.json'), JSON.stringify(reviews)
 home();
 treatmentsIndex();
 treatments.forEach(treatmentPage);
+packagesPage();
 concernsIndex();
 concerns.forEach(concernPage);
 locationsIndex();

@@ -127,7 +127,16 @@
   let dockT = null;
   // The big line is sized with real font-size (like before); scrolling only scales it DOWN
   // into the header slot, so it can never overflow. When it arrives, the header copy takes over.
+  // Switch to the menu button whenever the inline menu would touch the centred line.
+  const navEl = $('.nav--primary');
+  function fitNav() {
+    if (!navEl || !dock || window.innerWidth <= 1100) { header && header.classList.remove('is-compact'); return; }
+    header.classList.remove('is-compact');
+    const gap = dock.getBoundingClientRect().left - navEl.getBoundingClientRect().right;
+    header.classList.toggle('is-compact', gap < 32);
+  }
   function measureDock() {
+    fitNav();
     if (!dock || !floatMark || !heroEl) return;
     floatMark.style.transform = 'none';
     const b = floatMark.getBoundingClientRect();
@@ -168,8 +177,11 @@
         header.classList.toggle('is-scrolled', docked);
         document.body.classList.toggle('is-docked', docked);
         if (floatMark && dockT && !reduce) {
-          const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; // ease-in-out
-          floatMark.style.transform = `translate(${(dockT.dx * e).toFixed(1)}px, ${(dockT.dy * e).toFixed(1)}px) scale(${(1 + (dockT.s - 1) * e).toFixed(4)})`;
+          // Shrink and centre first (ease-out), rise into the header last (ease-in), so the
+          // line is already small and centred when it reaches the menu row — no overlap.
+          const es = 1 - Math.pow(1 - p, 3);
+          const ey = Math.pow(p, 2.4);
+          floatMark.style.transform = `translate(${(dockT.dx * es).toFixed(1)}px, ${(dockT.dy * ey).toFixed(1)}px) scale(${(1 + (dockT.s - 1) * es).toFixed(4)})`;
         }
       } else {
         header.classList.toggle('is-scrolled', y > 0);
@@ -256,12 +268,21 @@
       if (!trigger) return;
       e.preventDefault();
       const t = trigger.dataset.treatment || '';
+      const only = trigger.dataset.only || '';
       treatmentEl.hidden = !t;
-      treatmentEl.textContent = t ? `Treatment: ${t}` : '';
+      treatmentEl.textContent = t ? `Treatment: ${t}${only ? ` · only at ${(data.locations.find((l) => l.id === only) || {}).name}` : ''}` : '';
+      // Personalised WhatsApp message per treatment and studio.
       $$('[data-wa]', dialog).forEach((a) => {
         const loc = data.locations.find((l) => l.id === a.dataset.wa);
         if (loc) a.href = `https://wa.me/${loc.whatsapp}?text=${encodeURIComponent(waText(loc, t))}`;
       });
+      // Direct Fresha link of the treatment when known, otherwise the studio page.
+      $$('[data-fresha]', dialog).forEach((a) => {
+        const loc = data.locations.find((l) => l.id === a.dataset.fresha);
+        a.href = trigger.getAttribute(`data-fresha-${a.dataset.fresha}`) || (loc && loc.fresha) || a.href;
+      });
+      // Studio-exclusive treatments only show the studio that offers them.
+      $$('[data-loc]', dialog).forEach((a) => { a.hidden = !!only && a.dataset.loc !== only; });
       dialog.showModal();
       document.body.classList.add('menu-open');
     });
@@ -290,7 +311,7 @@
       cursor.style.left = `${cx}px`; cursor.style.top = `${cy}px`;
       if (float) {
         const tilt = clamp((mx - fx) * 0.08, -8, 8);
-        float.style.transform = `translate3d(${fx - 120}px, ${fy - 160}px, 0) rotate(${tilt}deg) scale(${float.classList.contains('is-on') ? 1 : 0.6})`;
+        float.style.transform = `translate3d(${fx - 110}px, ${fy - 110}px, 0) rotate(${tilt}deg) scale(${float.classList.contains('is-on') ? 1 : 0.6})`;
       }
       requestAnimationFrame(loop);
     };

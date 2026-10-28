@@ -210,5 +210,133 @@
  "hero-glass-skin-glow-wide": [
   1920,
   1240
+ ],
+ "back-acne-pore-clear-sm": [
+  601,
+  900
+ ],
+ "back-acne-pore-clear": [
+  736,
+  1102
+ ],
+ "back-smooth-hydrating-sm": [
+  700,
+  862
+ ],
+ "back-smooth-hydrating": [
+  736,
+  906
+ ],
+ "body-hydrafacials-sm": [
+  700,
+  875
+ ],
+ "body-hydrafacials": [
+  736,
+  920
+ ],
+ "booty-bump-clear-sm": [
+  586,
+  900
+ ],
+ "booty-bump-clear": [
+  736,
+  1131
+ ],
+ "booty-firm-smooth-sm": [
+  600,
+  900
+ ],
+ "booty-firm-smooth": [
+  736,
+  1104
+ ],
+ "chest-bright-pigment-sm": [
+  599,
+  900
+ ],
+ "chest-bright-pigment": [
+  735,
+  1105
+ ],
+ "chest-firm-collagen-sm": [
+  675,
+  900
+ ],
+ "chest-firm-collagen": [
+  736,
+  981
+ ],
+ "chest-hydrating-sm": [
+  700,
+  685
+ ],
+ "chest-hydrating": [
+  735,
+  719
+ ],
+ "chest-spot-acne-sm": [
+  700,
+  323
+ ],
+ "chest-spot-acne": [
+  924,
+  427
+ ],
+ "cryo-mask-treatment-sm": [
+  598,
+  900
+ ],
+ "cryo-mask-treatment": [
+  1022,
+  1538
+ ],
+ "mask-blue-glacier-cryo-sm": [
+  265,
+  225
+ ],
+ "mask-blue-glacier-cryo": [
+  265,
+  225
+ ],
+ "mask-caviar-resilience-sm": [
+  231,
+  233
+ ],
+ "mask-caviar-resilience": [
+  231,
+  233
+ ],
+ "mask-egyptian-rose-sm": [
+  233,
+  231
+ ],
+ "mask-egyptian-rose": [
+  233,
+  231
+ ],
+ "mask-illuminating-orange-sm": [
+  233,
+  233
+ ],
+ "mask-illuminating-orange": [
+  233,
+  233
+ ],
+ "mask-vampire-plla-sm": [
+  237,
+  236
+ ],
+ "mask-vampire-plla": [
+  237,
+  236
+ ],
+ "vitamin-c-sunshine-glow-sm": [
+  507,
+  900
+ ],
+ "vitamin-c-sunshine-glow": [
+  1015,
+  1800
  ]
 }

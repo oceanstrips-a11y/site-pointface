@@ -205,7 +205,8 @@ module.exports = [
     approach:
       'Brightening works by exfoliating dull surface cells, inhibiting excess pigment (vitamin C, niacinamide), calming inflammation and — essential — protecting from UV. We combine Hydrafacial, ultrasonic vitamin C infusion, yellow & green LED and an Illuminating Orange HydroJelly mask.',
     treatments: [
-      ['bright-pigment-correct', 'Our dedicated brightening Hydrafacial with vitamin C, niacinamide and HydroJelly.'],
+      ['bright-pigment-correct', 'Our dedicated brightening Hydrafacial with vitamin C, niacinamide and HydroJelly (Ungasan).'],
+      ['vitamin-c-sunshine-glow', 'A Vitamin C radiance Hydrafacial to even the tone, at both studios.'],
       ['ultimate-korean-glass-skin-hydralift', 'For overall radiance and an even, glass-skin finish.'],
       ['k-balance-acne-clear', 'If marks come from active breakouts, treat the acne first.'],
     ],
@@ -246,10 +247,11 @@ module.exports = [
     whyBali:
       'Holiday rhythm — flights, sun, late dinners and sunset drinks — shows on the skin. A single glass-skin facial at the start or end of your trip resets texture and radiance.',
     approach:
-      'Our 17+ step Korean protocol exfoliates, decongests, hydrates in depth and seals: hydrodermabrasion, peptide and snail-mucin infusion, oxygen, high frequency, cold hammer and red & green LED.',
+      'Our 18+ step Korean protocol exfoliates, decongests, hydrates in depth and seals: hydrodermabrasion, peptide and snail-mucin infusion, oxygen, high frequency, cold hammer and red & green LED.',
     treatments: [
       ['ultimate-korean-glass-skin-hydralift', 'Our signature glass-skin Hydrafacial — the one to book.'],
-      ['bright-pigment-correct', 'If dullness comes with uneven tone or spots.'],
+      ['vitamin-c-sunshine-glow', 'Vitamin C and Korean brightening skincare for a sunny, radiant complexion.'],
+      ['bright-pigment-correct', 'If dullness comes with uneven tone or spots (Ungasan).'],
       ['caviar-luxury-anti-aging-lift', 'For mature skin wanting glow and lift together.'],
       ['point-face-relaxation-ritual', 'When dullness is really fatigue — a full switch-off.'],
     ],

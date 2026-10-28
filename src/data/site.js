@@ -48,8 +48,8 @@ module.exports = {
       slug: 'uluwatu-bingin',
       name: 'Uluwatu Bingin',
       fullName: 'POINT · FACE Uluwatu Bingin',
-      // TODO: full street address of the Bingin studio.
-      street: 'Bingin',
+      // From the Fresha listing — TODO: confirm.
+      street: 'Jl. Pantai Cemongkak No. 9',
       locality: 'Pecatu, Kuta Selatan',
       region: 'Bali',
       postalCode: '80361',
@@ -57,9 +57,8 @@ module.exports = {
       // TODO: confirm whether Bingin uses its own WhatsApp number.
       whatsapp: '628133793880',
       phoneDisplay: '+62 813 3793 880',
-      // TODO: paste the Fresha booking link of the Bingin studio.
-      fresha: 'https://www.fresha.com/',
-      maps: 'https://www.google.com/maps/search/?api=1&query=POINT%20FACE%20Bingin%20Uluwatu%20Bali',
+      fresha: 'https://www.fresha.com/en/a/point-face-facial-spa-bingin-pecatu-jl-pantai-cemongkak-no-9-dnxbd6ct?pId=2696384',
+      maps: 'https://www.google.com/maps/search/?api=1&query=POINT%20FACE%20Jl.%20Pantai%20Cemongkak%20No.%209%20Pecatu%20Bali',
       hours: { days: 'Mo-Su', opens: '10:00', closes: '19:00', label: 'Every day · 10:00 – 19:00' },
       geo: null,
       intro:
@@ -70,9 +69,10 @@ module.exports = {
 
   nav: [
     { label: 'Treatments', href: '/treatments/' },
+    { label: 'Packages', href: '/packages/' },
     { label: 'Skin Concerns', href: '/concerns/' },
     { label: 'Studios', href: '/locations/' },
     { label: 'Journal', href: '/journal/' },
-    { label: 'About', href: '/about/' },
+    { label: 'About', href: '/about/', mobileOnly: true }, // in the mobile menu + footer; keeps the desktop menu clear of the centred line
   ],
 };

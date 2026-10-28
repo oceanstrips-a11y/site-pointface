@@ -150,7 +150,7 @@ module.exports = [
 </table>
 
 <h2>If you live in Bali</h2>
-<p>Our <a href="/treatments/#packages">3-session packages</a> (up to 30% off, valid 5 months) are designed for exactly this rhythm.</p>
+<p>Our <a href="/packages/">3-session packages</a> (up to 30% off, valid 5 months) are designed for exactly this rhythm.</p>
 
 <h2>If you are on holiday</h2>
 <p>Book a hydrating or repairing facial in your first days to undo the flight, and a glow facial before you fly home. If you surf every day, add a ${t('cryo-skin-reset', 'Cryo Skin Reset')} midway.</p>
@@ -343,7 +343,7 @@ module.exports = [
 <p>If tension sits deep in your jaw — clenching, grinding — the ${t('buccal-massage', 'Buccal Massage')} works the muscles from inside the mouth. Add it to either massage.</p>
 
 <h2>Our recommendation</h2>
-<p>Before an event: Kobido 60 min + Buccal. After a stressful week: Gua Sha or the ${t('point-face-relaxation-ritual', 'Relaxation Ritual')}. Living in Bali: a <a href="/treatments/#packages">3-session massage package</a> at 20% off.</p>`,
+<p>Before an event: Kobido 60 min + Buccal. After a stressful week: Gua Sha or the ${t('point-face-relaxation-ritual', 'Relaxation Ritual')}. Living in Bali: a <a href="/packages/">3-session massage package</a> at 20% off.</p>`,
     faqs: [
       ['Can I do Gua Sha at home?', 'Yes, gently and with oil, always upward and outward. A professional session goes deeper and adds drainage techniques.'],
     ],
@@ -411,7 +411,7 @@ module.exports = [
     takeaways: [
       'Glass skin = hydrated, refined, luminous, clear skin.',
       'Three pillars: hydration, texture, barrier.',
-      'Our Ultimate Korean Glass Skin & Hydralift: 17+ steps, 80 min.',
+      'Our Ultimate Korean Glass Skin & Hydralift: 18+ steps, 80 min.',
       'Keep it with layered hydration and daily SPF.',
     ],
     body: `
@@ -426,7 +426,7 @@ module.exports = [
 </ol>
 
 <h2>How our glass-skin facial works</h2>
-<p>The ${t('ultimate-korean-glass-skin-hydralift', 'Ultimate Korean Glass Skin & Hydralift')} is our signature 80-minute protocol with 17+ steps: double cleansing, hydrodermabrasion, extraction, ultrasonic infusion of a 6-peptide booster, snail mucin and hyaluronic acid, oxygen therapy, high frequency, cold hammer, red & green LED and a hydrogel mask. Features COSRX, SKIN1004 and Beauty of Joseon.</p>
+<p>The ${t('ultimate-korean-glass-skin-hydralift', 'Ultimate Korean Glass Skin & Hydralift')} is our signature 80-minute protocol with 18+ steps: double cleansing, hydrodermabrasion, extraction, ultrasonic infusion of a 6-peptide booster, snail mucin and hyaluronic acid, oxygen therapy, high frequency, cold hammer, red & green LED and a hydrogel mask. Features COSRX, SKIN1004 and Beauty of Joseon.</p>
 
 <h2>How to keep it</h2>
 <ul>
@@ -476,5 +476,154 @@ module.exports = [
       ['Can I get a facial the day before my wedding?', 'We advise against exfoliating facials the day before. A massage and hydrating mask are perfect.'],
     ],
     related: ['caviar-luxury-anti-aging-lift', 'ultimate-korean-glass-skin-hydralift', 'buccal-massage'],
+  },
+  {
+    slug: 'korean-skincare-ingredients-benefits',
+    title: 'Korean Skincare Ingredients: Benefits of Snail Mucin, Centella, PDRN & More',
+    description:
+      'The Korean skincare ingredients we use in our Uluwatu facials, what each one does for your skin, and which COSRX, SKIN1004, Mediheal and Beauty of Joseon products they come from.',
+    category: 'K-Beauty',
+    date: '2026-10-20',
+    readTime: 7,
+    image: 'serum-texture',
+    answer:
+      'Korean skincare is built on gentle, hydrating, barrier-friendly actives. Snail mucin and hyaluronic acid hydrate and plump, centella asiatica calms and repairs, niacinamide evens tone and regulates oil, peptides and PDRN support firmness and recovery, BHA clears pores, and vitamin C brightens. At POINT · FACE we infuse them with Hydrafacial technology, using COSRX, SKIN1004, Mediheal, Medicube and Beauty of Joseon.',
+    takeaways: [
+      'Hydrate: snail mucin, hyaluronic acid, propolis.',
+      'Calm & repair: centella asiatica, PDRN, panthenol (vitamin B5).',
+      'Clarify: BHA (salicylic acid), tea tree, niacinamide.',
+      'Brighten & firm: vitamin C, peptides, collagen.',
+    ],
+    body: `
+<h2>Why Korean skincare works so well in Bali</h2>
+<p>Korean formulas favour lightweight textures, layering and barrier care over harsh actives. That suits a hot, humid, sunny climate: skin gets hydration without heaviness, and calming ingredients help it cope with sun, salt water and air-conditioning.</p>
+
+<h2>Snail mucin</h2>
+<p>Snail secretion filtrate is rich in glycoproteins and hyaluronic acid. It hydrates, softens and supports skin recovery, which gives the plump, dewy look of <a href="/journal/what-is-glass-skin/">glass skin</a>. We use COSRX Advanced Snail 96 Mucin Power Essence in our ${t('ultimate-korean-glass-skin-hydralift', 'Ultimate Korean Glass Skin & Hydralift')} and ${t('vitamin-c-sunshine-glow', 'Vitamin C Sunshine Glow')}.</p>
+
+<h2>Centella asiatica</h2>
+<p>Also called cica or tiger grass, centella is the hero of SKIN1004. It is known for calming redness, supporting the skin barrier and helping irritated skin recover, which makes it ideal after sun or breakouts. It appears in almost all of our Korean Hydrafacials.</p>
+
+<h2>Niacinamide</h2>
+<p>Vitamin B3 is a multitasker: it helps regulate oil, refine the look of pores, even skin tone and strengthen the barrier. It is a key active in ${t('k-balance-acne-clear', 'K-Balance Acne Clear')} and ${t('bright-pigment-correct', 'Bright & Pigment Correct')}.</p>
+
+<h2>BHA and tea tree</h2>
+<p>Salicylic acid (BHA) is oil-soluble, so it cleans inside the pore and helps clear blackheads. Paired with tea tree (SKIN1004 Tea-Trica), it is the base of our acne and body protocols, including the ${t('signature-back-acne-pore-clear', 'Signature Back Acne & Pore Clear')}.</p>
+
+<h2>Peptides and collagen</h2>
+<p>Peptides are short chains of amino acids that support the look of firmness and elasticity. Our ${t('advanced-collagen-booster', 'Advanced Collagen Booster')} combines a 6-peptide skin booster with a triple collagen serum, then uses microcurrent and red LED.</p>
+
+<h2>PDRN (salmon DNA)</h2>
+<p>PDRN is a regenerative ingredient popular in Korean dermatology. Applied topically and infused with ultrasound, it supports barrier repair and recovery. Read our full guide: <a href="/journal/what-is-pdrn-salmon-dna-facial/">What is a PDRN facial?</a></p>
+
+<h2>Vitamin C</h2>
+<p>Vitamin C is an antioxidant that helps brighten dull skin and even the look of dark spots. Our ${t('vitamin-c-sunshine-glow', 'Vitamin C Sunshine Glow')} uses Mediheal vitamin C with SKIN1004 Tone Brightening Capsule Cream. Always pair it with SPF 50 in Bali.</p>
+
+<h2>How we choose for your skin</h2>
+<p>Every treatment starts with a free AI-powered skin analysis. Your therapist then selects the actives and technologies your skin needs that day. Not sure where to start? See our ${c('dehydrated-skin-bali', 'skin concern guides')}.</p>`,
+    faqs: [
+      ['Is snail mucin suitable for sensitive skin?', 'It is generally well tolerated and soothing. If you have a known allergy or very reactive skin, tell your therapist during the skin analysis.'],
+      ['Can I use these ingredients at home after my facial?', 'Yes: gentle hydrators like snail mucin, centella and hyaluronic acid are perfect after a facial. Avoid acids and retinol for 5–7 days after a Hydrafacial.'],
+    ],
+    related: ['ultimate-korean-glass-skin-hydralift', 'vitamin-c-sunshine-glow', 'advanced-collagen-booster'],
+  },
+  {
+    slug: 'things-to-do-uluwatu-bali',
+    title: 'Best Things to Do in Uluwatu & Bali (and Where to Get a Facial)',
+    description:
+      'Our local guide to Uluwatu and the Bukit peninsula: temples, beaches, surf, sunsets and day trips in Bali, plus how to fit a facial into your trip.',
+    category: 'Uluwatu Guide',
+    date: '2026-10-23',
+    readTime: 6,
+    image: 'skin-confidence',
+    answer:
+      'In Uluwatu, watch the sunset and Kecak fire dance at Uluwatu Temple, spend your days on the beaches of Bingin, Padang Padang, Dreamland, Suluban and Melasti, surf or watch the surfers, and have a seafood dinner on Jimbaran Bay. From the Bukit, day trips reach Ubud, Nusa Dua and the islands. Between beach days, book a facial at POINT · FACE in Ungasan or Bingin to repair sun-exposed skin.',
+    takeaways: [
+      'Sunset: Uluwatu Temple and the Kecak fire dance.',
+      'Beaches: Bingin, Padang Padang, Dreamland, Suluban, Melasti.',
+      'Food: seafood dinner on Jimbaran Bay at sunset.',
+      'Skin: an after-sun or glow facial in Ungasan or Bingin.',
+    ],
+    body: `
+<h2>Uluwatu Temple and the Kecak dance</h2>
+<p>Pura Luhur Uluwatu sits on a cliff high above the Indian Ocean. Come in the late afternoon for the view and stay for the Kecak fire dance at sunset. Keep sunglasses and phones close: the temple monkeys are famous for snatching them.</p>
+
+<h2>The beaches of the Bukit</h2>
+<ul>
+<li><strong>Bingin</strong> — a cliffside village with stairs down to a reef beach and warungs. Our <a href="/locations/uluwatu-bingin/">Bingin studio</a> is a few minutes away.</li>
+<li><strong>Padang Padang</strong> — a small, photogenic cove reached through a gap in the rocks.</li>
+<li><strong>Dreamland</strong> — a wide sandy beach, one of the easier spots for a swim when the sea is calm.</li>
+<li><strong>Suluban</strong> — a beach hidden in a cave below Uluwatu's famous surf break.</li>
+<li><strong>Melasti</strong> — white sand framed by dramatic limestone cliffs, close to our <a href="/locations/uluwatu-ungasan/">Ungasan studio</a>.</li>
+</ul>
+<p>Waves and currents can be strong: check conditions, swim where locals swim and respect red flags.</p>
+
+<h2>Surf</h2>
+<p>Uluwatu, Padang Padang and Bingin are world-famous reef breaks, best left to experienced surfers. Beginners usually start with a lesson on a sandier beach. Watching the surfers from a cliff café at sunset is an Uluwatu ritual in itself. Surfers, read our <a href="/journal/post-surf-skin-care-uluwatu/">post-surf skin care guide</a>.</p>
+
+<h2>Sunset dinners and Jimbaran</h2>
+<p>Uluwatu's cliffs are lined with sunset bars and restaurants. For something classic, drive to Jimbaran Bay for grilled seafood with your feet in the sand.</p>
+
+<h2>Day trips from Uluwatu</h2>
+<ul>
+<li><strong>Nusa Dua</strong> — calm beaches and the Water Blow viewpoint.</li>
+<li><strong>Ubud</strong> — rice terraces, temples and Bali's cultural heart (plan a full day).</li>
+<li><strong>The Nusa islands</strong> — boats leave from Sanur for Nusa Penida and Nusa Lembongan.</li>
+</ul>
+
+<h2>Fit a facial into your trip</h2>
+<p>Sun, salt and long flights take a toll on the skin. Book a hydrating or repair facial in your first days, an after-sun ${t('cryo-skin-reset', 'Cryo Skin Reset')} mid-trip (Ungasan), and a glow facial such as the ${t('ultimate-korean-glass-skin-hydralift', 'Ultimate Korean Glass Skin & Hydralift')} before you fly home. Surfers in Bingin can also try our <a href="/treatments/#korean-body-hydrafacials">Korean Body Hydrafacials</a> for the back and chest.</p>`,
+    faqs: [
+      ['When is the best time to visit Uluwatu Temple?', 'Late afternoon, to enjoy the cliff views and stay for the Kecak dance at sunset.'],
+      ['Where can I get a facial in Uluwatu?', 'POINT · FACE has two studios: Uluwatu Ungasan (Jl. Toya Ning II) and Uluwatu Bingin (Jl. Pantai Cemongkak). Book on WhatsApp or Fresha.'],
+    ],
+    related: ['cryo-skin-reset', 'ultimate-korean-glass-skin-hydralift', 'pdrn-cellular-repair-salmon-dna'],
+  },
+  {
+    slug: 'best-hydrafacial-bali',
+    title: 'Best Hydrafacial in Bali: What Makes a Great Hydrafacial (and Where to Book in Uluwatu)',
+    description:
+      'How to recognise a great Hydrafacial in Bali: skin analysis, technology, Korean actives, tailored protocols and aftercare. Plus the Korean Hydrafacials we offer in Uluwatu.',
+    category: 'Comparison',
+    date: '2026-10-26',
+    readTime: 6,
+    image: 'hydrojelly-mask-treatment',
+    answer:
+      'The best Hydrafacial in Bali starts with a real skin analysis, uses a multi-function Hydrafacial system (hydrodermabrasion, extraction, ultrasonic and oxygen infusion, radiofrequency, LED), infuses actives chosen for your concern, and ends with aftercare adapted to sun and sea. In Uluwatu, POINT · FACE offers five Korean Hydrafacials at both studios, three HydroJelly Hydrafacials in Ungasan and Korean Body Hydrafacials in Bingin.',
+    takeaways: [
+      'Look for a skin analysis before the treatment.',
+      'Check the technologies and the skincare brands used.',
+      'The protocol should match your concern, not be one-size-fits-all.',
+      'Clear prices, tax and service included, and aftercare advice.',
+    ],
+    body: `
+<h2>1. A skin analysis first</h2>
+<p>A great Hydrafacial is tailored. At POINT · FACE every treatment begins with a free AI-powered skin analysis of hydration, oil, pores, pigmentation and sensitivity.</p>
+
+<h2>2. Real technology, not just a water peel</h2>
+<p>Hydrodermabrasion is the base, but the best results come from combining steps. Our systems cleanse (hydrodermabrasion, ultrasonic scrubber, vacuum and spot extraction), infuse (oxygen, ultrasound, eye ultrasound), lift (radiofrequency, microcurrent, multipolar lifting) and calm (high frequency, cryo, LED). See the full <a href="/treatments/#technology">technology table</a>.</p>
+
+<h2>3. Actives chosen for your concern</h2>
+<ul>
+<li>Glow &amp; hydration: ${t('ultimate-korean-glass-skin-hydralift', 'Ultimate Korean Glass Skin & Hydralift')} (our best seller, 18+ steps)</li>
+<li>Firmness: ${t('advanced-collagen-booster', 'Advanced Collagen Booster')}</li>
+<li>Repair &amp; sensitivity: ${t('pdrn-cellular-repair-salmon-dna', 'PDRN Cellular Repair')}</li>
+<li>Acne &amp; congestion: ${t('k-balance-acne-clear', 'K-Balance Acne Clear')}</li>
+<li>Radiance &amp; even tone: ${t('vitamin-c-sunshine-glow', 'Vitamin C Sunshine Glow')}</li>
+</ul>
+
+<h2>4. The HydroJelly finish (Ungasan)</h2>
+<p>Our ${t('caviar-luxury-anti-aging-lift', 'Caviar Luxury Anti-Aging & Lift')}, ${t('cryo-skin-reset', 'Cryo Skin Reset')} and ${t('bright-pigment-correct', 'Bright & Pigment Correct')} end with a HydroJelly mask that seals in actives. They are exclusive to our Uluwatu Ungasan studio.</p>
+
+<h2>5. Beyond the face (Bingin)</h2>
+<p>Back breakouts, chest pigmentation, bumps on the booty: our <a href="/treatments/#korean-body-hydrafacials">Korean Body Hydrafacials</a> bring the same technology to the body, exclusively at Uluwatu Bingin.</p>
+
+<h2>6. Transparent prices and packages</h2>
+<p>All prices include the 15% tax and service charge. For lasting results, our <a href="/packages/">3-session packages</a> save up to 30%.</p>`,
+    faqs: [
+      ['How long does a Hydrafacial last?', 'The glow is visible immediately and lasts about a week. For lasting change, plan a series of 3 sessions spaced 2–3 weeks apart.'],
+      ['Is a Hydrafacial painful?', 'No. Most people find it relaxing; the suction feels cool and slightly ticklish.'],
+    ],
+    related: ['ultimate-korean-glass-skin-hydralift', 'vitamin-c-sunshine-glow', 'caviar-luxury-anti-aging-lift'],
   },
 ];
