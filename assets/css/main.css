@@ -4,12 +4,13 @@
    Fonts: Kenao (display, self-hosted when provided) · Open Sauce Sans (UI) · Open Sans (body) · Archivo Black (wordmark)
    ========================================================================== */
 
-@font-face { font-family: 'Archivo Black'; src: url('../fonts/archivo-black-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Open Sauce Sans'; src: url('../fonts/open-sauce-sans-latin-300-normal.woff2') format('woff2'); font-weight: 300; font-display: swap; }
-@font-face { font-family: 'Open Sauce Sans'; src: url('../fonts/open-sauce-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Open Sauce Sans'; src: url('../fonts/open-sauce-sans-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'Open Sans'; src: url('../fonts/open-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Open Sans'; src: url('../fonts/open-sans-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Archivo Black'; src: url('/assets/fonts/archivo-black-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Open Sauce Sans'; src: url('/assets/fonts/open-sauce-sans-latin-300-normal.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Open Sauce Sans'; src: url('/assets/fonts/open-sauce-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Open Sauce Sans'; src: url('/assets/fonts/open-sauce-sans-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Open Sauce Sans'; src: url('/assets/fonts/open-sauce-sans-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Open Sans'; src: url('/assets/fonts/open-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Open Sans'; src: url('/assets/fonts/open-sans-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
 /* Kenao: drop Kenao.woff2 into assets/fonts/ — it is picked up automatically, otherwise Open Sauce Sans is used. */
 @font-face { font-family: 'Kenao'; src: local('Kenao'), local('Kenao Regular'), local('Kenao-Regular'); font-display: swap; }
 
@@ -150,7 +151,7 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
 .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(1) { transform: translateY(3.5px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
-.mobile-menu { position: fixed; inset: var(--header-h) 0 0; background: var(--surface); padding: 32px var(--gutter); display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+.mobile-menu { position: fixed; top: var(--header-h); left: 0; right: 0; height: calc(100vh - var(--header-h)); height: calc(100dvh - var(--header-h)); /* explicit height: the blurred header is the containing block */ background: var(--surface); padding: 32px var(--gutter); display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
 /* The hidden attribute always wins over component display rules (mobile menu, booking options). */
 [hidden] { display: none !important; }
 .mobile-menu nav { display: flex; flex-direction: column; }
@@ -247,6 +248,7 @@ body.menu-open { overflow: hidden; }
 /* ---------- Hover list ---------- */
 .hover-group + .hover-group { margin-top: clamp(40px, 5vw, 72px); }
 .hover-group__label { display: flex; justify-content: space-between; font: 500 11px/1 var(--f-ui); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); padding-bottom: 14px; }
+@media (max-width: 760px) { .hover-group__label { font-weight: 700; color: var(--ink); } }
 .hover-list { border-bottom: 1px solid var(--ink); }
 .hover-row { border-top: 1px solid var(--ink); }
 .hover-row a { position: relative; display: grid; grid-template-columns: 56px 1fr 110px 170px 40px; align-items: center; gap: 20px; padding: clamp(20px, 2.4vw, 32px) 0; isolation: isolate; }
@@ -319,6 +321,7 @@ a:hover .img-zoom img, .img-zoom:hover img { transform: scale(1.06); }
 
 .js [data-reveal] { opacity: 0; transform: translate3d(0, 32px, 0); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
+.clip-reveal { overflow: hidden; } /* the pre-reveal zoom must not widen the page on phones */
 .js .clip-reveal[data-reveal] { opacity: 1; transform: none; clip-path: inset(100% 0 0 0); transition: clip-path 1.4s var(--ease-in-out); }
 .js .clip-reveal[data-reveal] img { transform: scale(1.25); transition: transform 1.8s var(--ease); }
 .js .clip-reveal[data-reveal].is-in { clip-path: inset(0 0 0 0); }
@@ -678,6 +681,8 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .site-header.is-compact .nav--primary { display: none; }
 .site-header.is-compact .menu-toggle { display: block; }
 @media (max-width: 1100px) {
+  .nav--primary { display: none; }
+  .menu-toggle { display: block; }
   .site-header__loc { display: none; }
   .concern-grid { grid-template-columns: repeat(2, 1fr); }
   .addons { grid-template-columns: repeat(2, 1fr); }
@@ -773,3 +778,6 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 @media (max-width: 760px) { .pairs__list { grid-template-columns: 1fr; } }
 /* Keep photo + add-ons within the screen while the column is sticky */
 @media (min-width: 761px) { .treatment__sticky--pairs .clip-reveal img { max-height: max(300px, calc(100svh - var(--header-h) - 360px)); } }
+/* Add-ons: under the photo on desktop, after the price & Book button on phones */
+.pairs--inline { display: none; }
+@media (max-width: 760px) { .pairs--media { display: none; } .pairs--inline { display: block; margin: 0 0 28px; border-top: 0; } }
