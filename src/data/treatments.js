@@ -601,11 +601,36 @@ const treatments = [
 ];
 
 const addOns = [
-  { name: 'Skin Booster HydroJelly Mask', duration: 15, price: 200000, image: 'hydrojelly-mask-treatment', onlyAt: 'ungasan', description: 'The viral electrolyte-infused jelly mask that deeply hydrates, calms and boosts the penetration of actives. Choose Caviar Resilience, Illuminating Orange, Blue Glacier Cryo, Vampire PLLA Infusion or Egyptian Rose.' },
-  { name: 'LED Therapy — 7 colours', duration: 10, price: 100000, image: 'led-light-therapy', description: 'Blue purifies, green calms, yellow brightens, red boosts collagen, cyan refines, orange revitalises and violet regenerates.' },
-  { name: 'Collagen Eye Patch', duration: null, price: 100000, image: 'eye-collagen-patch', description: 'Cooling hydrogel patches with peptides and collagen to de-puff and hydrate the eye area.' },
-  { name: 'Lip Scrub', duration: null, price: 85000, image: 'lip-scrub', description: 'A creamy Korean lip scrub that buffs away dry, flaky skin while your mask develops.' },
+  { id: 'hydrojelly', name: 'Skin Booster HydroJelly Mask', duration: 15, price: 200000, image: 'hydrojelly-mask-treatment', onlyAt: 'ungasan', description: 'The viral electrolyte-infused jelly mask that deeply hydrates, calms and boosts the penetration of actives. Choose Caviar Resilience, Illuminating Orange, Blue Glacier Cryo, Vampire PLLA Infusion or Egyptian Rose.' },
+  { id: 'led', name: 'LED Therapy — 7 colours', duration: 10, price: 100000, image: 'led-light-therapy', description: 'Blue purifies, green calms, yellow brightens, red boosts collagen, cyan refines, orange revitalises and violet regenerates.' },
+  { id: 'eye-patch', name: 'Collagen Eye Patch', duration: null, price: 100000, image: 'eye-collagen-patch', description: 'Cooling hydrogel patches with peptides and collagen to de-puff and hydrate the eye area.' },
+  { id: 'lip-scrub', name: 'Lip Scrub', duration: null, price: 85000, image: 'lip-scrub', description: 'A creamy Korean lip scrub that buffs away dry, flaky skin while your mask develops.' },
 ];
+
+// Short massages that can be added to a facial (same price as on their own).
+const massageAddOns = [
+  { id: 'buccal-15', name: 'Buccal Massage', duration: 15, price: 250000, image: 'buccal-massage-jawline', href: '/treatments/buccal-massage/', description: 'Intra-oral sculpting massage that releases jaw tension and redefines the contours.' },
+  { id: 'kobido-30', name: 'Kobido Massage', duration: 30, price: 500000, image: 'kobido-lifting-massage', href: '/treatments/kobido-massage/', description: 'The Japanese "natural facelift": lifting motions, lymphatic drainage and collagen cream.' },
+  { id: 'gua-sha-30', name: 'Gua Sha Massage', duration: 30, price: 350000, image: 'gua-sha-massage', href: '/treatments/gua-sha-massage/', description: 'Gua Sha stones and centella oil to depuff, calm and release tension.' },
+];
+
+// Add-ons that suit each treatment, most relevant first (shown under the photo and in "Boost it").
+const pairings = {
+  'ultimate-korean-glass-skin-hydralift': ['eye-patch', 'buccal-15', 'kobido-30', 'lip-scrub', 'led'],
+  'advanced-collagen-booster': ['eye-patch', 'kobido-30', 'buccal-15', 'led', 'lip-scrub'],
+  'k-balance-acne-clear': ['led', 'hydrojelly', 'eye-patch', 'lip-scrub'],
+  'pdrn-cellular-repair-salmon-dna': ['led', 'hydrojelly', 'eye-patch', 'kobido-30', 'lip-scrub'],
+  'vitamin-c-sunshine-glow': ['hydrojelly', 'eye-patch', 'led', 'lip-scrub', 'gua-sha-30'],
+  'caviar-luxury-anti-aging-lift': ['eye-patch', 'buccal-15', 'lip-scrub', 'led'],
+  'bright-pigment-correct': ['led', 'eye-patch', 'lip-scrub', 'gua-sha-30'],
+  'cryo-skin-reset': ['eye-patch', 'gua-sha-30', 'lip-scrub', 'led'],
+  'balinese-hydrating-ritual-rose-aloe': ['hydrojelly', 'eye-patch', 'lip-scrub', 'led', 'gua-sha-30'],
+  'balinese-purifying-ritual-clay-turmeric': ['led', 'hydrojelly', 'lip-scrub', 'eye-patch', 'gua-sha-30'],
+  'kobido-massage': ['eye-patch', 'buccal-15', 'lip-scrub', 'led'],
+  'buccal-massage': ['kobido-30', 'gua-sha-30', 'eye-patch'],
+  'gua-sha-massage': ['buccal-15', 'eye-patch', 'led', 'lip-scrub'],
+  'point-face-relaxation-ritual': ['buccal-15', 'eye-patch', 'lip-scrub'],
+};
 
 const hydrojellyMasks = [
   ['Caviar Resilience', 'Firming · Anti-aging · Elasticity', 'mask-caviar-resilience'],
@@ -722,4 +747,4 @@ treatments.forEach((t) => {
   if (cat && cat.onlyAt) t.onlyAt = cat.onlyAt;
 });
 
-module.exports = { categories, treatments, addOns, hydrojellyMasks, ledColours, packages, aftercare, technology, skinTypes, families };
+module.exports = { categories, treatments, addOns, massageAddOns, pairings, hydrojellyMasks, ledColours, packages, aftercare, technology, skinTypes, families };

@@ -4,13 +4,13 @@ const fs = require('fs');
 const path = require('path');
 
 const site = require('../src/data/site');
-const { categories, treatments, addOns, hydrojellyMasks, ledColours, packages, aftercare, technology, skinTypes, families } = require('../src/data/treatments');
+const { categories, treatments, addOns, massageAddOns, pairings, hydrojellyMasks, ledColours, packages, aftercare, technology, skinTypes, families } = require('../src/data/treatments');
 const concerns = require('../src/data/concerns');
 const articles = require('../src/data/articles').sort((a, b) => b.date.localeCompare(a.date));
 const faq = require('../src/data/faq');
 const reviews = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/data/reviews.json'), 'utf8'));
 
-const { esc, stripTags, idr, img, abs, waLink, waText, fmtDate, freshaFor, locationsFor, bookAttrs } = require('./lib/utils');
+const { esc, stripTags, idr, idrK, img, abs, waLink, waText, fmtDate, freshaFor, locationsFor, bookAttrs } = require('./lib/utils');
 const S = require('./lib/schema');
 const C = require('./lib/components');
 const { page, wordmark } = require('./lib/layout');
@@ -371,8 +371,16 @@ ${C.bookingBand()}`;
 }
 
 /* ───────────────────────────── TREATMENT DETAIL ───────────────────────────── */
+// Add-ons that suit a treatment and exist in the studio(s) offering it.
+const addOnPool = [...addOns, ...massageAddOns];
+const pairedAddOns = (t) =>
+  (pairings[t.slug] || [])
+    .map((id) => addOnPool.find((a) => a.id === id))
+    .filter((a) => a && (!a.onlyAt || !t.onlyAt || a.onlyAt === t.onlyAt));
+
 function treatmentPage(t) {
   const cat = catById[t.category];
+  const pairs = pairedAddOns(t);
   const p = `/treatments/${t.slug}/`;
   const tConcerns = concerns.filter((c) => t.concerns.includes(c.slug));
   const related = treatments.filter((x) => x.slug !== t.slug && (x.category === t.category || x.concerns.some((c) => t.concerns.includes(c)))).slice(0, 3);
@@ -385,8 +393,24 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
 <article class="treatment">
   <div class="container treatment__grid">
     <div class="treatment__media">
-      <div class="treatment__sticky clip-reveal" data-reveal>
-        ${img(t.image, `${t.name} — ${cat.short} at POINT · FACE Uluwatu`, { eager: true, sizes: '(max-width: 760px) 100vw, 45vw' })}
+      <div class="treatment__sticky${pairs.length ? ' treatment__sticky--pairs' : ''}">
+        <div class="clip-reveal" data-reveal>
+          ${img(t.image, `${t.name} — ${cat.short} at POINT · FACE Uluwatu`, { eager: true, sizes: '(max-width: 760px) 100vw, 45vw' })}
+        </div>
+        ${
+          pairs.length
+            ? `<div class="pairs" data-reveal>
+          <p class="eyebrow">Perfect add-ons</p>
+          <ul class="pairs__list">${pairs
+            .map((a) => {
+              const inner = `<span class="pairs__img">${img(a.image, a.name, { sizes: '44px' })}</span><span class="pairs__name">${esc(a.name.replace(' — 7 colours', ''))}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</span><span class="pairs__meta">${a.duration ? a.duration + ' min · ' : ''}+${idrK(a.price)}</span>`;
+              return `<li>${a.href ? `<a class="pairs__item" href="${a.href}">${inner}</a>` : `<a class="pairs__item" href="#boost-title">${inner}</a>`}</li>`;
+            })
+            .join('')}</ul>
+          <p class="pairs__note">Ask for them when you book · added to the same appointment</p>
+        </div>`
+            : ''
+        }
       </div>
     </div>
     <div class="treatment__content">
@@ -426,8 +450,8 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
     <div class="boost__grid">
       <div>
         <p class="eyebrow" data-reveal>Add-ons · add to this treatment</p>
-        <ul class="addon-rows">${addOns
-          .filter((a) => !a.onlyAt || !t.onlyAt || a.onlyAt === t.onlyAt)
+        ${pairs.length ? '' : '<p class="boost__none" data-reveal>Our add-ons are designed for facials and face massages — pair a Body Hydrafacial with any facial instead.</p>'}
+        <ul class="addon-rows">${pairs
           .map((a) => `<li data-reveal><div class="addon-rows__img">${img(a.image, a.name, { sizes: '96px' })}</div><div><p class="addon-rows__name">${esc(a.name)}</p><p class="addon-rows__desc">${esc(a.description)}</p></div><p class="addon-rows__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</p></li>`)
           .join('')}</ul>
       </div>
