@@ -45,7 +45,7 @@ const groupedTreatmentList = (treatments, categories, opts = {}) => {
       if (!items.length) return '';
       return `
 <div class="hover-group">
-  <p class="hover-group__label" data-reveal><span>${esc(cat.short)}${cat.onlyAt && !opts.location ? ` · Only at ${studioName(cat.onlyAt)}` : ''}</span><span>${items.length}</span></p>
+  <p class="hover-group__label" data-reveal><span>${esc(cat.short)}${cat.onlyAt && !opts.location ? `<span class="hover-group__only">Exclusivity ${studioShort(cat.onlyAt)}</span>` : ''}</span><span>${items.length}</span></p>
   <ul class="hover-list" data-hover-list>${items.map((t) => treatmentRow(t, n++, opts)).join('')}</ul>
 </div>`;
     })
@@ -237,6 +237,8 @@ const articleCard = (a, i = 0) => `
 </article>`;
 
 const studioName = (id) => (site.locations.find((l) => l.id === id) || {}).name || '';
+// "Ungasan" / "Bingin" — used in "Exclusivity Ungasan" labels.
+const studioShort = (id) => studioName(id).replace('Uluwatu ', '');
 
 // 3-session package tables. opts.slug limits rows to one treatment (used on treatment pages).
 function packageTables(groups, opts = {}) {
@@ -247,7 +249,7 @@ function packageTables(groups, opts = {}) {
       return `
 <div class="table-wrap pkg-table" data-reveal>
   <table class="price-table">
-    <caption><span>${esc(g.title)}</span><span class="tag">${g.off}</span>${g.onlyAt ? `<span class="pkg-only">Only at ${studioName(g.onlyAt)}</span>` : ''}</caption>
+    <caption><span>${esc(g.title)}</span><span class="tag">${g.off}</span>${g.onlyAt ? `<span class="pkg-only">Exclusivity ${studioShort(g.onlyAt)}</span>` : ''}</caption>
     <thead><tr><th scope="col">3 sessions</th><th scope="col">Normal price</th><th scope="col">Package price</th></tr></thead>
     <tbody>${items.map(([, n, was, now]) => `<tr><th scope="row">${esc(n)}</th><td><s>${idr(was)}</s></td><td><strong>${idr(now)}</strong></td></tr>`).join('')}</tbody>
   </table>
@@ -260,5 +262,5 @@ const list = (items, cls = 'list-dash') => `<ul class="${cls}">${items.map((i) =
 
 module.exports = {
   breadcrumb, sectionHead, treatmentRow, groupedTreatmentList, treatmentCard, concernTile, faqList, marquee, bookingBand,
-  reviewsSection, studiosSection, articleCard, list, priceLabel, stars, packageTables, studioName,
+  reviewsSection, studiosSection, articleCard, list, priceLabel, stars, packageTables, studioName, studioShort,
 };

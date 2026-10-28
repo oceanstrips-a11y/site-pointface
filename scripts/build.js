@@ -267,7 +267,7 @@ ${categories
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow" data-reveal>0${ci + 1} · ${treatments.filter((t) => t.category === cat.id).length} treatments${cat.onlyAt ? ` · Only at ${C.studioName(cat.onlyAt)}` : ''}</p>
+        <p class="eyebrow" data-reveal>0${ci + 1} · ${treatments.filter((t) => t.category === cat.id).length} treatments${cat.onlyAt ? ` · Exclusivity ${C.studioShort(cat.onlyAt)}` : ''}</p>
         <h2 class="h-display" id="${cat.id}-title" data-split>${cat.name}</h2>
       </div>
       <p class="section-head__intro" data-reveal>${esc(cat.intro)}</p>
@@ -288,7 +288,7 @@ ${categories
       <article class="addon" data-reveal style="--d:${i * 80}ms">
         <div class="addon__media img-zoom">${img(a.image, a.name, { sizes: '(max-width: 760px) 50vw, 20vw' })}</div>
         <h3 class="addon__name">${esc(a.name)}</h3>
-        <p class="addon__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? ` · Only at ${C.studioName(a.onlyAt)}` : ''}</p>
+        <p class="addon__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? ` · Exclusivity ${C.studioShort(a.onlyAt)}` : ''}</p>
         <p>${esc(a.description)}</p>
       </article>`
         )
@@ -296,7 +296,7 @@ ${categories
     </div>
     <div class="twocol">
       <div data-reveal>
-        <h3 class="h-sub">HydroJelly formulas <span class="tag">Only at Uluwatu Ungasan</span></h3>
+        <h3 class="h-sub">HydroJelly formulas <span class="tag">Exclusivity Ungasan</span></h3>
         <ul class="masks">${hydrojellyMasks.map(([n, d, im]) => `<li><div class="masks__img">${img(im, n + ' HydroJelly mask', { sizes: '120px' })}</div><div><p class="masks__name">${n}</p><p class="masks__desc">${d}</p></div></li>`).join('')}</ul>
       </div>
       <div data-reveal style="--d:120ms">
@@ -388,7 +388,7 @@ function treatmentPage(t) {
     <p class="eyebrow">Perfect add-ons</p>
     <ul class="pairs__list">${pairs
       .map((a) => {
-        const inner = `<span class="pairs__img">${img(a.image, a.name, { sizes: '44px' })}</span><span class="pairs__name">${esc(a.name.replace(' — 7 colours', ''))}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</span><span class="pairs__meta">${a.duration ? a.duration + ' min · ' : ''}+${idrK(a.price)}</span>`;
+        const inner = `<span class="pairs__img">${img(a.image, a.name, { sizes: '44px' })}</span><span class="pairs__name">${esc(a.name.replace(' — 7 colours', ''))}${a.onlyAt ? `<small>Exclusivity ${C.studioShort(a.onlyAt)}</small>` : ''}</span><span class="pairs__meta">${a.duration ? a.duration + ' min · ' : ''}+${idrK(a.price)}</span>`;
         return `<li>${a.href ? `<a class="pairs__item" href="${a.href}">${inner}</a>` : `<a class="pairs__item" href="#boost-title">${inner}</a>`}</li>`;
       })
       .join('')}</ul>
@@ -422,7 +422,7 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
       <div class="treatment__buy" data-reveal>
         <p class="treatment__price">${C.priceLabel(t)}${t.priceWas ? ` <s>${idr(t.priceWas)}</s> <span class="tag">25% off</span>` : ''}</p>
         <a href="/book/" class="btn btn--solid" ${bookAttrs(t)} data-magnetic>Book this treatment</a>
-        <p class="fine">${site.priceNote} ${t.onlyAt ? `<strong>Only at ${C.studioName(t.onlyAt)}.</strong>` : 'Available at Uluwatu Ungasan &amp; Uluwatu Bingin.'}</p>
+        <p class="fine">${site.priceNote} ${t.onlyAt ? `<strong>Exclusivity ${C.studioShort(t.onlyAt)}.</strong>` : 'Available at Uluwatu Ungasan &amp; Uluwatu Bingin.'}</p>
       </div>
       ${pairsBlock('pairs--inline')}
       <div class="answer-box" data-reveal>
@@ -454,7 +454,7 @@ ${C.breadcrumb([['Home', '/'], ['Treatments', '/treatments/'], [t.name, p]])}
         <p class="eyebrow" data-reveal>Add-ons · add to this treatment</p>
         ${pairs.length ? '' : '<p class="boost__none" data-reveal>Our add-ons are designed for facials and face massages — pair a Body Hydrafacial with any facial instead.</p>'}
         <ul class="addon-rows">${pairs
-          .map((a) => `<li data-reveal><div class="addon-rows__img">${img(a.image, a.name, { sizes: '96px' })}</div><div><p class="addon-rows__name">${esc(a.name)}</p><p class="addon-rows__desc">${esc(a.description)}</p></div><p class="addon-rows__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? `<small>Only at ${C.studioName(a.onlyAt)}</small>` : ''}</p></li>`)
+          .map((a) => `<li data-reveal><div class="addon-rows__img">${img(a.image, a.name, { sizes: '96px' })}</div><div><p class="addon-rows__name">${esc(a.name)}</p><p class="addon-rows__desc">${esc(a.description)}</p></div><p class="addon-rows__price">${a.duration ? a.duration + ' min · ' : ''}${idr(a.price)}${a.onlyAt ? `<small>Exclusivity ${C.studioShort(a.onlyAt)}</small>` : ''}</p></li>`)
           .join('')}</ul>
       </div>
       <div>
