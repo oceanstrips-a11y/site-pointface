@@ -781,3 +781,5 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 /* Add-ons: under the photo on desktop, after the price & Book button on phones */
 .pairs--inline { display: none; }
 @media (max-width: 760px) { .pairs--media { display: none; } .pairs--inline { display: block; margin: 0 0 28px; border-top: 0; } }
+/* Phones: shorter home page, the best sellers and the Duo stay on desktop (and on the treatment / packages pages) */
+@media (max-width: 760px) { .is-home .signature, .is-home .duo { display: none; } }
