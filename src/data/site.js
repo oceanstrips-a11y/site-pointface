@@ -25,17 +25,17 @@ module.exports = {
       slug: 'uluwatu-ungasan',
       name: 'Uluwatu Ungasan',
       fullName: 'POINT · FACE Uluwatu Ungasan',
-      street: 'Jl. Toya Ning II No. 11',
+      street: 'Jl. Toya Ning II No. 99',
       locality: 'Ungasan, Kuta Selatan',
       region: 'Bali',
-      postalCode: '80351',
+      postalCode: '80361',
       country: 'ID',
       // WhatsApp number in international format, digits only.
       whatsapp: '628133793880',
       phoneDisplay: '+62 813 3793 880',
       fresha: 'https://www.fresha.com/a/point-face-bali-ungasan-kec-kuta-sel-kabupaten-badung-jalan-toya-ning-ii-no-99-no6mqclf?pId=2696384',
-      // TODO: paste the Google Maps share link of the studio (used for "Directions").
-      maps: 'https://www.google.com/maps/search/?api=1&query=POINT%20FACE%20Jl.%20Toya%20Ning%20II%20No.%2011%20Ungasan%20Bali',
+      // Google Maps share link of the studio (used for "Directions").
+      maps: 'https://share.google/cNO72dbWv5qfZQgRg',
       // TODO: confirm opening hours (used in Google structured data).
       hours: { days: 'Mo-Su', opens: '10:00', closes: '19:00', label: 'Every day · 10:00 – 19:00' },
       geo: null, // e.g. { lat: -8.83, lng: 115.17 } — TODO from Google Maps
@@ -48,17 +48,15 @@ module.exports = {
       slug: 'uluwatu-bingin',
       name: 'Uluwatu Bingin',
       fullName: 'POINT · FACE Uluwatu Bingin',
-      // From the Fresha listing — TODO: confirm.
-      street: 'Jl. Pantai Cemongkak No. 9',
+      street: 'Bingin Downtown Avenue, Jl. Pantai Cemongkak No. 9',
       locality: 'Pecatu, Kuta Selatan',
       region: 'Bali',
       postalCode: '80361',
       country: 'ID',
-      // TODO: confirm whether Bingin uses its own WhatsApp number.
-      whatsapp: '628133793880',
-      phoneDisplay: '+62 813 3793 880',
+      whatsapp: '6282339078379',
+      phoneDisplay: '+62 823 3907 8379',
       fresha: 'https://www.fresha.com/en/a/point-face-facial-spa-bingin-pecatu-jl-pantai-cemongkak-no-9-dnxbd6ct?pId=2696384',
-      maps: 'https://www.google.com/maps/search/?api=1&query=POINT%20FACE%20Jl.%20Pantai%20Cemongkak%20No.%209%20Pecatu%20Bali',
+      maps: 'https://share.google/bFhLCCwXIVCowcxSQ',
       hours: { days: 'Mo-Su', opens: '10:00', closes: '19:00', label: 'Every day · 10:00 – 19:00' },
       geo: null,
       intro:

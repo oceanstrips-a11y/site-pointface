@@ -1,6 +1,6 @@
 // General FAQ — rendered on the home page and /faq/ with FAQPage structured data.
 module.exports = [
-  ['Where is POINT · FACE located?', 'We have two studios in Uluwatu, Bali: POINT · FACE Uluwatu Ungasan (Jl. Toya Ning II No. 11, Ungasan) and POINT · FACE Uluwatu Bingin (Jl. Pantai Cemongkak No. 9, Pecatu, in the Bingin surf village). HydroJelly Hydrafacials are exclusive to Ungasan and Korean Body Hydrafacials to Bingin.'],
+  ['Where is POINT · FACE located?', 'We have two studios in Uluwatu, Bali: POINT · FACE Uluwatu Ungasan (Jl. Toya Ning II No. 99, Ungasan) and POINT · FACE Uluwatu Bingin (Bingin Downtown Avenue, Jl. Pantai Cemongkak No. 9, Pecatu, in the Bingin surf village). HydroJelly Hydrafacials are exclusive to Ungasan and Korean Body Hydrafacials to Bingin.'],
   ['How do I book a facial?', 'Book on WhatsApp — choose Uluwatu Ungasan or Uluwatu Bingin — or book online on Fresha. We recommend booking 1–3 days in advance in high season.'],
   ['What is included in every treatment?', 'Every treatment starts with a free skin analysis using AI-powered diagnostic technology: it measures hydration, oil, pores, pigmentation and sensitivity, so your therapist can adapt the facial to your skin on the day.'],
   ['Do your prices include tax and service?', 'Yes. All prices include the 15% government tax and service charge. No additional fees apply.'],

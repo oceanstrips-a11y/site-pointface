@@ -182,7 +182,7 @@ const treatments = [
     pillars: ['Lift', 'Firm', 'Anti-aging'],
     duration: 70,
     price: 1500000,
-    priceWas: 2070000,
+    priceWas: 2000000,
     image: 'caviar-anti-aging-facial',
     recommendedFor: 'Mature or tired skin needing lifting and glow; before a special event.',
     summary:
@@ -628,7 +628,7 @@ const ledColours = [
 // 3-session packages — source: menu chapter 07 (prices in IDR, tax & service included).
 // [slug, label, 3 sessions at normal price, package price]
 const packages = {
-  duo: { name: 'Duo Package', price: 2250000, priceWas: 3465000, description: '2 × Ultimate Korean Glass Skin & Hydralift (80 min each), in shared or separate cabins. Ideal for friends & partners.' },
+  duo: { name: 'Duo Package', price: 2250000, priceWas: 2600000, description: '2 × Ultimate Korean Glass Skin & Hydralift (80 min each), in shared or separate cabins. Ideal for friends & partners.' },
   groups: [
     { id: 'facials', title: 'Natural Facials', off: '−20%', items: [
       ['balinese-hydrating-ritual-rose-aloe', 'Hydrating Ritual — Rose & Aloe', 2370000, 1890000],
