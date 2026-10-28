@@ -720,7 +720,7 @@ const skinTypes = [
 
 // The three families of care — menu "About us" page.
 const families = [
-  ['Botanical facial', 'A traditional facial that cleanses, exfoliates, massages and nourishes the skin with manual techniques and natural skincare: a gentle, sensory ritual for a healthy glow.'],
+  ['Facials', 'A traditional facial that cleanses, exfoliates, massages and nourishes the skin with manual techniques and natural skincare: a gentle, sensory ritual for a healthy glow.'],
   ['Hydrafacial', 'A modern, technology-based facial combining hydrodermabrasion, oxygen, ultrasound, radiofrequency and LED to deeply cleanse, hydrate and rejuvenate, with instant, visible results.'],
   ['Face massage', 'Specialised hands-on techniques: Japanese Kobido, lymphatic drainage, Gua Sha and intra-oral Buccal massage to release tension, depuff, lift and sculpt the face naturally.'],
 ];
