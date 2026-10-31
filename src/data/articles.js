@@ -1,6 +1,8 @@
 // Journal articles. Each one answers a real search / AI-assistant question (see GEO pre-audit),
 // opens with a short direct answer + key takeaways, and links only to POINT · FACE services.
 
+const site = require('./site');
+
 const t = (slug, label) => `<a href="/treatments/${slug}/">${label}</a>`;
 const c = (slug, label) => `<a href="/concerns/${slug}/">${label}</a>`;
 
@@ -471,6 +473,7 @@ module.exports = [
       '1 month out: hydration and firmness.',
       '2–5 days before: final glow facial + buccal massage.',
       'Day before: only gentle massage and hydration — no new products.',
+      'Groups of more than 6: special quotation, or privatise the studio for the bride and bridesmaids.',
     ],
     body: `
 <h2>3 months before: analyse and target</h2>
@@ -486,9 +489,18 @@ module.exports = [
 <p>Keep it simple: a ${t('kobido-massage', 'Kobido')} or ${t('gua-sha-massage', 'Gua Sha')} massage to depuff, collagen eye patches, plenty of water and an early night.</p>
 
 <h2>Flying in for the wedding?</h2>
-<p>Land at least 3 days before if you can, and book a ${t('pdrn-cellular-repair-salmon-dna', 'PDRN Cellular Repair')} or hydrating facial on day 1 or 2 to undo the flight. Bridesmaids and friends? Our Duo Package is ideal — and we can host small groups across our <a href="/locations/">two Uluwatu studios</a>.</p>`,
+<p>Land at least 3 days before if you can, and book a ${t('pdrn-cellular-repair-salmon-dna', 'PDRN Cellular Repair')} or hydrating facial on day 1 or 2 to undo the flight. Coming with a friend or your partner? Our <a href="/packages/">Duo Package</a> is ideal.</p>
+
+<h2>Bridal parties and groups</h2>
+<p>Getting the whole bridal party glowing together is one of our favourite bookings.</p>
+<ul>
+<li><strong>Groups of more than 6 guests:</strong> request a special group quotation — we tailor the treatments, timing and price to your party.</li>
+<li><strong>Privatise the studio for a day:</strong> book one of our studios exclusively for the bride and her bridesmaids — your own space, your own schedule, facials and face massages for everyone before the big day.</li>
+</ul>
+<p>Message us with your date, the number of guests and your preferred studio: ${site.locations.map((l) => `<a href="https://wa.me/${l.whatsapp}?text=${encodeURIComponent(`Hi POINT · FACE ${l.name}! I'd like a quotation for a bridal / group booking (more than 6 guests) or to privatise the studio for a day. Date: … Number of guests: …`)}" target="_blank" rel="noopener">WhatsApp ${l.name}</a>`).join(' · ')}.</p>`,
     faqs: [
       ['Can I get a facial the day before my wedding?', 'We advise against exfoliating facials the day before. A massage and hydrating mask are perfect.'],
+      ['Can you host a bridal party?', 'Yes. For groups of more than 6 guests we prepare a special quotation, and you can privatise one of our Uluwatu studios for a day for the bride and her bridesmaids. Message us on WhatsApp with your date and number of guests.'],
     ],
     related: ['caviar-luxury-anti-aging-lift', 'ultimate-korean-glass-skin-hydralift', 'buccal-massage'],
   },
