@@ -542,7 +542,7 @@ module.exports = [
       'Sunset: Uluwatu Temple and the Kecak fire dance.',
       'Beaches: Bingin, Padang Padang, Dreamland, Suluban, Melasti.',
       'Food: seafood dinner on Jimbaran Bay at sunset.',
-      'Our favourites: Ôkeanos Boutique Hotel, Pilates at Bluvana, yoga at La Tribu, breakfast at Chela, Rumah Pasta & Melasti, sunset at Single Fin or Dreamland, dinner at Ulu Fish Market or My Dear Clara.',
+      'Our favourites: Korean Hydrafacials & face massages at POINT · FACE, Ôkeanos Boutique Hotel, Pilates at Bluvana, yoga at La Tribu, breakfast at Chela, Rumah Pasta & Melasti, sunset at Single Fin or Dreamland, dinner at Ulu Fish Market or My Dear Clara.',
       'Skin: an after-sun or glow facial in Ungasan or Bingin.',
     ],
     body: `
@@ -562,6 +562,7 @@ module.exports = [
 <h2>Our favourite spots in Uluwatu</h2>
 <p>The places our team loves and recommends to clients between two treatments:</p>
 <ul>
+<li><strong>Korean Hydrafacials &amp; face massages at POINT · FACE</strong> — our own studios in <a href="/locations/uluwatu-ungasan/">Ungasan</a> and <a href="/locations/uluwatu-bingin/">Bingin</a>: glass-skin <a href="/treatments/#korean-hydrafacials">Korean Hydrafacials</a> and sculpting <a href="/treatments/#face-massages">face massages</a> (Kobido, Buccal, Gua Sha), with a free AI skin analysis. <a href="/book/">Book on WhatsApp or Fresha</a> · <a href="https://www.instagram.com/pointfacebali/" target="_blank" rel="noopener">Instagram @pointfacebali</a></li>
 <li><strong>Sleep at Ôkeanos Boutique Hotel</strong> — an intimate, adults-only boutique hotel in Ungasan with only a handful of rooms and an infinity pool, minutes from our Ungasan studio. <a href="https://okeanosboutiquehotel.com/" target="_blank" rel="noopener">Website</a> · <a href="https://www.instagram.com/okeanosboutiquehotel/" target="_blank" rel="noopener">Instagram @okeanosboutiquehotel</a></li>
 <li><strong>Pilates at Bluvana</strong> — small-group Reformer Pilates in Bingin, capped at six people per class. <a href="https://www.bluvanastudio.com/" target="_blank" rel="noopener">Website</a> · <a href="https://www.instagram.com/bluvanastudio/" target="_blank" rel="noopener">Instagram @bluvanastudio</a></li>
 <li><strong>Yoga at La Tribu</strong> — a creative yoga and movement studio in Pecatu: vinyasa, yin and power classes. <a href="https://latribubali.id/" target="_blank" rel="noopener">Website</a> · <a href="https://www.instagram.com/latribubali/" target="_blank" rel="noopener">Instagram @latribubali</a></li>
