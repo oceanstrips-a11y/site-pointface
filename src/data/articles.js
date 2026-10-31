@@ -542,7 +542,7 @@ module.exports = [
       'Sunset: Uluwatu Temple and the Kecak fire dance.',
       'Beaches: Bingin, Padang Padang, Dreamland, Suluban, Melasti.',
       'Food: seafood dinner on Jimbaran Bay at sunset.',
-      'Our favourites: Ôkeanos Boutique Hotel, Pilates at Bluvana, yoga at La Tribu, Rumah Pasta & Melasti Beach, breakfast at Chela.',
+      'Our favourites: Ôkeanos Boutique Hotel, Pilates at Bluvana, yoga at La Tribu, breakfast at Chela, Rumah Pasta & Melasti, sunset at Single Fin or Dreamland, dinner at Ulu Fish Market or My Dear Clara.',
       'Skin: an after-sun or glow facial in Ungasan or Bingin.',
     ],
     body: `
@@ -562,11 +562,13 @@ module.exports = [
 <h2>Our favourite spots in Uluwatu</h2>
 <p>The places our team loves and recommends to clients between two treatments:</p>
 <ul>
-<li><strong>Sleep at Ôkeanos Boutique Hotel</strong> — an intimate, adults-only boutique hotel in Ungasan with only a handful of rooms and an infinity pool, minutes from our Ungasan studio. <a href="https://www.google.com/maps/search/?api=1&amp;query=Okeanos+Boutique+Hotel+Ungasan+Bali" target="_blank" rel="noopener">Google Maps</a></li>
+<li><strong>Sleep at Ôkeanos Boutique Hotel</strong> — an intimate, adults-only boutique hotel in Ungasan with only a handful of rooms and an infinity pool, minutes from our Ungasan studio. <a href="https://okeanosboutiquehotel.com/" target="_blank" rel="noopener">Website</a> · <a href="https://www.instagram.com/okeanosboutiquehotel/" target="_blank" rel="noopener">Instagram @okeanosboutiquehotel</a></li>
 <li><strong>Pilates at Bluvana</strong> — small-group Reformer Pilates in Bingin, capped at six people per class. <a href="https://www.bluvanastudio.com/" target="_blank" rel="noopener">Website</a> · <a href="https://www.instagram.com/bluvanastudio/" target="_blank" rel="noopener">Instagram @bluvanastudio</a></li>
-<li><strong>Yoga at La Tribu</strong> — a creative yoga and movement studio in Pecatu: vinyasa, yin and power classes. <a href="https://www.instagram.com/latribubali/" target="_blank" rel="noopener">Instagram @latribubali</a></li>
-<li><strong>Pasta at Rumah Pasta, then Melasti Beach</strong> — a plate of pasta, then white sand and limestone cliffs at Melasti for the afternoon. <a href="https://www.google.com/maps/search/?api=1&amp;query=Rumah+Pasta+Uluwatu+Bali" target="_blank" rel="noopener">Rumah Pasta on Google Maps</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Melasti+Beach+Ungasan+Bali" target="_blank" rel="noopener">Melasti Beach on Google Maps</a></li>
+<li><strong>Yoga at La Tribu</strong> — a creative yoga and movement studio in Pecatu: vinyasa, yin and power classes. <a href="https://latribubali.id/" target="_blank" rel="noopener">Website</a> · <a href="https://www.instagram.com/latribubali/" target="_blank" rel="noopener">Instagram @latribubali</a></li>
 <li><strong>Breakfast at Chela</strong> — a bamboo café on the road to Bingin Beach, open from early morning, known for its shakshuka. <a href="https://www.instagram.com/chela.bali/" target="_blank" rel="noopener">Instagram @chela.bali</a></li>
+<li><strong>Pasta at Rumah Pasta, then Melasti Beach</strong> — a plate of pasta, then white sand and limestone cliffs at Melasti for the afternoon. <a href="https://www.instagram.com/rumahpastabali/" target="_blank" rel="noopener">Instagram @rumahpastabali</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Melasti+Beach+Ungasan+Bali" target="_blank" rel="noopener">Melasti Beach on Google Maps</a></li>
+<li><strong>Sunset at Single Fin or Dreamland Beach</strong> — drinks above the Uluwatu surf break at Single Fin, or golden hour on the sand at Dreamland. <a href="https://www.singlefinbali.com/" target="_blank" rel="noopener">Single Fin website</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Dreamland+Beach+Pecatu+Bali" target="_blank" rel="noopener">Dreamland Beach on Google Maps</a></li>
+<li><strong>Dinner at Ulu Fish Market or My Dear Clara</strong> — fresh seafood at Ulu Fish Market, or a cosy evening at My Dear Clara. <a href="https://ulufishmarket.com/" target="_blank" rel="noopener">Ulu Fish Market website</a> · <a href="https://www.instagram.com/my_dear_clara/" target="_blank" rel="noopener">Instagram @my_dear_clara</a></li>
 </ul>
 
 <h2>Surf</h2>
