@@ -7,58 +7,73 @@ const c = (slug, label) => `<a href="/concerns/${slug}/">${label}</a>`;
 module.exports = [
   {
     slug: 'hydrafacial-vs-korean-facial',
-    title: 'Hydrafacial vs Korean Facial: Which Is Best for Glowing Skin?',
+    title: 'Korean Hydrafacial vs Hydrafacial vs Manual Facial: Which Is Best for You?',
     description:
-      'Hydrafacial or Korean facial? The difference, the results, who each is for — and why our Korean Hydrafacials in Uluwatu combine both.',
+      'Korean Hydrafacial vs classic Hydrafacial, and Korean Hydrafacial vs manual facial: the differences, results, comfort and who each is for — from our facial studio in Uluwatu, Bali.',
     category: 'Comparison',
     date: '2026-09-08',
-    readTime: 6,
+    readTime: 7,
     image: 'korean-glass-skin-hydrafacial',
     answer:
-      'A Hydrafacial is a technology: a hydrodermabrasion device that cleanses, extracts and infuses serums in one pass. A Korean facial is a philosophy: many gentle layered steps focused on hydration and a "glass skin" finish. You do not have to choose — a Korean Hydrafacial uses the device to deliver Korean actives, giving the deep clean of a Hydrafacial with the glow of a Korean routine.',
+      'A classic Hydrafacial is a device-led protocol: hydrodermabrasion to cleanse, extract and infuse serums. A Korean Hydrafacial uses the same technology but adds a multi-step Korean skincare ritual — layered K-beauty actives, masks and massage — for a hydrated "glass skin" finish. A manual facial uses hands and natural products only: more sensory and relaxing, with gentler, shorter-lived results. For visible glow and deep cleansing in Bali\'s climate, the Korean Hydrafacial gives the best of both.',
     takeaways: [
       'Hydrafacial = device-led deep cleansing, extraction and serum infusion.',
-      'Korean facial = multi-step, hydration-first ritual with K-beauty actives.',
-      'For instant glow in Bali, a Korean Hydrafacial combines both.',
-      'Every POINT · FACE facial starts with a free skin analysis to choose for you.',
+      'Korean Hydrafacial = the same technology + a layered K-beauty ritual for glass skin.',
+      'Manual facial = hands and natural products only: relaxing, gentle, less corrective.',
+      'Every POINT · FACE treatment starts with a free AI skin analysis to choose for you.',
     ],
     body: `
 <h2>What is a Hydrafacial?</h2>
-<p>A Hydrafacial is a non-invasive facial performed with a hydrodermabrasion machine. A spiral-tipped handpiece uses water and gentle suction (a "vortex") to exfoliate dead cells, loosen and extract what is clogging the pores, and infuse serums at the same time. It is fast, painless and has no downtime — you can go to dinner straight after.</p>
-<p>At POINT · FACE, our Hydrafacial systems also include ultrasonic infusion, oxygen, radiofrequency, microcurrent, high frequency, a cold hammer and LED, so each treatment can be tailored to a concern.</p>
+<p>A Hydrafacial is a non-invasive facial performed with a hydrodermabrasion device. A spiral-tipped handpiece uses water and gentle suction (a "vortex") to exfoliate dead cells, loosen and extract what clogs the pores, and infuse serums at the same time. It is fast, painless and has no downtime. A classic Hydrafacial follows a set protocol: cleanse and exfoliate, extract, hydrate.</p>
 
-<h2>What is a Korean facial?</h2>
-<p>A Korean facial follows the K-beauty philosophy: many thin, gentle layers rather than one aggressive step. Double cleansing, soft exfoliation, essences and ampoules, sheet or jelly masks and a lot of massage. The goal is hydrated, refined, luminous skin — the famous <em>glass skin</em>. Ingredients are typical of Korean skincare: snail mucin, centella asiatica, propolis, niacinamide, peptides, hyaluronic acid.</p>
+<h2>What is a Korean Hydrafacial?</h2>
+<p>A Korean Hydrafacial keeps the hydrodermabrasion technology and builds a Korean skincare ritual around it: double cleansing, essences and ampoules applied in thin layers, ultrasonic infusion, a sheet or HydroJelly mask and plenty of massage. The actives are typical of K-beauty — snail mucin, centella asiatica, propolis, niacinamide, peptides, hyaluronic acid — from brands such as COSRX, SKIN1004, Beauty of Joseon, Mediheal and Medicube. The goal is the famous <em>glass skin</em>: clean, plump, luminous.</p>
+<p>At POINT · FACE, our systems also include oxygen, radiofrequency, microcurrent, high frequency, a cold hammer and LED, so each Korean Hydrafacial is tailored to a concern.</p>
 
-<h2>Hydrafacial vs Korean facial: the key differences</h2>
+<h2>Korean Hydrafacial vs Hydrafacial</h2>
 <table>
-<thead><tr><th></th><th>Hydrafacial</th><th>Korean facial</th></tr></thead>
+<thead><tr><th></th><th>Hydrafacial</th><th>Korean Hydrafacial</th></tr></thead>
 <tbody>
-<tr><td>Approach</td><td>Technology-led</td><td>Ritual, layering</td></tr>
-<tr><td>Strength</td><td>Deep pore cleansing & extraction</td><td>Hydration & radiance</td></tr>
-<tr><td>Feels like</td><td>Cool, slightly ticklish suction</td><td>Very relaxing, lots of massage</td></tr>
-<tr><td>Best for</td><td>Congestion, blackheads, dull texture</td><td>Dehydration, sensitivity, glow</td></tr>
+<tr><td>Approach</td><td>Device-led protocol</td><td>Device + layered K-beauty ritual</td></tr>
+<tr><td>Strength</td><td>Deep pore cleansing &amp; extraction</td><td>Deep cleansing <strong>and</strong> intense hydration &amp; radiance</td></tr>
+<tr><td>Actives</td><td>Standard serums</td><td>Targeted Korean actives chosen for your skin</td></tr>
+<tr><td>Feels like</td><td>Cool, slightly ticklish suction</td><td>Same, plus masks and relaxing massage</td></tr>
+<tr><td>Result</td><td>Clean, fresh, smoother skin</td><td>Clean, plump, glowing "glass skin"</td></tr>
 <tr><td>Downtime</td><td>None</td><td>None</td></tr>
 </tbody>
 </table>
+<p>In short: a Hydrafacial is excellent for a deep clean; a Korean Hydrafacial adds the hydration, layering and massage that give the lasting glow. In a tropical climate, skin needs both — sweat, sunscreen and humidity clog pores, while sun, salt and air-conditioning dehydrate.</p>
 
-<h2>Why we combine both: the Korean Hydrafacial</h2>
-<p>In a tropical climate, skin needs both: a real deep clean (sweat, sunscreen and humidity clog pores) and serious hydration (sun, salt and AC dehydrate). Our Korean Hydrafacials use the device to cleanse and extract, then infuse Korean actives from COSRX, SKIN1004, Beauty of Joseon, Mediheal and Medicube.</p>
+<h2>What is a manual facial?</h2>
+<p>A manual facial is performed with the hands and natural products only, without devices: cleansing, gentle exfoliation, extractions by hand, a mask and a long massage. Ours are Balinese — the ${t('balinese-hydrating-ritual-rose-aloe', 'Hydrating Ritual (Rose & Aloe)')} and the ${t('balinese-purifying-ritual-clay-turmeric', 'Purifying Ritual (Clay & Turmeric)')} — with botanicals from Utama Spice &amp; Embun.</p>
+
+<h2>Korean Hydrafacial vs manual facial</h2>
+<table>
+<thead><tr><th></th><th>Manual facial</th><th>Korean Hydrafacial</th></tr></thead>
+<tbody>
+<tr><td>Approach</td><td>Hands &amp; natural products</td><td>Technology + Korean skincare</td></tr>
+<tr><td>Cleansing &amp; extraction</td><td>Gentle, by hand</td><td>Deeper, by hydrodermabrasion suction</td></tr>
+<tr><td>Penetration of actives</td><td>Surface</td><td>Boosted by ultrasound and infusion</td></tr>
+<tr><td>Experience</td><td>Very sensory and relaxing</td><td>Relaxing, more results-driven</td></tr>
+<tr><td>Results</td><td>Fresh, soft, comforted skin</td><td>Visible glow, refined pores, lasting hydration</td></tr>
+<tr><td>Best for</td><td>Sensitive skin, a natural ritual, pure relaxation</td><td>Congestion, dullness, dehydration, firmness, events</td></tr>
+<tr><td>Price at POINT · FACE</td><td>From IDR 790,000</td><td>From IDR 1,050,000</td></tr>
+</tbody>
+</table>
+
+<h2>Which one should you choose?</h2>
 <ul>
 <li>For instant glass-skin glow: ${t('ultimate-korean-glass-skin-hydralift', 'Ultimate Korean Glass Skin & Hydralift')}</li>
 <li>For congestion and breakouts: ${t('k-balance-acne-clear', 'K-Balance Acne Clear')}</li>
 <li>For firmness: ${t('advanced-collagen-booster', 'Advanced Collagen Booster')}</li>
 <li>For sensitive or stressed skin: ${t('pdrn-cellular-repair-salmon-dna', 'PDRN Cellular Repair')}</li>
+<li>For a natural, deeply relaxing ritual: the ${t('balinese-hydrating-ritual-rose-aloe', 'Hydrating Ritual (Rose & Aloe)')}</li>
 </ul>
-
-<h2>And if you prefer something 100% natural?</h2>
-<p>Our Balinese natural facials — the ${t('balinese-hydrating-ritual-rose-aloe', 'Hydrating Ritual (Rose & Aloe)')} and the ${t('balinese-purifying-ritual-clay-turmeric', 'Purifying Ritual (Clay & Turmeric)')} — use manual techniques and Balinese botanicals from Utama Spice & Embun. They are gentler and more sensory, with visible freshness rather than device-level results.</p>
-
-<h2>How to choose</h2>
-<p>Not sure? Every treatment at POINT · FACE starts with a complimentary professional skin analysis. Your therapist looks at hydration, oil, pores, pigmentation and sensitivity and recommends the right facial — or a combination — for your skin on the day.</p>`,
+<p>Not sure? Every treatment at POINT · FACE starts with a complimentary AI-powered skin analysis. Your therapist looks at hydration, oil, pores, pigmentation and sensitivity and recommends the right facial for your skin on the day.</p>`,
     faqs: [
-      ['Is a Hydrafacial better than a regular facial?', 'It is more results-driven for cleansing, extraction and serum penetration. A regular facial is gentler and more relaxing. The best option depends on your skin and goals.'],
-      ['How often can I get a Hydrafacial?', 'Every 2–4 weeks. In Bali\'s climate, every 3–4 weeks is a good rhythm for most skin types.'],
+      ['What is the difference between a Korean Hydrafacial and a Hydrafacial?', 'Both use hydrodermabrasion to cleanse, extract and infuse. A Korean Hydrafacial adds a layered K-beauty ritual — essences, ampoules, masks and massage with Korean actives — for more hydration and a glass-skin glow.'],
+      ['Is a Korean Hydrafacial better than a manual facial?', 'It is more results-driven: deeper cleansing, better penetration of actives and a more visible glow. A manual facial is gentler and more sensory. Choose by your skin and your goal — or let our free skin analysis decide.'],
+      ['How often can I get a Korean Hydrafacial?', 'Every 2–4 weeks. In Bali\'s climate, every 3–4 weeks is a good rhythm for most skin types.'],
     ],
     related: ['ultimate-korean-glass-skin-hydralift', 'k-balance-acne-clear', 'balinese-hydrating-ritual-rose-aloe'],
   },
