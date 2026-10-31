@@ -1,0 +1,11 @@
+{
+  "name": "point-face-site",
+  "private": true,
+  "description": "POINT · FACE — expert facial studio website (Uluwatu Ungasan & Uluwatu Bingin)",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js && npx serve public",
+    "sync:fresha": "node scripts/sync-fresha-reviews.js"
+  }
+}

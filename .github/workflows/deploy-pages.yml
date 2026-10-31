@@ -1,0 +1,39 @@
+name: Deploy site to GitHub Pages
+
+# pointfacebali.com is served by GitHub Pages from the `main` branch.
+# Every push to the site branch rebuilds the site and publishes public/ to `main`.
+on:
+  push:
+    branches: [claude/facial-studio-uluwatu-site-fd77ih]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/build.js
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: _deploy
+      - name: Publish public/ to main
+        run: |
+          rsync -a --delete --exclude .git --exclude README.md public/ _deploy/
+          cd _deploy
+          git add -A
+          if git diff --cached --quiet; then echo "Nothing to deploy"; exit 0; fi
+          git config user.name "site-deploy-bot"
+          git config user.email "site-deploy-bot@users.noreply.github.com"
+          git commit -m "Deploy site from ${GITHUB_SHA::7}"
+          git push origin HEAD:main
