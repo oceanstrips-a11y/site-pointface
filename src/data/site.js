@@ -11,7 +11,7 @@ module.exports = {
   url: 'https://www.pointfacebali.com',
   locale: 'en',
   description:
-    'POINT · FACE is an expert facial studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, HydroJelly facials, Balinese natural facials and face-sculpting massages (Kobido, Buccal, Gua Sha). Every treatment starts with a free skin analysis using AI-powered diagnostic technology. Rated 4.9 by more than 2,000 clients.',
+    'POINT · FACE is an expert facial studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, HydroJelly facials, Balinese natural facials and face-sculpting massages (Kobido, Buccal, Gua Sha). Every treatment starts with a free skin analysis using AI-powered diagnostic technology. Rated 4.9/5 on Fresha, with more than 2,000 clients welcomed.',
   instagram: 'https://www.instagram.com/pointfacebali/',
   instagramHandle: '@pointfacebali',
   email: '', // TODO: add a public contact email if you want it displayed
@@ -36,8 +36,15 @@ module.exports = {
       fresha: 'https://www.fresha.com/a/point-face-bali-ungasan-kec-kuta-sel-kabupaten-badung-jalan-toya-ning-ii-no-99-no6mqclf?pId=2696384',
       // Google Maps share link of the studio (used for "Directions").
       maps: 'https://share.google/cNO72dbWv5qfZQgRg',
-      // TODO: confirm opening hours (used in Google structured data).
-      hours: { days: 'Mo-Su', opens: '10:00', closes: '19:00', label: 'Every day · 10:00 – 19:00' },
+      // Opening hours (used in Google structured data). Sunday opens at 12:00.
+      hours: {
+        opens: '10:00', closes: '19:00',
+        label: 'Mon–Sat · 10:00 – 19:00 · Sun · 12:00 – 19:00',
+        spec: [
+          { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '10:00', closes: '19:00' },
+          { days: ['Sunday'], opens: '12:00', closes: '19:00' },
+        ],
+      },
       geo: null, // e.g. { lat: -8.83, lng: 115.17 } — TODO from Google Maps
       intro:
         'Our first studio, on Jl. Toya Ning in Ungasan — ten minutes from Melasti, Pandawa and the Uluwatu clifftop villas. Calm treatment rooms, Hydrafacial technology and a complimentary skin analysis before every facial.',

@@ -1101,12 +1101,12 @@ function seoFiles() {
 
 Key facts:
 - Two studios in Uluwatu, Bali: ${site.locations.map((l) => `${l.fullName} (${l.street}, ${l.locality}, ${l.region} ${l.postalCode})`).join('; ')}.
-- Hours: ${site.locations[0].hours.label}.
+- Hours: ${site.locations.map((l) => `${l.name}: ${l.hours.label}`).join('; ')}.
 - Booking: WhatsApp (${site.locations.map((l) => `${l.name}: +${l.whatsapp}`).join(', ')}) or online on Fresha.
 - Every treatment includes a free skin analysis using AI-powered diagnostic technology.
 - HydroJelly Hydrafacials are exclusive to Uluwatu Ungasan; Korean Body Hydrafacials (back, chest, booty) are exclusive to Uluwatu Bingin.
 - 3-session packages: −30% on Korean, HydroJelly and Body Hydrafacials, −20% on natural facials and face massages, valid 5 months (see ${abs('/packages/')}).
-- 4.9 average review rating; more than 2,000 satisfied clients.
+- 4.9/5 average rating on Fresha; more than 2,000 clients welcomed.
 - ${site.priceNote}
 - Skincare brands: ${site.brands.join(', ')}.
 - Technologies: hydrodermabrasion (Hydrafacial), ultrasonic infusion, oxygen therapy, radiofrequency, microcurrent, high frequency, cold hammer, cryo globes, 7-colour LED.

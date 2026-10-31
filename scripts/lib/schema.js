@@ -69,12 +69,11 @@ function business(loc, { treatments, reviews } = {}) {
       postalCode: loc.postalCode,
       addressCountry: loc.country,
     },
-    openingHoursSpecification: [{
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    openingHoursSpecification: (loc.hours.spec || [{
+      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       opens: loc.hours.opens,
       closes: loc.hours.closes,
-    }],
+    }]).map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.days, opens: h.opens, closes: h.closes })),
     hasMap: loc.maps,
     areaServed: ['Uluwatu', 'Ungasan', 'Bingin', 'Pecatu', 'Jimbaran', 'Nusa Dua'].map((n) => ({ '@type': 'Place', name: `${n}, Bali` })),
     potentialAction: {
