@@ -64,7 +64,14 @@ module.exports = {
       phoneDisplay: '+62 823 3907 8379',
       fresha: 'https://www.fresha.com/en/a/point-face-facial-spa-bingin-pecatu-jl-pantai-cemongkak-no-9-dnxbd6ct?pId=2696384',
       maps: 'https://share.google/bFhLCCwXIVCowcxSQ',
-      hours: { days: 'Mo-Su', opens: '10:00', closes: '19:00', label: 'Every day · 10:00 – 19:00' },
+      hours: {
+        opens: '10:00', closes: '19:00',
+        label: 'Mon–Sat · 10:00 – 19:00 · Sun · 12:00 – 19:00',
+        spec: [
+          { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '10:00', closes: '19:00' },
+          { days: ['Sunday'], opens: '12:00', closes: '19:00' },
+        ],
+      },
       geo: null,
       intro:
         'Our Bingin studio sits in the heart of the surf village, a few minutes from Bingin, Dreamland, Padang Padang and Uluwatu beaches — made for post-surf skin repair, sun recovery and a glow before sunset.',
