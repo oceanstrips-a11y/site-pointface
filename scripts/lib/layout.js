@@ -137,6 +137,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" cont
 <meta name="twitter:card" content="summary_large_image">
 <meta name="geo.region" content="ID-BA">
 <meta name="geo.placename" content="Uluwatu, Bali">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">

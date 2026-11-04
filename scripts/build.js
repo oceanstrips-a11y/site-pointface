@@ -1162,7 +1162,7 @@ ${articles.map((a) => `- [${a.title}](${abs(`/journal/${a.slug}/`)}): ${a.answer
 
   fs.writeFileSync(
     path.join(OUT, 'site.webmanifest'),
-    JSON.stringify({ name: 'POINT · FACE', short_name: 'Point Face', start_url: '/', display: 'standalone', background_color: '#F6F4F0', theme_color: '#F6F4F0', icons: [{ src: '/assets/img/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }] }, null, 2)
+    JSON.stringify({ name: 'POINT · FACE', short_name: 'Point Face', start_url: '/', display: 'standalone', background_color: '#F6F4F0', theme_color: '#F6F4F0', icons: [{ src: '/assets/img/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/assets/img/icon-512.png', sizes: '512x512', type: 'image/png' }] }, null, 2)
   );
 }
 
