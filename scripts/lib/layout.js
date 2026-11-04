@@ -1,5 +1,5 @@
 const site = require('../../src/data/site');
-const { esc, abs, waLink, waText } = require('./utils');
+const { esc, abs, waLink, waText, img } = require('./utils');
 
 const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POINT · FACE"></span>`;
 
@@ -156,6 +156,15 @@ ${body}
 ${footer(book)}
 ${bookingDialog()}
 <a href="/book/" class="book-fab" ${book}>Book now</a>
+<aside class="ig-pop" data-ig-pop hidden aria-labelledby="ig-pop-title">
+  <button class="ig-pop__close" type="button" data-ig-close aria-label="Close">×</button>
+  <div class="ig-pop__img">${img('happy-glowing-skin', '', { sizes: '88px' })}</div>
+  <div class="ig-pop__body">
+    <p class="eyebrow">Instagram</p>
+    <p class="ig-pop__title" id="ig-pop-title">Follow us for glow tips &amp; results</p>
+    <a class="btn btn--solid btn--sm" href="${site.instagram}" target="_blank" rel="noopener" data-ig-follow>Follow ${esc(site.instagramHandle)}</a>
+  </div>
+</aside>
 <div class="cursor" aria-hidden="true" data-cursor-el><span class="cursor__label" data-cursor-label></span></div>
 <div class="hover-float" aria-hidden="true" data-hover-float><div class="hover-float__inner"></div></div>
 <script type="application/json" id="pf-data">${pfData}</script>
