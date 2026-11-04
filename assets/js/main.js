@@ -257,6 +257,30 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
   }
 
+  /* ---------- Instagram pop-up (after 4 s, then not again for 14 days) ---------- */
+  const igPop = $('[data-ig-pop]');
+  if (igPop) {
+    const IG_KEY = 'pf-ig-pop';
+    const IG_PAUSE = 14 * 24 * 3600 * 1000;
+    let lastSeen = 0;
+    try { lastSeen = Number(localStorage.getItem(IG_KEY)) || 0; } catch (e) { /* storage blocked */ }
+    const dismiss = () => {
+      try { localStorage.setItem(IG_KEY, String(Date.now())); } catch (e) { /* storage blocked */ }
+      igPop.classList.remove('is-open');
+      setTimeout(() => { igPop.hidden = true; }, 500);
+    };
+    if (Date.now() - lastSeen > IG_PAUSE) {
+      setTimeout(() => {
+        // Never on top of the open menu or booking panel.
+        if (document.body.classList.contains('menu-open')) return;
+        igPop.hidden = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => igPop.classList.add('is-open')));
+      }, 4000);
+    }
+    $('[data-ig-close]', igPop).addEventListener('click', dismiss);
+    $('[data-ig-follow]', igPop).addEventListener('click', dismiss);
+  }
+
   /* ---------- Booking dialog ---------- */
   const dialog = $('[data-book-dialog]');
   const treatmentEl = dialog && $('[data-book-treatment]', dialog);
