@@ -212,8 +212,8 @@ module.exports = [
 <h2>5. Location and timing</h2>
 <p>Uluwatu is spread out and traffic around Pecatu can be slow at sunset. Choose the studio closest to where you stay:</p>
 <ul>
-<li><a href="/locations/uluwatu-ungasan/">POINT · FACE Uluwatu Ungasan</a> — Jl. Toya Ning II, near Melasti, Pandawa and the Ungasan clifftop.</li>
-<li><a href="/locations/uluwatu-bingin/">POINT · FACE Uluwatu Bingin</a> — in the Bingin surf village, close to Dreamland and Padang Padang.</li>
+<li><a href="/locations/uluwatu-ungasan/">Point Face - Facial Spa Uluwatu</a> (Ungasan) — Jl. Toya Ning II, near Melasti, Pandawa and the Ungasan clifftop.</li>
+<li><a href="/locations/uluwatu-bingin/">Point Face - Facial Spa Bingin</a> — in the Bingin surf village, close to Dreamland and Padang Padang.</li>
 </ul>
 
 <h2>Which facial should you book in Uluwatu?</h2>

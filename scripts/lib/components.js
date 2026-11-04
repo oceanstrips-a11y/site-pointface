@@ -114,7 +114,7 @@ const bookingBand = (treatment) => `
         .map(
           (l) => `
       <div class="book-band__loc">
-        <p class="book-band__loc-name">${l.name}</p>
+        <p class="book-band__loc-name">${l.fullName}</p>
         <a class="btn btn--solid" href="${waLink(l, waText(l, treatment))}" target="_blank" rel="noopener" data-magnetic>WhatsApp</a>
         ${freshaButtons(typeof treatment === 'object' ? treatment : null, l)}
       </div>`
@@ -156,7 +156,7 @@ function reviewsSection(reviews, { locationId, title = 'Loved in Uluwatu' } = {}
         .map(
           (l) => `
     <div class="rating-chip rating-chip--links">
-      <span class="rating-chip__meta"><strong>${l.name}</strong>
+      <span class="rating-chip__meta"><strong>${l.fullName}</strong>
       <span><a class="link" href="${l.maps}" target="_blank" rel="noopener">Google reviews</a> · <a class="link" href="${l.fresha}" target="_blank" rel="noopener">Fresha reviews</a></span></span>
     </div>`
         )
@@ -211,7 +211,7 @@ function studiosSection({ title = 'Our studios' } = {}) {
       </a>
       <div class="studio__body" data-reveal style="--d:${i * 120}ms">
         <p class="studio__index">0${i + 1}</p>
-        <h3 class="studio__name"><a href="/locations/${l.slug}/">${l.name}</a></h3>
+        <h3 class="studio__name"><a href="/locations/${l.slug}/">${l.fullName}</a></h3>
         <address>${esc(l.street)}, ${esc(l.locality)}, ${l.region}</address>
         <p class="studio__hours">${l.hours.label}</p>
         <div class="studio__actions">

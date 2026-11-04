@@ -26,7 +26,8 @@ module.exports = {
       id: 'ungasan',
       slug: 'uluwatu-ungasan',
       name: 'Uluwatu Ungasan',
-      fullName: 'POINT · FACE Uluwatu Ungasan',
+      // Official name, as on Fresha and Google.
+      fullName: 'Point Face - Facial Spa Uluwatu',
       street: 'Jl. Toya Ning II No. 99',
       locality: 'Ungasan, Kuta Selatan',
       region: 'Bali',
@@ -56,8 +57,9 @@ module.exports = {
       id: 'bingin',
       slug: 'uluwatu-bingin',
       name: 'Uluwatu Bingin',
-      fullName: 'POINT · FACE Uluwatu Bingin',
-      street: 'Bingin Downtown Avenue, Jl. Pantai Cemongkak No. 9',
+      // Official name, as on Fresha and Google.
+      fullName: 'Point Face - Facial Spa Bingin',
+      street: 'Jl. Pantai Cemongkak No. 9, Bingin Downtown Avenue',
       locality: 'Pecatu, Kuta Selatan',
       region: 'Bali',
       postalCode: '80361',

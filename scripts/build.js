@@ -769,7 +769,7 @@ ${C.breadcrumb([['Home', '/'], ['Studios', '/locations/'], [l.name, p]])}
 <section class="concern-hero">
   <div class="container concern-hero__grid">
     <div class="concern-hero__text">
-      <p class="eyebrow" data-reveal>Studio · ${l.locality}</p>
+      <p class="eyebrow" data-reveal>${esc(l.fullName)} · ${l.locality}</p>
       <h1 class="h-display h-display--xl" data-split>Facial studio in ${esc(l.name)}</h1>
       <p class="page-hero__lede" data-reveal>${esc(l.intro)}</p>
       <dl class="info-list" data-reveal>
@@ -1053,12 +1053,12 @@ ${C.breadcrumb([['Home', '/'], ['Book', '/book/']])}
     <div class="book-page__col" data-reveal>
       <p class="eyebrow">WhatsApp</p>
       <h2 class="h-sub">Message the studio</h2>
-      ${site.locations.map((l) => `<a class="book-option" href="${waLink(l, waText(l))}" target="_blank" rel="noopener"><span>${l.name}<small>${esc(l.street)}</small></span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
+      ${site.locations.map((l) => `<a class="book-option" href="${waLink(l, waText(l))}" target="_blank" rel="noopener"><span>${l.fullName}<small>${esc(l.street)}</small></span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
     </div>
     <div class="book-page__col" data-reveal style="--d:120ms">
       <p class="eyebrow">Fresha</p>
       <h2 class="h-sub">Book online, 24/7</h2>
-      ${site.locations.map((l) => `<a class="book-option" href="${l.fresha}" target="_blank" rel="noopener"><span>${l.name}<small>Instant confirmation</small></span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
+      ${site.locations.map((l) => `<a class="book-option" href="${l.fresha}" target="_blank" rel="noopener"><span>${l.fullName}<small>Instant confirmation</small></span><span class="book-option__arrow" aria-hidden="true">→</span></a>`).join('')}
     </div>
   </div>
 </section>
