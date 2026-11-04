@@ -14,6 +14,8 @@ module.exports = {
     'POINT · FACE is an expert facial studio in Uluwatu, Bali, with two studios in Ungasan and Bingin. Korean Hydrafacials, HydroJelly facials, Balinese natural facials and face-sculpting massages (Kobido, Buccal, Gua Sha). Every treatment starts with a free skin analysis using AI-powered diagnostic technology. Rated 4.9/5 on Fresha, with more than 2,000 clients welcomed.',
   instagram: 'https://www.instagram.com/pointfacebali/',
   instagramHandle: '@pointfacebali',
+  tiktok: 'https://www.tiktok.com/@point_face_bali',
+  tiktokHandle: '@point_face_bali',
   email: '', // TODO: add a public contact email if you want it displayed
   priceNote: 'All prices include 15% government tax & service charge. No additional fees.',
   priceRange: 'IDR 250,000 – 2,250,000',

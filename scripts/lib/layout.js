@@ -36,7 +36,11 @@ function header(current, book) {
     </nav>
     <div class="mobile-menu__foot">
       <a href="/book/" class="btn btn--solid" ${book}>Book a treatment</a>
-      <a href="${site.instagram}" class="link" rel="noopener" target="_blank">${site.instagramHandle}</a>
+      <div class="mobile-menu__social">
+        <p class="eyebrow">Discover more on</p>
+        <a href="${site.instagram}" class="link" rel="noopener" target="_blank">Instagram ${site.instagramHandle}</a>
+        <a href="${site.tiktok}" class="link" rel="noopener" target="_blank">TikTok ${site.tiktokHandle}</a>
+      </div>
     </div>
   </div>
 </header>`;
@@ -73,6 +77,7 @@ function footer(book) {
           <li><a class="link" href="/about/">About</a></li>
           <li><a class="link" href="/faq/">FAQ</a></li>
           <li><a class="link" href="${site.instagram}" rel="noopener" target="_blank">Instagram ${site.instagramHandle}</a></li>
+          <li><a class="link" href="${site.tiktok}" rel="noopener" target="_blank">TikTok ${site.tiktokHandle}</a></li>
         </ul>
       </div>
     </div>

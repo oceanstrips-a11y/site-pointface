@@ -17,7 +17,7 @@ function organization() {
     logo: abs('/assets/img/logo.png'),
     image: abs('/assets/img/og-default.jpg'),
     description: site.description,
-    sameAs: [site.instagram, ...site.locations.map((l) => l.fresha).filter((u) => u && u !== 'https://www.fresha.com/')],
+    sameAs: [site.instagram, site.tiktok, ...site.locations.map((l) => l.fresha).filter((u) => u && u !== 'https://www.fresha.com/')],
     knowsAbout: [
       'Korean facials', 'Hydrafacial', 'HydroJelly mask', 'Glass skin', 'PDRN salmon DNA facial',
       'Acne facial', 'Anti-aging facial', 'Kobido massage', 'Buccal massage', 'Gua Sha', 'LED light therapy',

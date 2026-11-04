@@ -800,3 +800,7 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .ig-pop__close { position: absolute; top: 8px; right: 10px; width: 32px; height: 32px; font-size: 22px; line-height: 1; color: var(--ink); }
 @media (max-width: 760px) { .ig-pop { left: 16px; right: 16px; width: auto; bottom: 84px; grid-template-columns: 64px 1fr; gap: 14px; padding: 14px 40px 14px 14px; } .ig-pop__img { width: 64px; height: 64px; } }
 @media (prefers-reduced-motion: reduce) { .ig-pop { transition: none; } }
+
+/* Mobile menu: social links under the Book button */
+.mobile-menu__social { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.mobile-menu__social .eyebrow { margin-bottom: 2px; }
