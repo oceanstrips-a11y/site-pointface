@@ -147,9 +147,9 @@ s { color: var(--ink-2); text-decoration-thickness: 1px; }
 .site-header__loc { font: 400 11px var(--f-ui); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
 .menu-toggle { display: none; width: 40px; height: 40px; position: relative; }
 .menu-toggle__bar { position: absolute; left: 9px; right: 9px; height: 1px; background: var(--ink); transition: transform .45s var(--ease); }
-.menu-toggle__bar:nth-of-type(1) { top: 16px; } .menu-toggle__bar:nth-of-type(2) { top: 23px; }
-.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(1) { transform: translateY(3.5px) rotate(45deg); }
-.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-of-type(2) { transform: translateY(-3.5px) rotate(-45deg); }
+.menu-toggle__bar:nth-child(2) { top: 16px; } .menu-toggle__bar:nth-child(3) { top: 23px; }
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) { transform: translateY(3.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(3) { transform: translateY(-3.5px) rotate(-45deg); }
 
 .mobile-menu { position: fixed; top: var(--header-h); left: 0; right: 0; height: calc(100vh - var(--header-h)); height: calc(100dvh - var(--header-h)); /* explicit height: the blurred header is the containing block */ background: var(--surface); padding: 32px var(--gutter); display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
 /* The hidden attribute always wins over component display rules (mobile menu, booking options). */
@@ -804,3 +804,13 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 /* Mobile menu: social links under the Book button */
 .mobile-menu__social { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .mobile-menu__social .eyebrow { margin-bottom: 2px; }
+
+/* Phones: bigger burger (32px bars, 2px thick, larger tap area) */
+@media (max-width: 760px) {
+  .menu-toggle { width: 48px; height: 48px; margin-left: -8px; }
+  .menu-toggle__bar { left: 8px; right: 8px; height: 2px; }
+  .menu-toggle__bar:nth-child(2) { top: 18px; }
+  .menu-toggle__bar:nth-child(3) { top: 28px; }
+  .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) { transform: translateY(5px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+}
