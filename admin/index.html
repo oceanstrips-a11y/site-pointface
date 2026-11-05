@@ -822,6 +822,7 @@ async function loadAll(){
     fetchAll(()=>sb.from("records").select("kind,id,pid,ds,loc,data").eq("kind","photo").gte("ds",pf).order("id"))]);
   const rows=rec.concat(ph);
   synced=syncedFrom(st,cf,rows);
+  try{const {data}=await sb.from("pins").select("staff_id,pin");ui.pins=Object.fromEntries((data||[]).map(x=>[x.staff_id,x.pin]));}catch(e){ui.pins={};}
   S=fromServer(st,cf,rows);
   migrate();
   ui.photoFrom=pf;
@@ -904,27 +905,28 @@ function renderLogin(){
   $("app").innerHTML=`<div class="login">
     <div><h3>Staff area</h3><h1>Point<span>·</span>Face Team</h1></div>
     ${ui.loginErr?`<div class="alerts"><h3>Cannot reach the database</h3><p class="note">${esc(ui.loginErr)}</p></div>`:""}
-    ${setup?'<div class="alerts clean"><h3>First setup</h3><p class="note">Nobody has a login yet. Tap an owner and choose her 6-digit PIN. This works only once; after that, PINs are set in Team & menu.</p></div>':'<p>Tap your name, then enter your 6-digit PIN. Everyone only sees what concerns them.</p>'}
-    ${groups.map(([r,l])=>{const ps=L.filter(p=>r.includes(p.role)&&(!setup||p.role==="owner"));return ps.length?`<div class="box"><h3>${l}</h3><div class="people">${ps.map(p=>`<button data-act="pick" data-id="${esc(p.id)}"${!setup&&!p.has_login?" disabled":""}>${esc(p.name)}<small>${!setup&&!p.has_login?"No login yet":esc(sub(p))}</small></button>`).join("")}</div></div>`:"";}).join("")}
+    ${setup?'<div class="alerts clean"><h3>First setup</h3><p class="note">Nobody has a code yet. An owner logs in first: tap your name and choose your 6-digit code.</p></div>':'<p>Tap your name, then enter your 6-digit code. First time here? Tap your name and choose your own code.</p>'}
+    ${groups.map(([r,l])=>{const ps=L.filter(p=>r.includes(p.role)&&(!setup||p.role==="owner"));return ps.length?`<div class="box"><h3>${l}</h3><div class="people">${ps.map(p=>`<button data-act="pick" data-id="${esc(p.id)}">${esc(p.name)}<small>${!p.has_login?"First login · choose your code":esc(sub(p))}</small></button>`).join("")}</div></div>`:"";}).join("")}
   </div>`;
 }
 function openPin(p){
-  const setup=!(ui.login||[]).some(x=>x.has_login);
-  sheet(`<h2>${esc(p.name)}</h2><p class="note">${setup?"First setup: choose the 6-digit PIN for this owner account.":ROLES[p.role]}</p>
-  <form id="pinForm" class="form" style="grid-template-columns:1fr"><label for="pinIn">${setup?"New PIN (6 digits)":"PIN"}<input id="pinIn" type="password" inputmode="numeric" autocomplete="${setup?"new-password":"current-password"}" maxlength="6" pattern="[0-9]{6}" required></label>
+  const setup=!p.has_login;
+  sheet(`<h2>${esc(p.name)}</h2><p class="note">${setup?"Welcome! Choose your own 6-digit code. You will use it every time you log in. Only the owners can see it.":ROLES[p.role]}</p>
+  <form id="pinForm" class="form" style="grid-template-columns:1fr"><label for="pinIn">${setup?"Your new code (6 digits)":"Code"}<input id="pinIn" type="password" inputmode="numeric" autocomplete="${setup?"new-password":"current-password"}" maxlength="6" pattern="[0-9]{6}" required></label>
   ${setup?'<label for="pinIn2">Type it again<input id="pinIn2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6" required></label>':""}
   <p class="note" id="pinErr" hidden style="color:var(--warn)"></p>
-  <div class="bar"><button type="submit" class="primary" id="pinGo">${setup?"Create and log in":"Log in"}</button><button type="button" data-act="closeSheet">Cancel</button></div></form>`);
+  <div class="bar"><button type="submit" class="primary" id="pinGo">${setup?"Save my code and log in":"Log in"}</button><button type="button" data-act="closeSheet">Cancel</button></div></form>`);
   $("pinIn").focus();
   const fail=m=>{$("pinErr").textContent=m;$("pinErr").hidden=false;$("pinGo").disabled=false;$("pinIn").value="";if($("pinIn2"))$("pinIn2").value="";$("pinIn").focus();};
   $("pinForm").onsubmit=async e=>{e.preventDefault();const pin=$("pinIn").value.trim();
-    if(!/^\d{6}$/.test(pin)){fail("The PIN is 6 digits.");return;}
-    if(setup&&pin!==$("pinIn2").value.trim()){fail("The two PINs are different.");return;}
+    if(!/^\d{6}$/.test(pin)){fail("The code is 6 digits.");return;}
+    if(setup&&/^(\d)\1{5}$|^(012345|123456|234567|345678|456789|987654|876543|765432|654321|543210)$/.test(pin)){fail("This code is too easy to guess. Choose another one.");return;}
+    if(setup&&pin!==$("pinIn2").value.trim()){fail("The two codes are different.");return;}
     $("pinGo").disabled=true;
     try{
-      if(setup)await callFn("admin-users",{action:"setup",staff_id:p.id,pin});
+      if(setup)await callFn("admin-users",{action:"claim",staff_id:p.id,pin});
       const {data,error}=await sb.auth.signInWithPassword({email:p.id+"@"+EMAIL_DOMAIN,password:pin});
-      if(error){fail(/invalid/i.test(error.message)?"Wrong PIN. Try again.":error.message);return;}
+      if(error){fail(/invalid/i.test(error.message)?"Wrong code. Try again. Forgot it? Ask an owner to reset it.":error.message);return;}
       closeSheet();await afterLogin(data.session);
     }catch(x){fail(errMsg(x));}};
 }
@@ -1396,7 +1398,8 @@ function vSettings(){
   const staffRows=S.staff.map(p=>{const lock=!ownerOnly&&(p.role==="owner");const team=isFront(p)||p.role==="therapist";const lv=p.locs.join("");
     return `<tr><td><input data-ch="st" data-f="name" data-pid="${p.id}" value="${esc(p.name)}" aria-label="Name"${lock?" disabled":""}></td>
     <td><select class="f" data-ch="st" data-f="role" data-pid="${p.id}" aria-label="Role"${lock?" disabled":""}>${Object.entries(ROLES).filter(([r])=>ownerOnly||r!=="owner").map(([r,l])=>`<option value="${r}"${p.role===r?" selected":""}>${l}</option>`).join("")}</select></td>
-    <td style="white-space:nowrap">${p.hasLogin?'<span class="chip ok">Login</span>':'<span class="chip mute">No login</span>'} ${lock?"":`<button class="ghost" data-act="setPin" data-id="${p.id}">${p.hasLogin?"Change PIN":"Set PIN"}</button>`}</td>
+    <td style="white-space:nowrap">${p.hasLogin?(me.role==="owner"&&ui.pins&&ui.pins[p.id]?`<span class="chip ok" title="Login code">${ui.showPins?esc(ui.pins[p.id]):"••••••"}</span>`:'<span class="chip ok">Active</span>'):'<span class="chip mute">Chooses at first login</span>'}
+      ${me.role==="owner"?`<button class="ghost" data-act="setPin" data-id="${p.id}">${p.hasLogin?"Change":"Set"}</button>${p.hasLogin&&p.id!==me.id?`<button class="ghost" data-act="resetPin" data-id="${p.id}">Reset</button>`:""}`:""}</td>
     <td>${team?`<select class="f" data-ch="st" data-f="locs" data-pid="${p.id}" aria-label="Studios"><option value="U"${lv==="U"?" selected":""}>Ungasan</option><option value="B"${lv==="B"?" selected":""}>Bingin</option><option value="UB"${lv.length>1?" selected":""}>Both</option></select>`:""}</td>
     <td>${team?`<input type="number" min="0" data-ch="st" data-f="target" data-pid="${p.id}" value="${p.target??""}" aria-label="Target hours">`:""}</td>
     <td>${team?`<input type="number" min="0" data-ch="st" data-f="ot" data-pid="${p.id}" value="${p.ot||0}" aria-label="Overtime">`:""}</td>
@@ -1408,8 +1411,8 @@ function vSettings(){
     <td>${p.id!==me.id&&!lock?`<button class="ghost" data-act="delStaff" data-id="${p.id}" aria-label="Remove ${esc(p.name)}">Remove</button>`:""}</td></tr>`;}).join("");
   const cats=[...new Set(S.catalog.map(c=>c.cat))];
   main(`<div class="box"><div class="bar"><h2>Team and access</h2><span class="spacer"></span><button data-act="addStaff">Add a person</button></div>
-    <p class="note">The role decides what each person sees. Therapist: her day, her treatments, her service charge. Front office: her product and package sales, first check of treatments, cabin validation. Front office manager: both, and she approves treatments in one step (lines checked by other front office, or lines she goes through herself); her own product and package sales are approved by an owner. Owners: everything. “Target” = hours per pay period (26th → 25th), “OT” = overtime allowed on top, “Max/week” = weekly cap. “Supplies” = can send supply requests to the manager. Leave empty for no check. The usual week is the base for the schedule draft.</p>
-    <div class="scroll"><table class="settings"><thead><tr><th>Name</th><th>Role</th><th>Login</th><th>Studio(s)</th><th>Target h</th><th>OT</th><th>Max/week</th><th>Closes alone</th><th>Supplies</th><th>Leave days/yr</th>${DOW.map(d=>`<th>${d}</th>`).join("")}<th></th></tr></thead><tbody>${staffRows}</tbody></table></div></div>
+    <p class="note">Login codes: each person chooses her own 6-digit code at her first login. Only owners can see the codes, change one, or reset one (she then chooses a new code at her next login). The role decides what each person sees. Therapist: her day, her treatments, her service charge. Front office: her product and package sales, first check of treatments, cabin validation. Front office manager: both, and she approves treatments in one step (lines checked by other front office, or lines she goes through herself); her own product and package sales are approved by an owner. Owners: everything. “Target” = hours per pay period (26th → 25th), “OT” = overtime allowed on top, “Max/week” = weekly cap. “Supplies” = can send supply requests to the manager. Leave empty for no check. The usual week is the base for the schedule draft.</p>
+    <div class="scroll"><table class="settings"><thead><tr><th>Name</th><th>Role</th><th>Login code${me.role==="owner"?` <button class="ghost" data-act="togglePins" style="padding:0 4px">${ui.showPins?"Hide":"Show"}</button>`:""}</th><th>Studio(s)</th><th>Target h</th><th>OT</th><th>Max/week</th><th>Closes alone</th><th>Supplies</th><th>Leave days/yr</th>${DOW.map(d=>`<th>${d}</th>`).join("")}<th></th></tr></thead><tbody>${staffRows}</tbody></table></div></div>
   <div class="box"><div class="bar"><h2>Treatment menu</h2><span class="spacer"></span><button data-act="addCat">Add a treatment</button></div>
     <p class="note">This is the list therapists pick from. Price = amount paid by the client (incl. tax and service), in rupiah. If a price is empty, the therapist types the amount. ${S.catalog.some(c=>!c.price)?"<b>Fill in the prices from your Fresha menu.</b>":""}</p>
     <div class="scroll"><table class="settings"><thead><tr><th>Treatment</th><th>Category</th><th>Price (Rp)</th><th>Minutes</th><th>Studios</th><th></th></tr></thead><tbody>
@@ -1550,13 +1553,16 @@ const ACT={
   copySC:()=>{const r=[["Name","Role","Approved","Amount approved","Service charge","SC pending","Package bonus"]];(ui._sc.th||[]).forEach(x=>r.push([x.p.name,"Therapist",x.n,x.ca,x.sc,x.pe]));(ui._sc.fr||[]).forEach(x=>r.push([x.p.name,"Front office · products",x.n,x.ca,x.sc,x.pe]));(ui._sc.pk||[]).forEach(x=>r.push([x.p.name,"Front office · packages",x.n,x.ca,x.sc,x.pe,S.cfg.ktarget&&x.ca>=S.cfg.ktarget?(S.cfg.kbonus||0):0]));copy(r.map(x=>x.join(";")).join("\n"),"Service charge copied");},
   addStaff:()=>{const A=W(600,1140);S.staff.push({id:"p"+uid(),name:"New person",role:"therapist",locs:["U"],target:160,ot:0,week:40,alone:false,tpl:[A,A,A,A,A,"OFF","OFF"]});save();render();toast("Added: change the name, then tap Set PIN to create her login");},
   delStaff:async t=>{if(!arm(t,"Confirm: remove"))return;try{await waitSync();await callFn("admin-users",{action:"delete",staff_id:t.dataset.id});toast("Removed. Her history is kept");await reload(true);}catch(e){toast(errMsg(e));}},
+  togglePins:()=>{ui.showPins=!ui.showPins;render();},
+  resetPin:t=>{const p=byId(t.dataset.id);if(!arm(t,"Confirm reset"))return;
+    (async()=>{try{await waitSync();await callFn("admin-users",{action:"reset",staff_id:p.id});toast(p.name+"'s code is reset: she chooses a new one at her next login");await reload(true);}catch(x){toast(errMsg(x));}})();},
   setPin:t=>{const p=byId(t.dataset.id);
-    sheet(`<h2>${p.hasLogin?"Change":"Set"} ${esc(p.name)}'s PIN</h2><p class="note">6 digits. Give it to ${esc(p.name)} in person; she logs in by tapping her name.</p>
+    sheet(`<h2>${p.hasLogin?"Change":"Set"} ${esc(p.name)}'s code</h2><p class="note">6 digits. Tell ${esc(p.name)} her new code in person.</p>
     <form id="spForm" class="form" style="grid-template-columns:1fr"><label for="spIn">New PIN<input id="spIn" type="text" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" autocomplete="off" required></label>
     <div class="bar"><button type="submit" class="primary" id="spGo">Save the PIN</button><button type="button" data-act="closeSheet">Cancel</button></div></form>`);
     $("spIn").focus();
     $("spForm").onsubmit=async e=>{e.preventDefault();const pin=$("spIn").value.trim();if(!/^\d{6}$/.test(pin)){toast("The PIN is 6 digits");return;}
-      $("spGo").disabled=true;try{await waitSync();await callFn("admin-users",{action:"set_pin",staff_id:p.id,pin});closeSheet();toast("PIN saved: "+p.name+" can log in");await reload(true);}catch(x){$("spGo").disabled=false;toast(errMsg(x));}};},
+      $("spGo").disabled=true;try{await waitSync();await callFn("admin-users",{action:"set_pin",staff_id:p.id,pin});closeSheet();toast("Code saved for "+p.name);await reload(true);}catch(x){$("spGo").disabled=false;toast(errMsg(x));}};},
   addCat:()=>{S.catalog.push({id:"c"+uid(),name:"New treatment",cat:"Add-ons",price:null,dur:60,sites:["U","B"]});save();render();},
   addProd:()=>{S.products.push({id:"pr"+uid(),brand:"COSRX",name:"New product",price:null});save();render();},
   delProd:t=>{if(!arm(t))return;S.products=S.products.filter(c=>c.id!==t.dataset.id);save();render();},
