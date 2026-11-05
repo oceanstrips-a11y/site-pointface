@@ -1271,9 +1271,13 @@ function vPlanning(){
     `<div class="alerts ${errs.length?"":"clean"}"><h3>${errs.length} issue(s) to fix${tips.length?" · "+tips.length+" tip(s)":""}</h3><ul>${errs.map(a=>"<li>"+esc(a.t)+"</li>").join("")}${tips.map(a=>"<li class='tip'>"+esc(a.t)+"</li>").join("")}</ul></div>`;
   main(`${periodNav()}
     <div class="cards">
-      <div class="box"><h3>Read a schedule photo</h3><p class="note">A Fresha screenshot, a paper schedule or last month's schedule. Claude reads names, days and times; you check before applying.</p>
+      ${ai.img?`<div class="box"><h3>Read a schedule photo</h3><p class="note">A Fresha screenshot, a paper schedule or last month's schedule. Claude reads names, days and times; you check before applying.</p>
         <div class="drop" id="photoDrop"><span>Drop one or more photos here</span><label class="btn" for="schedPhoto" style="font-size:.86rem">Choose photos</label><input type="file" id="schedPhoto" accept="image/jpeg,image/png,image/webp" multiple hidden data-ch="schedPhoto"></div>
-        <p class="note" id="photoStatus">${ai.img===false?"Photo reading is not available in this view.":""}</p></div>
+        <p class="note" id="photoStatus"></p></div>`:""}
+      <div class="box"><h3>Paste from Claude</h3><p class="note">Send a photo of the schedule (Fresha screenshot, paper…) to Claude in your chat. Claude replies with a block of text: paste it here, check who is who, then apply.</p>
+        <label for="pasteIn">Block from Claude<textarea id="pasteIn" rows="4" placeholder='{"entries":[ … ]}' spellcheck="false"></textarea></label>
+        <div class="bar"><button class="primary" data-act="pasteRead">Check before applying</button></div>
+        <p class="note" id="pasteStatus"></p></div>
       <div class="box"><h3>Build the schedule</h3><p class="note">The draft starts from everyone's usual week (Team & menu tab), only fills days from today on (past days stay as you entered them and count toward hours), keeps leave and requested days off, and respects hour caps. Claude then reviews everything against your rules.</p>
         <div class="bar"><button data-act="gen">Generate a draft</button><button class="primary" data-act="advise"${ai.fn?"":" disabled"}>Ask Claude for fixes</button><button data-act="stopAdvise" id="stopAdvise" hidden>Stop</button></div>
         <label for="extraRules">Extra instructions for Claude (optional)<textarea id="extraRules" rows="2" placeholder="e.g. Mustika on leave 10–14 Nov, Putri works Bingin on weekends">${esc(ui.extra||"")}</textarea></label>
@@ -1288,9 +1292,9 @@ function vPlanning(){
     <div class="bar"><button data-act="clearPeriod">Clear this period</button><span class="spacer"></span><button data-act="copyPlan">Copy as CSV</button></div>`);
   if(ui.photoData) showPhotoReview();
   const pd=$("photoDrop");
-  ["dragover","dragenter"].forEach(ev=>pd.addEventListener(ev,e=>{e.preventDefault();pd.classList.add("over");}));
+  if(pd){["dragover","dragenter"].forEach(ev=>pd.addEventListener(ev,e=>{e.preventDefault();pd.classList.add("over");}));
   ["dragleave","drop"].forEach(ev=>pd.addEventListener(ev,e=>{e.preventDefault();pd.classList.remove("over");}));
-  pd.addEventListener("drop",e=>{const f=[...e.dataTransfer.files].filter(f=>/^image\//.test(f.type));if(f.length)readSchedPhotos(f);});
+  pd.addEventListener("drop",e=>{const f=[...e.dataTransfer.files].filter(f=>/^image\//.test(f.type));if(f.length)readSchedPhotos(f);});}
 }
 function dayDetail(ds){
   const d=fromIso(ds);
@@ -1319,7 +1323,7 @@ function toB64(file){return new Promise((res,rej)=>{const url=URL.createObjectUR
 function errText(e){const m={not_granted:"Access to Claude was declined: reopen the page and allow it.",rate_limited:"Too many requests right now, try again in a few minutes.",image_rejected:"Photo refused: use a lighter JPEG or PNG.",invalid_json:"Claude could not read a schedule on this photo. Try a sharper or tighter screenshot.",session_expired:"Sign in to Claude again, then retry.",refused:"Claude could not process this request.",cancelled:"Stopped."};return m[e&&e.code]||"Something went wrong, try again.";}
 const teamText=()=>TEAM().map(p=>`- ${p.name}: ${isFront(p)?"front office":"therapist"}, studio(s) ${p.locs.map(l=>LOCN[l]+" ("+l+")").join(" or ")}`).join("\n");
 const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[^a-z]/g,"");
-function matchName(n){const k=norm(n);if(!k)return "";const p=TEAM().find(p=>norm(p.name)===k)||TEAM().find(p=>norm(p.name).startsWith(k)||k.startsWith(norm(p.name)));return p?p.id:"";}
+function matchName(n){const byIdHit=TEAM().find(p=>p.id===String(n||"").toLowerCase());if(byIdHit)return byIdHit.id;const k=norm(n);if(!k)return "";const p=TEAM().find(p=>norm(p.name)===k)||TEAM().find(p=>norm(p.name).startsWith(k)||k.startsWith(norm(p.name)));return p?p.id:"";}
 async function readSchedPhotos(files){
   if(!ai.fn||!ai.img){toast("Photo reading is not available here");return;}
   files=[...files].slice(0,ai.img.maxCount||4);
@@ -1545,6 +1549,14 @@ const ACT={
   advise:advise,
   stopAdvise:()=>ai.ctl&&ai.ctl.abort(),
   applyPhoto:applyPhoto,
+  pasteRead:()=>{const raw=($("pasteIn").value||"").trim(),st=$("pasteStatus");
+    if(!raw){st.textContent="Paste the block Claude gave you first.";return;}
+    let v=null;const fence=raw.match(/```(?:json)?\s*([\s\S]*?)```/),txt=fence?fence[1]:raw.slice(raw.indexOf("{"),raw.lastIndexOf("}")+1);
+    try{v=JSON.parse(txt);}catch(e){st.textContent="This block can't be read. Copy the whole block from Claude, from the first { to the last }.";return;}
+    const entries=Array.isArray(v&&v.entries)?v.entries.filter(x=>x&&/^\d{4}-\d{2}-\d{2}$/.test(x.date)):[];
+    if(!entries.length){st.textContent="No shift found in this block.";return;}
+    ui.photoData={entries,notes:v.notes||""};showPhotoReview();st.textContent=entries.length+" shifts found. Check them below, then apply.";
+    const b=$("photoReview");if(b)b.scrollIntoView({block:"start"});},
   cancelPhoto:()=>{ui.photoData=null;$("photoReview").hidden=true;},
   clearPeriod:t=>{if(!arm(t,"Confirm: clear"))return;periodDays(ui.period).forEach(ds=>{const d=S.plans[ds];if(d)Object.keys(d).forEach(pid=>{if(!LOCKED[d[pid]])delete d[pid];});});save();render();toast("Period cleared (leave and requested days off kept)");},
   copyPlan:()=>{const rows=[["Staff","Studio","Date","Day","Start","End","Break (h)","Paid hours","Type"]];
