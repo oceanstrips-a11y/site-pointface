@@ -389,11 +389,11 @@ function seedProducts(){
   const out=[],add=(brand,list)=>list.forEach(([name,price])=>out.push({id:"pr"+out.length,brand,name,price}));
   add("Medicube",[["Collagen Jelly Cream",725000],["Triple Collagen Serum",675000],["PDRN Hyaluronic Moisturizing Cream",725000],["PDRN Pink Peptide Serum",775000]]);
   add("Biodance",[["Bio-Collagen Real Deep Mask",150000],["Hydro Cera-nol Real Deep Mask",150000],["Radiant Vita Niacinamide Real Deep Mask",150000]]);
-  add("COSRX",[["Low pH Good Morning Cleanser",225000],["The 6 Peptide Skin Booster Serum",550000],["Advanced Snail 96 Mucin Essence",485000],["Aloe Soothing Sun Cream SPF 50+",300000],["Advanced Snail 92 All in One Cream",520000],["Hyaluronic Acid Hydra Power Essence",415000],["AHA/BHA Clarifying Treatment Toner",345000],["Hyaluronic Acid Intensive Cream",415000],["One Step Moisture Up Pad",360000],["The Retinol 0.1 Cream",620000],["Niacinamide 15 Serum",390000],["BHA Blackhead Power Liquid",460000]]);
-  add("SKIN1004",[["Centella Light Cleansing Oil",450000],["Centella Ampoule",450000],["Centella Watergel Sheet Mask",50000],["Centella Soothing Cream",395000],["Centella Tea-Trica Soothing Cream",415000],["Centella Tea-Trica Relief Ampoule",485000],["Centella Tea-Trica Mild Peeling Gel",350000],["Centella Tone Brightening Capsule Cream",415000],["Centella Tone Brightening Capsule Ampoule",485000],["Poremizing Fresh Ampoule",485000],["Centella Hyalu-Cica SPF50+",380000],["Centella Ampoule Foam",330000]]);
+  add("COSRX",[["Low pH Good Morning Cleanser",260000],["The 6 Peptide Skin Booster Serum",550000],["Advanced Snail 96 Mucin Essence",485000],["Aloe Soothing Sun Cream SPF 50+",345000],["Advanced Snail 92 All in One Cream",520000],["Hyaluronic Acid Hydra Power Essence",415000],["AHA/BHA Clarifying Treatment Toner",300000],["Hyaluronic Acid Intensive Cream",415000],["One Step Moisture Up Pad",415000],["The Retinol 0.1 Cream",620000],["Niacinamide 15 Serum",450000],["BHA Blackhead Power Liquid",460000],["The Peptide Collagen Hydrogel Eye Patch (60 patches)",580000]]);
+  add("SKIN1004",[["Centella Light Cleansing Oil",450000],["Centella Ampoule",450000],["Centella Watergel Sheet Mask",50000],["Centella Soothing Cream",345000],["Centella Tea-Trica Soothing Cream",415000],["Centella Tea-Trica Relief Ampoule",485000],["Centella Tea-Trica Mild Peeling Gel",350000],["Centella Tone Brightening Capsule Cream",415000],["Centella Tone Brightening Capsule Ampoule",485000],["Poremizing Fresh Ampoule",485000],["Centella Hyalu-Cica SPF50+",380000],["Centella Ampoule Foam",330000],["Madagascar Centella Tea-Trica Spot Cover Patch",60000]]);
   add("Mediheal",[["PDRN Rose Sheet Mask",80000],["Teatree Sheet Mask",80000],["Collagen Hydrogel Mask",100000],["Vitamin C Brightening Serum",450000],["Vitamin C Essential Mask",80000],["Panteno Lips Healssence",150000],["Labocare Pantenolips Healbalm",150000],["Panteno Lips Scrub",150000],["Panteno Lips Healssence Coral",150000]]);
   add("Beauty of Joseon",[["Revive Serum: Propolis + Niacinamide",390000]]);
-  add("Utama Spice",[["Bliss Face Wash",167800],["Witch Hazel",134600],["Jojoba",108000],["Body Butter Bliss",123100],["Serum Anti Aging",83400],["Virgin Coconut Oil",57400],["Zinc SPF Sunscreen",280000],["Rosehip Oil",252700],["Hydrobotanic Face Cream",139600],["Turmeric Essential Oil",89100],["Lip Balm Cacao",30000]]);
+  add("Utama Spice",[["Bliss Face Wash",83400],["Witch Hazel",123100],["Jojoba",108000],["Body Butter Bliss",134600],["Serum Anti Aging",167800],["Virgin Coconut Oil",80000],["Zinc SPF Sunscreen",280000],["Rosehip Oil",252700],["Hydrobotanic Face Cream",139600],["Turmeric Essential Oil",89100],["Lip Balm Cacao",30000]]);
   return out;
 }
 function seedPackages(){
@@ -1707,6 +1707,16 @@ function migrate(){
   if(S.cfg.kwhMin==null)S.cfg.kwhMin=100;
   if(!S.checklist.some(x=>x.id==="e_kwh")){const i=S.checklist.findIndex(x=>x.id==="m8");S.checklist.splice(i<0?0:i,0,{id:"e_kwh",sec:"morning",text:"Enter the electricity left on the meter (kWh)",sites:["U","B"]});}
   if(!S.checklist.some(x=>x.who==="therapist"))S.checklist=S.checklist.concat(seedChecklistT());
+  if(!S.cfg.prodV){
+    // Prices from the Fresha product export of 7 Nov 2026
+    const n=x=>String(x||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+    const UPD=[["COSRX","Low pH Good Morning Cleanser",260000],["COSRX","Aloe Soothing Sun Cream SPF 50+",345000],["COSRX","AHA/BHA Clarifying Treatment Toner",300000],["COSRX","One Step Moisture Up Pad",415000],["COSRX","Niacinamide 15 Serum",450000],
+      ["SKIN1004","Centella Soothing Cream",345000],["Utama Spice","Bliss Face Wash",83400],["Utama Spice","Witch Hazel",123100],["Utama Spice","Body Butter Bliss",134600],["Utama Spice","Serum Anti Aging",167800],["Utama Spice","Virgin Coconut Oil",80000]];
+    UPD.forEach(([b,nm,pr])=>{const x=S.products.find(p=>n(p.brand)===n(b)&&n(p.name)===n(nm));if(x)x.price=pr;});
+    [["COSRX","The Peptide Collagen Hydrogel Eye Patch (60 patches)",580000],["SKIN1004","Madagascar Centella Tea-Trica Spot Cover Patch",60000]].forEach(([b,nm,pr])=>{
+      if(!S.products.some(p=>n(p.name).includes(nm.includes("Eye Patch")?"hydrogel eye patch":"spot cover patch")))S.products.push({id:"pr"+uid(),brand:b,name:nm,price:pr});});
+    S.cfg.prodV=1;
+  }
   if(!S.cfg.promoV){
     const FULL=[[/glass skin/i,1734000],[/collagen booster/i,1667000],[/caviar/i,2000000]];
     S.catalog.forEach(c=>{if(c.cat==="Add-ons"||c.full!=null)return;const m=FULL.find(([re])=>re.test(c.name));if(m){c.full=m[1];c.promo=25;}});
