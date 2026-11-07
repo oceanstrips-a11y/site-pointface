@@ -1042,7 +1042,7 @@ function clockCard(p,ds){
 }
 function statusChip(s){return s==="ok"?'<span class="chip ok">Approved</span>':s==="rejected"?'<span class="chip warn">Rejected</span>':s==="checked"?'<span class="chip pend">Checked · waiting for manager</span>':'<span class="chip pend">Pending</span>';}
 const isOpen=t=>t.status==="pending"||t.status==="checked";
-function itemRow(t,sc,canDel,act){return `<div class="row"><span class="grow"><b>${esc(t.name)}</b><br><span class="note">${fmtHH(t.t)}${t.note?" · "+esc(t.note):""}</span></span>${statusChip(t.status)}<span class="amt">${rp(t.amount)}<small>${act==="pk"&&!S.cfg.krate?"counts toward reward":"SC "+rp(sc)}</small></span>${canDel&&t.status==="pending"?`<button class="ghost" data-act="delItem" data-kind="${act}" data-id="${t.id}">Delete</button>`:""}</div>`;}
+function itemRow(t,sc,canDel,act){return `<div class="row"><span class="grow"><b>${esc(t.name)}</b><br><span class="note">${fmtHH(t.t)}${t.note?" · "+esc(t.note):""}</span></span>${statusChip(t.status)}<span class="amt">${t.cp?"ClassPass":rp(t.amount)}<small>${t.cp?"counted separately":act==="pk"&&!S.cfg.krate?"counts toward reward":"SC "+rp(sc)}</small></span>${canDel&&t.status==="pending"?`<button class="ghost" data-act="delItem" data-kind="${act}" data-id="${t.id}">Delete</button>`:""}</div>`;}
 function vToday(){
   const p=me,ds=today();
   let h=`<div class="cards">${shiftCard(p,ds)}${clockCard(p,ds)}${breakCard(p,ds)}</div>`;
@@ -1094,6 +1094,7 @@ function vMonth(){
       <div class="kpi"><b>${rp(scOk)}</b><span>Approved service charge</span></div>
       <div class="kpi"><b>${rp(scP)}</b><span>Waiting for approval</span></div>
       <div class="kpi"><b>${ok.length}</b><span>Approved ${ther?"treatments":"sales"} · ${rp(ok.reduce((s,t)=>s+(+t.amount),0))}</span></div>
+      ${ther?`<div class="kpi"><b>${ok.filter(t=>t.cp).length}</b><span>ClassPass treatments approved${pend.some(t=>t.cp)?" · "+pend.filter(t=>t.cp).length+" waiting":""} (counted separately)</span></div>`:""}
       <div class="kpi"><b>${hrs} h</b><span>Scheduled hours${p.target?" · target "+p.target+" h":""}</span></div>
       <div class="kpi"><b>${late}</b><span>Late arrival(s)</span></div>
     </div>
@@ -1222,17 +1223,17 @@ function vSC(){
   const days=periodDays(ui.period);
   const calc=(arr,scf,front)=>TEAM().filter(p=>front?isFront(p):p.role==="therapist").map(p=>{const it=arr.filter(t=>t.pid===p.id&&days.includes(t.ds));
     const ok=it.filter(t=>t.status==="ok"),pe=it.filter(isOpen);
-    return {p,n:ok.length,ca:ok.reduce((s,t)=>s+(+t.amount),0),sc:ok.reduce((s,t)=>s+scf(t.amount),0),pe:pe.reduce((s,t)=>s+scf(t.amount),0),pn:pe.length,rj:it.filter(t=>t.status==="rejected").length};});
+    return {p,n:ok.length,cp:ok.filter(t=>t.cp).length,ca:ok.reduce((s,t)=>s+(+t.amount),0),sc:ok.reduce((s,t)=>s+scf(t.amount),0),pe:pe.reduce((s,t)=>s+scf(t.amount),0),pn:pe.length,rj:it.filter(t=>t.status==="rejected").length};});
   const th=calc(S.tx,scTx,false),fr=calc(S.ps,scProd,true),pk=calc(S.pk,scPk,true);ui._sc={th,fr,pk};
-  const table=(rows,what,showSc)=>{const T=rows.reduce((a,r)=>({n:a.n+r.n,ca:a.ca+r.ca,sc:a.sc+r.sc,pe:a.pe+r.pe}),{n:0,ca:0,sc:0,pe:0});
-    return `<div class="scroll"><table class="t"><thead><tr><th>Name</th><th class="n">${what} approved</th><th class="n">Amount approved</th>${showSc?'<th class="n">Service charge</th>':""}<th class="n">Pending</th><th class="n">Rejected</th>${what==="Packages"&&S.cfg.ktarget?'<th>Goal</th><th class="n">Bonus</th>':""}</tr></thead><tbody>
-    ${rows.map(r=>`<tr><td>${esc(r.p.name)}</td><td class="n">${r.n}</td><td class="n">${rp(r.ca)}</td>${showSc?`<td class="n"><b>${rp(r.sc)}</b></td>`:""}<td class="n">${r.pn?`<span class="chip pend">${r.pn}${showSc?" · "+rp(r.pe):""}</span>`:"—"}</td><td class="n">${r.rj||"—"}</td>${what==="Packages"&&S.cfg.ktarget?`<td style="min-width:120px"><div class="meter"><i style="width:${Math.min(100,Math.floor(r.ca/S.cfg.ktarget*100))}%"></i></div><span class="note">${Math.min(100,Math.floor(r.ca/S.cfg.ktarget*100))}%</span></td><td class="n">${r.ca>=S.cfg.ktarget&&S.cfg.kbonus?`<span class="chip ok">${rp(S.cfg.kbonus)}</span>`:"—"}</td>`:""}</tr>`).join("")}
-    <tr class="totr"><td>Total</td><td class="n">${T.n}</td><td class="n">${rp(T.ca)}</td>${showSc?`<td class="n">${rp(T.sc)}</td>`:""}<td class="n">${showSc?rp(T.pe):""}</td><td></td>${what==="Packages"&&S.cfg.ktarget?`<td></td><td class="n">${rp(rows.filter(r=>r.ca>=S.cfg.ktarget).length*(S.cfg.kbonus||0))}</td>`:""}</tr></tbody></table></div>`;};
+  const table=(rows,what,showSc)=>{const T=rows.reduce((a,r)=>({n:a.n+r.n,cp:a.cp+(r.cp||0),ca:a.ca+r.ca,sc:a.sc+r.sc,pe:a.pe+r.pe}),{n:0,cp:0,ca:0,sc:0,pe:0});
+    return `<div class="scroll"><table class="t"><thead><tr><th>Name</th><th class="n">${what} approved</th><th class="n">Amount approved</th>${showSc?'<th class="n">Service charge</th>':""}${what==="Treatments"?'<th class="n">ClassPass</th>':""}<th class="n">Pending</th><th class="n">Rejected</th>${what==="Packages"&&S.cfg.ktarget?'<th>Goal</th><th class="n">Bonus</th>':""}</tr></thead><tbody>
+    ${rows.map(r=>`<tr><td>${esc(r.p.name)}</td><td class="n">${r.n}</td><td class="n">${rp(r.ca)}</td>${showSc?`<td class="n"><b>${rp(r.sc)}</b></td>`:""}${what==="Treatments"?`<td class="n">${r.cp||"—"}</td>`:""}<td class="n">${r.pn?`<span class="chip pend">${r.pn}${showSc?" · "+rp(r.pe):""}</span>`:"—"}</td><td class="n">${r.rj||"—"}</td>${what==="Packages"&&S.cfg.ktarget?`<td style="min-width:120px"><div class="meter"><i style="width:${Math.min(100,Math.floor(r.ca/S.cfg.ktarget*100))}%"></i></div><span class="note">${Math.min(100,Math.floor(r.ca/S.cfg.ktarget*100))}%</span></td><td class="n">${r.ca>=S.cfg.ktarget&&S.cfg.kbonus?`<span class="chip ok">${rp(S.cfg.kbonus)}</span>`:"—"}</td>`:""}</tr>`).join("")}
+    <tr class="totr"><td>Total</td><td class="n">${T.n}</td><td class="n">${rp(T.ca)}</td>${showSc?`<td class="n">${rp(T.sc)}</td>`:""}${what==="Treatments"?`<td class="n">${T.cp}</td>`:""}<td class="n">${showSc?rp(T.pe):""}</td><td></td>${what==="Packages"&&S.cfg.ktarget?`<td></td><td class="n">${rp(rows.filter(r=>r.ca>=S.cfg.ktarget).length*(S.cfg.kbonus||0))}</td>`:""}</tr></tbody></table></div>`;};
   main(`${periodNav()}
     <div class="box"><h2>Therapists · treatments</h2><p class="note">${scRuleTx()}</p>${table(th,"Treatments",true)}</div>
     <div class="box"><h2>Front office · product sales</h2><p class="note">${scRuleProd()}</p>${table(fr,"Sales",true)}</div>
     <div class="box hl"><h2>Front office · package sales</h2><p class="note">${S.cfg.krate?"Package commission = "+pct(S.cfg.krate)+" of the net price.":"No commission on packages for now."} ${S.cfg.ktarget?"Reward: "+rp(S.cfg.kbonus||0)+" bonus for each person who reaches "+rp(S.cfg.ktarget)+" of approved package sales in the pay period.":""} Change both in Team & menu.</p>${table(pk,"Packages",!!S.cfg.krate)}</div>
-    <p class="note">Only approved lines count. Everyone sees their own total in “My month”.</p>
+    <p class="note">Only approved lines count. ClassPass treatments are saved at Rp 0 and counted in their own column, to be added separately. Everyone sees their own total in “My month”.</p>
     <div class="bar"><button data-act="copySC">Copy as CSV</button></div>`);
 }
 function vAtt(){
@@ -1499,11 +1500,11 @@ function pickItem(id){
   const kind=ui.pk.kind,P=PICK[kind],other=id==="__other",c=other?{id:"other",price:null,dur:60}:P.items().find(x=>x.id===id);
   const title=other?P.other.replace(" (not in the list)",""):(kind==="ps"?c.brand+" · "+c.name:c.name);
   const full=c.full||c.price,promoOpt=kind==="tx"&&!other&&!c.pkg&&full?{full,promo:c.promo||0,price:c.price}:null;
-  amountSheet(title,c.price,SCF[kind],(a,note,promo)=>{
+  amountSheet(title,c.price,SCF[kind],(a,note,promo,cp)=>{
     const base=other?($("nameIn").value.trim()||title):title,k=shiftOf(me,today());
-    const name=base+(promo?" · promo "+promo+"%":"");
+    const name=base+(cp?" · ClassPass":promo?" · promo "+promo+"%":"");
     const line={id:uid(),pid:me.id,ds:today(),t:nowMin(),refId:c.pkg?c.pkg:c.id,name,amount:a,loc:k?k.loc:me.locs[0],status:"pending",by:null,note};
-    if(kind==="tx"){line.dur=c.dur;line.ab=null;if(c.pkg)line.pkg=true;if(promo){line.promo=promo;line.full=full;}}
+    if(kind==="tx"){line.dur=c.dur;line.ab=null;if(c.pkg)line.pkg=true;if(promo){line.promo=promo;line.full=full;}if(cp)line.cp=true;}
     LISTS[kind]().push(line);save();closeSheet();render();toast(name+" added");},
     other?`<label for="nameIn">Name<input id="nameIn" maxlength="80" required></label>`:"",kind,promoOpt);
 }
@@ -1512,8 +1513,9 @@ function amountSheet(title,price,scf,onSave,extra,kind,promoOpt){
   const promoHtml=po?`<div class="promoBox"><label class="promo" for="promoOn"><input type="checkbox" id="promoOn"${promo?" checked":""}> Promo</label>
       <div class="cats" id="promoList" role="group" aria-label="Promo"${promo?"":" hidden"}>${PROMOS.map(x=>`<button type="button" data-p="${x}" aria-pressed="${x===promo}">−${x}%</button>`).join("")}</div>
       <span class="note">Full menu price ${rp(po.full)}. The promo is taken off the full price.</span></div>`:"";
+  const cpHtml=kind==="tx"?`<div class="promoBox"><label class="promo" for="cpOn"><input type="checkbox" id="cpOn"> ClassPass</label><span class="note">Tick if the client booked through ClassPass: the amount is 0 here, ClassPass treatments are counted separately on the monthly recap.</span></div>`:"";
   sheet(`<h2>${esc(title)}</h2><form id="amtForm" class="form" style="grid-template-columns:1fr">${extra||""}
-    <label for="amtIn">Amount paid by the client (Rp)<input id="amtIn" type="number" min="0" step="any" value="${price||""}" inputmode="numeric" required></label>${promoHtml}
+    <label for="amtIn">Amount paid by the client (Rp)<input id="amtIn" type="number" min="0" step="any" value="${price||""}" inputmode="numeric" required></label>${cpHtml}${promoHtml}
     <label for="noteIn">Note (optional, e.g. client initials)<input id="noteIn" maxlength="60"></label>
     <p class="note" id="amtSc">${kind==="pk"&&!S.cfg.krate?"No commission on packages yet: it counts toward the reward goal (bonus when reached).":"Service charge: "+rp(scf(price))}</p>
     <div class="bar"><button type="submit" class="primary">Add</button><button type="button" data-act="closeSheet">Cancel</button></div></form>`);
@@ -1524,8 +1526,13 @@ function amountSheet(title,price,scf,onSave,extra,kind,promoOpt){
     $("promoOn").onchange=()=>{const on=$("promoOn").checked;$("promoList").hidden=!on;if(on)setPromo(po.promo||PROMOS[0]);else{promo=0;$("amtIn").value=po.full;document.querySelectorAll("#promoList button").forEach(b=>b.setAttribute("aria-pressed","false"));showSc();}};
     $("promoList").onclick=e=>{const b=e.target.closest("button");if(b)setPromo(+b.dataset.p);};
   }
+  let cp=false,keep=null;
+  if($("cpOn"))$("cpOn").onchange=()=>{cp=$("cpOn").checked;const box=$("promoOn")&&$("promoOn").closest(".promoBox");
+    if(cp){keep=$("amtIn").value;$("amtIn").value=0;$("amtIn").disabled=true;if(box)box.hidden=true;}
+    else{$("amtIn").disabled=false;$("amtIn").value=keep||price||"";if(box)box.hidden=false;}
+    showSc();};
   (extra?$("nameIn"):$("amtIn")).focus();
-  $("amtForm").onsubmit=e=>{e.preventDefault();const a=Math.max(0,+$("amtIn").value||0);if(!a){toast("Enter the amount paid");return;}onSave(a,$("noteIn").value.trim(),promo);};
+  $("amtForm").onsubmit=e=>{e.preventDefault();const a=cp?0:Math.max(0,+$("amtIn").value||0);if(!a&&!cp){toast("Enter the amount paid");return;}onSave(a,$("noteIn").value.trim(),cp?0:promo,cp);};
 }
 
 /* ================= actions ================= */
@@ -1589,7 +1596,7 @@ const ACT={
   copyPlan:()=>{const rows=[["Staff","Studio","Date","Day","Start","End","Break (h)","Paid hours","Type"]];
     periodDays(ui.period).forEach(ds=>TEAM().forEach(p=>{const c=code(p.id,ds);if(!c)return;const k=info(c,p),h=hours(c,p);rows.push([p.name,k.type==="w"?LOCN[k.loc]:"",ds,DOWL[dowOf(fromIso(ds))],k.type==="w"?fmtHH(k.s):"",k.type==="w"?fmtHH(k.e):"",h.brk,h.net,label(c,p)]);}));
     copy(rows.map(r=>r.join(";")).join("\n"),"Schedule copied: paste it into Google Sheets or Excel");},
-  copySC:()=>{const r=[["Name","Role","Approved","Amount approved","Service charge","SC pending","Package bonus"]];(ui._sc.th||[]).forEach(x=>r.push([x.p.name,"Therapist",x.n,x.ca,x.sc,x.pe]));(ui._sc.fr||[]).forEach(x=>r.push([x.p.name,"Front office · products",x.n,x.ca,x.sc,x.pe]));(ui._sc.pk||[]).forEach(x=>r.push([x.p.name,"Front office · packages",x.n,x.ca,x.sc,x.pe,S.cfg.ktarget&&x.ca>=S.cfg.ktarget?(S.cfg.kbonus||0):0]));copy(r.map(x=>x.join(";")).join("\n"),"Service charge copied");},
+  copySC:()=>{const r=[["Name","Role","Approved","Amount approved","Service charge","SC pending","Package bonus","ClassPass treatments"]];(ui._sc.th||[]).forEach(x=>r.push([x.p.name,"Therapist",x.n,x.ca,x.sc,x.pe,"",x.cp]));(ui._sc.fr||[]).forEach(x=>r.push([x.p.name,"Front office · products",x.n,x.ca,x.sc,x.pe]));(ui._sc.pk||[]).forEach(x=>r.push([x.p.name,"Front office · packages",x.n,x.ca,x.sc,x.pe,S.cfg.ktarget&&x.ca>=S.cfg.ktarget?(S.cfg.kbonus||0):0]));copy(r.map(x=>x.join(";")).join("\n"),"Service charge copied");},
   addStaff:()=>{const A=W(600,1140);S.staff.push({id:"p"+uid(),name:"New person",role:"therapist",locs:["U"],target:160,ot:0,week:40,alone:false,tpl:[A,A,A,A,A,"OFF","OFF"]});save();render();toast("Added: change the name, then tap Set PIN to create her login");},
   delStaff:async t=>{if(!arm(t,"Confirm: remove"))return;try{await waitSync();await callFn("admin-users",{action:"delete",staff_id:t.dataset.id});toast("Removed. Her history is kept");await reload(true);}catch(e){toast(errMsg(e));}},
   togglePins:()=>{ui.showPins=!ui.showPins;render();},
