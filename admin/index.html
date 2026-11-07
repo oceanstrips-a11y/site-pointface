@@ -746,7 +746,7 @@ function vSupplies(){
 const TABS={
   therapist:[["today","My day"],["check","Checklist"],["month","My month"],["sched","Schedule"],["leave","Leave"]],
   front:[["today","My day"],["check","Checklist"],["validate","Validation"],["cabins","Cabins"],["month","My month"],["sched","Schedule"],["leave","Leave"]],
-  frontmgr:[["today","My day"],["check","Checklist"],["dash","Studios today"],["recaps","Daily recaps"],["validate","Validation"],["cabins","Cabins"],["supplies","Supplies"],["planning","Planning"],["leave","Leave"],["sc","Service charge"],["att","Attendance"],["month","My month"],["settings","Team & menu"]],
+  frontmgr:[["today","My day"],["check","Checklist"],["validate","Validation"],["recaps","Daily recaps"],["cabins","Cabins"],["supplies","Supplies"],["month","My month"],["sched","Schedule"],["leave","Leave"]],
   manager:[["dash","Today"],["recaps","Daily recaps"],["planning","Planning"],["leave","Leave requests"],["validate","Validation"],["cabins","Cabins"],["supplies","Supplies"],["sc","Service charge"],["att","Attendance"],["settings","Team & menu"]]
 };
 TABS.owner=TABS.manager;
@@ -983,10 +983,10 @@ function vLeave(){
         <label for="lvTo">To (same day for one day)<input type="date" id="lvTo" min="${today()}" value="${today()}" required></label>
         <label for="lvNote" style="grid-column:1/-1">Reason (optional)<input id="lvNote" maxlength="200" placeholder="e.g. family ceremony in Tabanan"></label>
         <div class="bar" style="grid-column:1/-1"><button type="submit" class="primary">Send the request</button></div></form>
-      <p class="note">The ${p.role==="frontmgr"?"owners decide":"front office manager decides"}. Once approved, the days go straight into the schedule.</p></div>
+      <p class="note">The owners decide. Once approved, the days go straight into the schedule.</p></div>
       <div class="box"><h2>My requests</h2><div class="list">${list.map(l=>leaveRow(l,false)).join("")||'<p class="note">No request yet.</p>'}</div></div>`;
   }
-  if(isMgr(p)){
+  if(p.role==="owner"||p.role==="manager"){
     const pend=S.leave.filter(l=>l.status==="pending"&&l.pid!==p.id).sort((a,b)=>a.from.localeCompare(b.from));
     const up=S.leave.filter(l=>l.status==="approved"&&l.to>=today()).sort((a,b)=>a.from.localeCompare(b.from));
     const bal=TEAM().map(q=>{const u=annualUsed(q.id,yr),a=q.leaveDays??12;return `<tr><td>${esc(q.name)}</td><td class="n">${u}</td><td class="n">${a}</td><td class="n"><b>${a-u}</b></td></tr>`;}).join("");
