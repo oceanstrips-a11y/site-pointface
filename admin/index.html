@@ -473,7 +473,7 @@ function seed(withSamples){
     const trt=S.tx.filter(t=>t.ds===ds&&t.loc===L&&t.status!=="rejected").reduce((a,t)=>a+(+t.amount),0),prd=S.ps.filter(t=>t.ds===ds&&t.loc===L).reduce((a,t)=>a+(+t.amount),0),pkg=pks.reduce((a,t)=>a+(+t.amount),0);
     const cash=Math.round(rnd()*6)*100000,cp=L==="U"&&rnd()<0.4?650000:0,odd=i===3&&L==="U"?150000:0;
     const v={treatments:trt,products:prd,packages:pkg,pkgNames:pks.map(t=>t.name).join(", "),cash,classpass:cp,cardqr:Math.max(0,trt+prd+pkg-cash-cp)+odd,depcard:Math.round(rnd()*3)*500000,diffNote:odd?"Client added a tip on the card terminal":"",
-      google:Math.floor(rnd()*3),fresha:Math.floor(rnd()*2),rating:"5",comments:"Clients loved the glass skin facial",tips:rnd()<0.3?100000:0,
+      google:Math.floor(rnd()*3),fresha:Math.floor(rnd()*2),tone:"good",comments:"Clients loved the glass skin facial",tips:rnd()<0.3?100000:0,
       appts:ap,attended:ap-ns-rs,noshow:ns,cancel:0,resched:rs,perf:"Everything was running well",cleaning:"Cleaning during free time",feedback:"No complaints, asked clients to leave a Google review and sent the review message on WhatsApp",reminders:"Reminder messages and deposit requests sent to all of tomorrow's clients",
       ther:TEAM().filter(q=>q.role==="therapist"&&workAt(q,ds,L)).map(q=>q.name).join(" & "),good:"Staff supporting each other\nPositive vibes",bad:""};
     S.recaps.push({id:uid(),ds,loc:L,by:fr.id,t:1135,v});});}
@@ -562,7 +562,7 @@ function recapText(r){
     `1. Sales Overview`,`What was sold:`,...[...RC_SOLD_AUTO,...RC_SOLD_MAN].filter(([k])=>hasCheck(v)||k!=="treatments").map(([k,l])=>`* ${l}: ${fmtN(v[k])}`+(k==="packages"&&v.pkgNames&&n0(v[k])?` (${v.pkgNames})`:"")),`* Total Revenue (IDR): ${fmtN(soldTotal(v))}`,
     `How it was paid:`,...RC_PAID.map(([k,l])=>`* ${l}: ${fmtN(v[k])}`),`* Total paid (IDR): ${fmtN(paidTotal(v))}`,
     `Deposits received for upcoming appointments:`,...RC_DEP.map(([k,l])=>`* ${l}: ${fmtN(v[k])}`),checkLine(v),``,
-    `2. Reviews`,`Total Reviews Received: ${rev}`,`* Google review: ${n0(v.google)}`,`* Fresha: ${n0(v.fresha)}`,(v.rating||v.comments)?`Rating: ${v.rating?v.rating+" stars":"-"} | Comments: ${v.comments||"-"}`:null,``,
+    `2. Reviews`,`Total Reviews Received: ${rev}`,`* Google review: ${n0(v.google)}`,`* Fresha: ${n0(v.fresha)}`,(v.comments||v.tone||v.rating)?`Comments: ${v.comments||"-"}${v.tone?` (${v.tone==="bad"?"bad":"good"} comment)`:v.rating?` (${v.rating} stars)`:""}`:null,``,
     `3. Tips: ${fmtN(v.tips)}`,``,
     `4. Appointment Summary`,...RC_APPT.map(([k,l])=>`* ${l}: ${n0(v[k])}`),``,
     `5. Daily Operations Report`,...RC_OPS.map(([k,l])=>`* ${l}: ${v[k]||"-"}`),...(()=>{const e=S.kwh.find(x=>x.ds===r.ds&&x.loc===r.loc);return e?[`* Electricity left this morning: ${e.val} kWh${e.val<(S.cfg.kwhMin||100)?" ⚠️ top up needed":""}`]:[];})(),``,
@@ -585,8 +585,8 @@ function recapForm(v,dflt,au){
     <div id="rcCheck" style="grid-column:1/-1"></div>
     <label for="rc-diffNote" id="rcDiffWrap" style="grid-column:1/-1" hidden>Explain the difference (required to send)<input id="rc-diffNote" maxlength="200" value="${esc(v.diffNote||"")}" placeholder="e.g. client tipped on the card terminal, treatment not added by therapist"></label>
     <h3 style="grid-column:1/-1">2 · Reviews</h3>${num("google","Google reviews")}${num("fresha","Fresha reviews")}
-    <label for="rc-rating">Rating<select class="f" id="rc-rating"><option value="">-</option>${[5,4,3,2,1].map(x=>`<option value="${x}"${String(v.rating??"")===String(x)?" selected":""}>${x} stars</option>`).join("")}</select></label>
-    ${txt("comments","Review comments","e.g. good things")}
+    ${txt("comments","Comments (free text)","What clients said in their reviews or at the studio",true)}
+    <label for="rc-tone">Good or bad comment?<select class="f" id="rc-tone"><option value="">-</option>${[["good","Good comment"],["bad","Bad comment"]].map(([k,l])=>`<option value="${k}"${v.tone===k?" selected":""}>${l}</option>`).join("")}</select></label>
     <h3 style="grid-column:1/-1">3 · Tips</h3>${num("tips","Tips (IDR)",1)}
     <h3 style="grid-column:1/-1">4 · Appointment summary</h3>${RC_APPT.map(([k,l])=>num(k,l)).join("")}
     <p class="note" id="rcApptCheck" style="grid-column:1/-1"></p>
@@ -596,7 +596,7 @@ function recapForm(v,dflt,au){
     <div class="bar" style="grid-column:1/-1"><button type="submit" class="primary">${v.appts!=null?"Update and copy the report":"Send and copy the report"}</button></div></form>`;
 }
 const RC_KEYS=()=>[...RC_SOLD_MAN,...RC_PAID,...RC_DEP].map(x=>x[0]).concat(["google","fresha","tips"],RC_APPT.map(x=>x[0]));
-const RC_TXT=["diffNote","rating","comments",...RC_OPS.map(x=>x[0]),"ther","good","bad"];
+const RC_TXT=["diffNote","comments","tone",...RC_OPS.map(x=>x[0]),"ther","good","bad"];
 /* ================= electricity meter ================= */
 function kwhOf(L){return S.kwh.filter(x=>x.loc===L).sort((a,b)=>a.ds.localeCompare(b.ds)||a.t-b.t);}
 function kwhInfo(L){
@@ -679,7 +679,7 @@ function vRecaps(){
     cards.push(`<div class="box"><div class="bar"><h2>${dLabel(ds)}</h2><span class="note">${LOCN[L]} · ${nm(r.by)} · ${fmtHH(r.t)}</span><span class="spacer"></span><button data-act="copyRecap" data-id="${r.id}">Copy</button></div>
       <div>${hasCheck(v)?(diffOf(v)===0?'<span class="chip ok">Payments match sales</span>':`<span class="chip warn">Difference ${rp(Math.abs(diffOf(v)))} · ${diffOf(v)>0?"more paid than sold":"sold but not paid"}</span>${v.diffNote?`<span class="note"> “${esc(v.diffNote)}”</span>`:""}`):'<span class="chip mute">No check (old format)</span>'}</div>
       <div class="kpis"><div class="kpi"><b>${rp(soldTotal(v))}</b><span>Total revenue (sold)</span></div><div class="kpi"><b>${rp(paidTotal(v))}</b><span>Total paid</span></div><div class="kpi"><b>${rp(v.treatments)}</b><span>Treatments</span></div><div class="kpi"><b>${rp(v.products)}</b><span>Product sales</span></div><div class="kpi"><b>${rp(v.packages)}</b><span>Packages sold${v.pkgNames?" · "+esc(v.pkgNames):""}</span></div><div class="kpi"><b>${rp(depTotal(v))}</b><span>Deposits received</span></div>
-        <div class="kpi"><b>${n0(v.attended)}/${n0(v.appts)}</b><span>Clients attended / appointments</span></div><div class="kpi"><b>${n0(v.noshow)} · ${n0(v.cancel)} · ${n0(v.resched)}</b><span>No show · canceled · reschedule</span></div><div class="kpi"><b>${n0(v.google)+n0(v.fresha)}</b><span>New reviews${v.rating?" · "+v.rating+"★":""}</span></div></div>
+        <div class="kpi"><b>${n0(v.attended)}/${n0(v.appts)}</b><span>Clients attended / appointments</span></div><div class="kpi"><b>${n0(v.noshow)} · ${n0(v.cancel)} · ${n0(v.resched)}</b><span>No show · canceled · reschedule</span></div><div class="kpi"><b>${n0(v.google)+n0(v.fresha)}</b><span>New reviews${v.tone?" · "+(v.tone==="bad"?"bad":"good")+" comment":v.rating?" · "+v.rating+"★":""}</span></div></div>
       ${v.bad?`<p class="note" style="color:var(--warn)">Bad points: ${esc(v.bad).replace(/\n/g," · ")}</p>`:""}
       <details><summary class="note" style="cursor:pointer">Full report</summary><pre class="recap" style="margin-top:8px">${esc(recapText(r))}</pre></details>
       <p class="note">${missTxt(p)}</p></div>`);
