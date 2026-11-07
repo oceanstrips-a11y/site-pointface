@@ -1466,8 +1466,9 @@ function vSettings(){
 
 /* ================= pickers (treatments, products, packages) ================= */
 const PROMOS=[25,30,35,40,50];
+const r1000=n=>Math.round(n/1000)*1000;
 const pkgName=k=>"Package session · "+String(k.name||"").replace(/\s*[×x]\s*\d+\s*$/i,"");
-function pkgSessions(){return S.packages.filter(k=>k.price&&k.sessions).map(k=>({id:"pks_"+k.id,name:pkgName(k),cat:k.cat,price:Math.round(k.price/k.sessions),dur:60,pkg:k.id,sessions:k.sessions,pkPrice:k.price,short:String(k.name||"").replace(/\s*[×x]\s*\d+\s*$/i,"")}));}
+function pkgSessions(){return S.packages.filter(k=>k.price&&k.sessions).map(k=>({id:"pks_"+k.id,name:pkgName(k),cat:k.cat,price:r1000(k.price/k.sessions),dur:60,pkg:k.id,sessions:k.sessions,pkPrice:k.price,short:String(k.name||"").replace(/\s*[×x]\s*\d+\s*$/i,"")}));}
 const PICK={
   tx:{title:"Add a treatment",ph:"e.g. glass skin, LED, kobido",other:"Other treatment (not in the list)",
     items:()=>{if(ui.pk&&ui.pk.mode==="pkg")return pkgSessions();const k=shiftOf(me,today()),site=k?k.loc:me.locs[0];return S.catalog.filter(c=>c.sites.includes(site));},
@@ -1519,7 +1520,7 @@ function amountSheet(title,price,scf,onSave,extra,kind,promoOpt){
   const showSc=()=>{if(kind==="pk"&&!S.cfg.krate)return;$("amtSc").textContent="Service charge: "+rp(scf($("amtIn").value));};
   $("amtIn").oninput=showSc;
   if(po){
-    const setPromo=x=>{promo=x;$("amtIn").value=x===po.promo&&po.price?po.price:Math.round(po.full*(1-x/100));document.querySelectorAll("#promoList button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.p===x)));showSc();};
+    const setPromo=x=>{promo=x;$("amtIn").value=x===po.promo&&po.price?po.price:r1000(po.full*(1-x/100));document.querySelectorAll("#promoList button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.p===x)));showSc();};
     $("promoOn").onchange=()=>{const on=$("promoOn").checked;$("promoList").hidden=!on;if(on)setPromo(po.promo||PROMOS[0]);else{promo=0;$("amtIn").value=po.full;document.querySelectorAll("#promoList button").forEach(b=>b.setAttribute("aria-pressed","false"));showSc();}};
     $("promoList").onclick=e=>{const b=e.target.closest("button");if(b)setPromo(+b.dataset.p);};
   }
