@@ -1057,9 +1057,9 @@ function vToday(){
     </div>`;
     const ph=photosOf(p.id,ds);
     h+=`<div class="box"><h2>My cabin at the end of the day</h2>
-      <p class="note">Take 2 or 3 photos of your cabin once it is tidy and clean. Front office checks them.</p>
-      <label class="btn primary" for="cabinIn" style="color:var(--surface);align-self:flex-start">Add photos</label>
-      <input type="file" id="cabinIn" accept="image/*" multiple hidden data-ch="cabin">
+      <p class="note">Take 2 or 3 photos of your cabin once it is tidy and clean, one at a time, with the camera. Photos from the gallery are not accepted. The date, time and your name are printed on each photo. Front office checks them.</p>
+      <label class="btn primary" for="cabinIn" style="color:var(--surface);align-self:flex-start">Take a photo</label>
+      <input type="file" id="cabinIn" accept="image/*" capture="environment" hidden data-ch="cabin">
       ${ph.length?`<div class="thumbs">${ph.map(x=>`<button class="thumb" data-act="viewPhoto" data-id="${x.id}" aria-label="Open photo"><img src="${x.data}" alt="Cabin photo">${x.status==="ok"?'<span class="chip ok">Approved</span>':x.status==="redo"?'<span class="chip warn">Redo</span>':'<span class="chip pend">To check</span>'}</button>`).join("")}</div>`:'<p class="note">No photo yet today.</p>'}
       ${ph.filter(x=>x.status==="redo"&&x.note).map(x=>`<p class="note" style="color:var(--warn)">Comment: ${esc(x.note)}</p>`).join("")}
     </div>`;
@@ -1247,8 +1247,8 @@ function vAtt(){
     <p class="note">You can correct an arrival or departure time directly in the table. Differences never change paid hours.</p>
     <div class="scroll"><table class="t"><thead><tr><th>Day</th><th>Person</th><th>Scheduled</th><th>In</th><th>Diff.</th><th>Out</th><th>Diff.</th><th>Breaks</th></tr></thead><tbody>
     ${rows.map(r=>`<tr><td>${dLabel(r.ds)}</td><td>${esc(r.p.name)}</td><td>${r.k?fmtHH(r.k.s)+"–"+fmtHH(r.k.e):esc(label(code(r.p.id,r.ds),r.p))}</td>
-      <td><input type="time" aria-label="In" data-ch="attEdit" data-f="in" data-ds="${r.ds}" data-pid="${r.p.id}" value="${r.a.in!=null?fmtHH(r.a.in):""}"></td><td>${varIn(r.a,r.k)}</td>
-      <td><input type="time" aria-label="Out" data-ch="attEdit" data-f="out" data-ds="${r.ds}" data-pid="${r.p.id}" value="${r.a.out!=null?fmtHH(r.a.out):""}"></td><td>${varOut(r.a,r.k)}</td><td>${brkOf(r.ds,r.p.id).length?`<span class="note">${brkList(brkOf(r.ds,r.p.id))}</span> ${brkStatus(r.p,r.ds)}`:(r.k&&brkReq(r.p,r.ds)&&r.ds<today()?'<span class="chip warn">Not logged</span>':"—")}</td></tr>`).join("")||'<tr><td colspan="8" class="note">No clock-ins in this period.</td></tr>'}
+      <td><input type="time" aria-label="In" data-ch="attEdit" data-f="in" data-ds="${r.ds}" data-pid="${r.p.id}" value="${r.a.in!=null?fmtHH(r.a.in):""}"> ${geoChip(r.a.inGeo)}</td><td>${varIn(r.a,r.k)}</td>
+      <td><input type="time" aria-label="Out" data-ch="attEdit" data-f="out" data-ds="${r.ds}" data-pid="${r.p.id}" value="${r.a.out!=null?fmtHH(r.a.out):""}"> ${geoChip(r.a.outGeo)}</td><td>${varOut(r.a,r.k)}</td><td>${brkOf(r.ds,r.p.id).length?`<span class="note">${brkList(brkOf(r.ds,r.p.id))}</span> ${brkStatus(r.p,r.ds)}`:(r.k&&brkReq(r.p,r.ds)&&r.ds<today()?'<span class="chip warn">Not logged</span>':"—")}</td></tr>`).join("")||'<tr><td colspan="8" class="note">No clock-ins in this period.</td></tr>'}
     </tbody></table></div>`);
 }
 
@@ -1450,6 +1450,10 @@ function vSettings(){
   <div class="box"><div class="bar"><h2>Manager tasks</h2><span class="spacer"></span><button data-act="addMt">Add a task</button></div>
     <p class="note">Ongoing tasks shown on the manager's “Today” page, separate from the daily checklists.</p>
     <div class="scroll"><table class="settings"><tbody>${(S.mtasks||[]).map(m=>`<tr><td><input data-ch="mtEdit" data-id="${m.id}" value="${esc(m.text)}" aria-label="Task" style="min-width:380px"></td><td>${m.id==="mt_reviews"?"":`<button class="ghost" data-act="delMt" data-id="${m.id}">Remove</button>`}</td></tr>`).join("")}</tbody></table></div></div>
+  <div class="box"><h2>Studio locations (clock-in check)</h2>
+    <p class="note">When someone clocks in or out, the app checks she is at the studio. Stand inside the studio and press “Use my current position”. If a studio has no position yet, clock-ins are not checked there.</p>
+    <div class="list">${["U","B"].map(L=>{const g=(S.cfg.geo||{})[L];return `<div class="row"><span class="grow"><b>${LOCN[L]}</b><br><span class="note">${g?`Saved · ${g.lat}, ${g.lng} · <a href="https://maps.google.com/?q=${g.lat},${g.lng}" target="_blank" rel="noopener">see on the map</a>`:"Not set"}</span></span><button data-act="geoHere" data-l="${L}">Use my current position</button>${g?`<button class="ghost" data-act="geoClear" data-l="${L}">Remove</button>`:""}</div>`;}).join("")}</div>
+    <div class="form"><label for="geoR">Allowed distance (m)<input id="geoR" type="number" min="50" step="10" data-ch="cfg" data-f="geoR" value="${S.cfg.geoR||150}"></label></div></div>
   <div class="box"><h2>Electricity alert</h2><div class="form"><label for="kwhMin">Alert the manager and owners under (kWh)<input id="kwhMin" type="number" min="0" step="1" data-ch="cfg" data-f="kwhMin" value="${S.cfg.kwhMin||100}"></label></div></div>
   <div class="cards"><div class="box"><h2>Minimum coverage per studio</h2><div class="scroll"><table class="settings"><thead><tr><th></th>${DOW.map(d=>`<th>${d}</th>`).join("")}</tr></thead><tbody>
     ${["U","B"].map(L=>[["ther","therapists"],["close","until 7 pm"],["front","front office"]].map(([k,l])=>`<tr><th>${LOCN[L]} · ${l}</th>${S.rules[L][k].map((v,w)=>`<td><input type="number" min="0" style="width:50px" data-ch="rule" data-l="${L}" data-k="${k}" data-w="${w}" value="${v}" aria-label="${LOCN[L]} ${l} ${DOW[w]}"></td>`).join("")}</tr>`).join("")).join("")}</tbody></table></div></div>
@@ -1537,6 +1541,20 @@ function amountSheet(title,price,scf,onSave,extra,kind,promoOpt){
 
 /* ================= actions ================= */
 const VIEWS={leave:vLeave,check:vCheck,recaps:vRecaps,supplies:vSupplies,today:vToday,month:vMonth,sched:vSched,validate:vValidate,cabins:vCabins,dash:vDash,planning:vPlanning,sc:vSC,att:vAtt,settings:vSettings};
+function distM(a,b){const R=6371000,r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dg=r(b.lng-a.lng),h=Math.sin(dl/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dg/2)**2;return Math.round(2*R*Math.asin(Math.sqrt(h)));}
+function getPos(){return new Promise(res=>{if(!navigator.geolocation)return res(null);navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lng:p.coords.longitude,acc:Math.round(p.coords.accuracy||0)}),()=>res(null),{enableHighAccuracy:true,timeout:12000,maximumAge:0});});}
+async function clockGeo(f){
+  const k=shiftOf(me,today()),locs=k?[k.loc]:me.locs,geo=S.cfg.geo||{},rad=S.cfg.geoR||150;
+  toast("Checking your location…");
+  const pos=await getPos();
+  if(!pos)return {ok:true,g:{none:1}};
+  const set=locs.filter(L=>geo[L]&&geo[L].lat!=null);
+  if(!set.length)return {ok:true,g:{d:null,acc:pos.acc}};
+  const best=set.map(L=>({L,d:distM(pos,geo[L])})).sort((a,b)=>a.d-b.d)[0];
+  if(best.d-Math.min(pos.acc,300)>rad)return {ok:false,msg:"You are "+(best.d>=1000?(best.d/1000).toFixed(1)+" km":best.d+" m")+" from Point·Face "+LOCN[best.L]+". Clock "+(f==="in"?"in":"out")+" at the studio."};
+  return {ok:true,g:{L:best.L,d:best.d,acc:pos.acc}};
+}
+function geoChip(g){if(!g)return "";if(g.none)return '<span class="chip warn" title="Location not shared">No location</span>';if(g.d==null)return "";const r=S.cfg.geoR||150;return g.d<=r?'<span class="chip ok" title="'+g.d+' m from the studio">At studio</span>':'<span class="chip warn" title="GPS accuracy '+g.acc+' m">'+g.d+' m away</span>';}
 function arm(t,txt){if(t.dataset.armed)return true;const o=t.textContent;t.dataset.armed="1";t.textContent=txt||"Confirm?";setTimeout(()=>{if(t.isConnected){delete t.dataset.armed;t.textContent=o;}},3000);return false;}
 const findLine=(kind,id)=>LISTS[kind]().find(x=>x.id===id);
 function setLine(x,st,kind){
@@ -1552,8 +1570,15 @@ const ACT={
   logout:()=>logout(),
   tab:t=>{ui.view=t.dataset.v;render();window.scrollTo(0,0);},
   closeSheet:closeSheet,
-  clockIn:()=>{setAtt(today(),me.id,"in",nowMin());save();render();toast("Arrival saved at "+fmtHH(nowMin()));},
-  clockOut:t=>{if(!arm(t,"Confirm leaving"))return;setAtt(today(),me.id,"out",nowMin());save();render();toast("Departure saved at "+fmtHH(nowMin()));},
+  clockIn:async t=>{if(t.disabled)return;t.disabled=true;const r=await clockGeo("in");t.disabled=false;if(!r.ok){toast(r.msg);return;}
+    setAtt(today(),me.id,"in",nowMin());setAtt(today(),me.id,"inGeo",r.g);save();render();toast("Arrival saved at "+fmtHH(nowMin())+(r.g.none?". Location not shared: turn on location for the next time.":""));},
+  clockOut:async t=>{if(!arm(t,"Confirm leaving"))return;t.disabled=true;const r=await clockGeo("out");t.disabled=false;if(!r.ok){toast(r.msg);return;}
+    setAtt(today(),me.id,"out",nowMin());setAtt(today(),me.id,"outGeo",r.g);save();render();toast("Departure saved at "+fmtHH(nowMin())+(r.g.none?". Location not shared.":""));},
+  geoHere:async t=>{const L=t.dataset.l;t.disabled=true;toast("Reading your position…");const p=await getPos();t.disabled=false;
+    if(!p){toast("Location not available. Allow location for this site in the phone settings.");return;}
+    if(p.acc>100){toast("GPS not precise enough ("+p.acc+" m). Go outside or near a window and try again.");return;}
+    (S.cfg.geo||(S.cfg.geo={}))[L]={lat:+p.lat.toFixed(6),lng:+p.lng.toFixed(6)};save();render();toast(LOCN[L]+" position saved");},
+  geoClear:t=>{if(!arm(t,"Confirm"))return;if(S.cfg.geo)delete S.cfg.geo[t.dataset.l];save();render();},
   openPicker:t=>{ui.pk={kind:t.dataset.kind,cat:"all",q:"",mode:"menu"};openPicker();},
   pickMode:t=>{ui.pk.mode=t.dataset.m;ui.pk.cat="all";openPicker(true);},
   pickCat:t=>{ui.pk.cat=t.dataset.c;openPicker(true);},
@@ -1674,12 +1699,16 @@ const CH={
   prod:t=>{const c=S.products.find(x=>x.id===t.dataset.id),f=t.dataset.f;c[f]=f==="price"?(t.value===""?null:Math.max(0,+t.value)):t.value;save();},
   pack:t=>{const c=S.packages.find(x=>x.id===t.dataset.id),f=t.dataset.f;c[f]=(f==="price"||f==="normal"||f==="sessions")?(t.value===""?null:Math.max(0,+t.value)):t.value;save();},
   rule:t=>{S.rules[t.dataset.l][t.dataset.k][+t.dataset.w]=Math.max(0,+t.value||0);save();},
-  cfg:t=>{const v=+t.value,f=t.dataset.f;if((f==="rate"||f==="prate"||f==="krate")&&v>=0)S.cfg[f]=v/100;if(f==="ktarget"&&v>=0)S.cfg.ktarget=v;if(f==="kbonus"&&v>=0)S.cfg.kbonus=v;if((f==="div"||f==="pdiv")&&v>=1)S.cfg[f]=v;if(f==="kwhMin"&&v>=0)S.cfg.kwhMin=v;save();},
+  cfg:t=>{const v=+t.value,f=t.dataset.f;if((f==="rate"||f==="prate"||f==="krate")&&v>=0)S.cfg[f]=v/100;if(f==="ktarget"&&v>=0)S.cfg.ktarget=v;if(f==="kbonus"&&v>=0)S.cfg.kbonus=v;if((f==="div"||f==="pdiv")&&v>=1)S.cfg[f]=v;if(f==="kwhMin"&&v>=0)S.cfg.kwhMin=v;if(f==="geoR"&&v>=50)S.cfg.geoR=v;save();},
   cabin:async t=>{const files=[...t.files];t.value="";if(!files.length)return;
-    toast("Sending photos…");let n=0;
-    for(const f of files.slice(0,6)){try{const data=await compress(f);S.photos.push({id:uid(),pid:me.id,ds:today(),t:nowMin(),data,status:"pending",note:""});n++;}catch(e){}}
-    if(!save()){S.photos.splice(S.photos.length-n,n);return;}
-    render();toast(n+" photo(s) sent");},
+    const f=files[0],now=Date.now();
+    if(!f.lastModified||Math.abs(now-f.lastModified)>3*60000){toast("Take the photo now with the camera. Photos from the gallery are not accepted.");return;}
+    const k=shiftOf(me,today()),loc=k?k.loc:me.locs[0],d=new Date(now);
+    const stamp="Point·Face "+LOCN[loc]+" · "+me.name+" · "+d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})+" · "+pad(d.getHours())+":"+pad(d.getMinutes());
+    toast("Sending photo…");
+    try{const data=await compress(f,stamp);S.photos.push({id:uid(),pid:me.id,ds:today(),t:nowMin(),taken:now,data,status:"pending",note:""});}catch(e){toast("This photo could not be read. Try again.");return;}
+    if(!save()){S.photos.pop();return;}
+    render();toast("Photo sent");},
   schedPhoto:t=>{const f=[...t.files];t.value="";if(f.length)readSchedPhotos(f);}
 };
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||!ACT[t.dataset.act])return;e.preventDefault();ACT[t.dataset.act](t,e);});
@@ -1695,8 +1724,10 @@ function copy(text,msg){
   const fb=()=>{sheet(`<h2>Copy manually</h2><p class="note">Select the text below and copy it.</p><textarea id="copyBox" rows="10" style="width:100%">${esc(text)}</textarea><div class="bar"><button data-act="closeSheet">Close</button></div>`);$("copyBox").select();};
   try{navigator.clipboard.writeText(text).then(()=>toast(msg),fb);}catch(e){fb();}
 }
-function compress(file){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),img=new Image();
-  img.onload=()=>{const m=720,sc=Math.min(1,m/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",0.6));};
+function compress(file,stamp){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),img=new Image();
+  img.onload=()=>{const m=720,sc=Math.min(1,m/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);const g=c.getContext("2d");g.drawImage(img,0,0,c.width,c.height);
+    if(stamp){const fs=Math.max(14,Math.round(c.width/30)),h=Math.round(fs*1.9);g.fillStyle="rgba(0,0,0,.6)";g.fillRect(0,c.height-h,c.width,h);g.fillStyle="#fff";g.font=`600 ${fs}px system-ui,-apple-system,Segoe UI,Arial,sans-serif`;g.textBaseline="middle";g.fillText(stamp,Math.round(fs*.6),c.height-h/2,c.width-fs*1.2);}
+    URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",0.6));};
   img.onerror=()=>{URL.revokeObjectURL(url);rej();};img.src=url;});}
 
 function migrate(){
