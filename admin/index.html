@@ -1032,13 +1032,17 @@ function breakCard(p,ds){
     ${rows?`<div class="list">${rows}</div>`:""}
     <div class="bar">${open>=0?`<button class="primary" data-act="brkEnd">End my break now</button>`:l.length<3?`<button class="primary" data-act="brkStart">Start a break now</button><button data-act="brkAdd">Add a break time</button>`:'<span class="note">3 breaks maximum.</span>'}</div></div>`;
 }
+/* the end of the day can only be clocked once the person's checklist is complete */
+function leaveChk(p,ds){const k=shiftOf(p,ds),L=k?k.loc:(p.locs||[])[0];if(!L)return null;const c=p.role==="therapist"?chkProgressT(ds,p):chkProgress(ds,L);return c.total?c:null;}
 function clockCard(p,ds){
   const a=att(ds,p.id),k=shiftOf(p,ds);
   let h=`<div class="box"><h3>Clock in / out</h3>`;
   if(a.in==null) h+=`<button class="primary big" data-act="clockIn">I'm here</button>`;
   else{
     h+=`<div class="row"><span class="grow">Arrived <b>${fmtHH(a.in)}</b></span>${varIn(a,k)}</div>`;
-    if(a.out==null) h+=`<button class="big" data-act="clockOut">I'm leaving</button>`;
+    const c=a.out==null?leaveChk(p,ds):null,miss=c?c.missing.length:0;
+    if(a.out==null&&miss) h+=`<button class="big" disabled aria-disabled="true">I'm leaving</button><div class="alerts" style="margin-top:8px"><h3>Finish your checklist before leaving · ${c.done}/${c.total}</h3><ul>${c.missing.map(x=>`<li>${esc(x.text)}</li>`).join("")}</ul><div class="bar"><button class="primary" data-act="tab" data-v="check">Open my checklist</button></div></div>`;
+    else if(a.out==null) h+=`<button class="big" data-act="clockOut">I'm leaving</button>`;
     else h+=`<div class="row"><span class="grow">Left <b>${fmtHH(a.out)}</b></span>${varOut(a,k)}</div>`;
   }
   return h+`<p class="note">Paid hours follow the schedule: arriving early or leaving late does not count as overtime.</p></div>`;
@@ -1575,7 +1579,7 @@ const ACT={
   closeSheet:closeSheet,
   clockIn:async t=>{if(t.disabled)return;t.disabled=true;const r=await clockGeo("in");t.disabled=false;if(!r.ok){toast(r.msg);return;}
     setAtt(today(),me.id,"in",nowMin());setAtt(today(),me.id,"inGeo",r.g);save();render();toast("Arrival saved at "+fmtHH(nowMin())+(r.g.none?". Location not shared: turn on location for the next time.":""));},
-  clockOut:async t=>{if(!arm(t,"Confirm leaving"))return;t.disabled=true;const r=await clockGeo("out");t.disabled=false;if(!r.ok){toast(r.msg);return;}
+  clockOut:async t=>{const c=leaveChk(me,today());if(c&&c.missing.length){toast("Finish your checklist first: "+c.missing.length+" item"+(c.missing.length>1?"s":"")+" left");render();return;}if(!arm(t,"Confirm leaving"))return;t.disabled=true;const r=await clockGeo("out");t.disabled=false;if(!r.ok){toast(r.msg);return;}
     setAtt(today(),me.id,"out",nowMin());setAtt(today(),me.id,"outGeo",r.g);save();render();toast("Departure saved at "+fmtHH(nowMin())+(r.g.none?". Location not shared.":""));},
   geoHere:async t=>{const L=t.dataset.l;t.disabled=true;toast("Reading your position…");const p=await getPos();t.disabled=false;
     if(!p){toast("Location not available. Allow location for this site in the phone settings.");return;}
