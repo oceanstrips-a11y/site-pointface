@@ -132,7 +132,16 @@ const stars = (n) => {
 const SOURCE_LABEL = { google: 'Google', fresha: 'Fresha' };
 
 function reviewsSection(reviews, { locationId, title = 'Loved in Uluwatu' } = {}) {
-  const list = (reviews.reviews || []).filter((r) => !locationId || r.location === locationId).slice(0, 12);
+  // Newest first; on shared sections, alternate the studios so both are represented.
+  const byStudio = site.locations
+    .filter((l) => !locationId || l.id === locationId)
+    .map((l) => (reviews.reviews || [])
+      .filter((r) => r.location === l.id)
+      // Detailed reviews (80+ characters) first, then newest.
+      .sort((a, b) => (b.text.length >= 80) - (a.text.length >= 80) || (a.date < b.date ? 1 : -1)));
+  const list = [];
+  for (let i = 0; list.length < 12 && byStudio.some((rs) => rs[i]); i++) byStudio.forEach((rs) => rs[i] && list.push(rs[i]));
+  list.splice(12);
   const summaries = [];
   for (const l of site.locations) {
     if (locationId && l.id !== locationId) continue;

@@ -49,7 +49,7 @@ module.exports = {
       // Google Maps share link of the studio (used for "Directions").
       maps: 'https://share.google/cNO72dbWv5qfZQgRg',
       // Google Place ID (optional: found automatically from the name when empty).
-      googlePlaceId: '',
+      googlePlaceId: 'ChIJq47Cd7pb0i0RXw1Zxtd7hWo',
       // Opening hours (used in Google structured data). Sunday opens at 12:00.
       hours: {
         opens: '10:00', closes: '19:00',
@@ -79,7 +79,7 @@ module.exports = {
       phoneDisplay: '+62 823 3907 8379',
       fresha: 'https://www.fresha.com/en/a/point-face-facial-spa-bingin-pecatu-jl-pantai-cemongkak-no-9-dnxbd6ct?pId=2696384',
       maps: 'https://share.google/bFhLCCwXIVCowcxSQ',
-      googlePlaceId: '',
+      googlePlaceId: 'ChIJWapgNoFF0i0RXLFg_Jf8ulE',
       hours: {
         opens: '10:00', closes: '19:00',
         label: 'Mon–Sat · 10:00 – 19:00 · Sun · 12:00 – 19:00',
