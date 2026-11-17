@@ -72,7 +72,7 @@ def notify(old, new):
         url = (f'https://www.googleapis.com/webmasters/v3/sites/{urllib.parse.quote(site, safe="")}'
                f'/sitemaps/{urllib.parse.quote(SITEMAP, safe="")}')
         st, res = http('PUT', url, token=token)
-        print('Google sitemap submit', site, st, '' if st < 300 else res)
+        print('Google sitemap submit', site, st, '' if st < 300 else ' '.join(str(res).split())[:300])
         if st < 300:
             break
 
@@ -96,7 +96,11 @@ def inspect():
             if st < 300:
                 break
         if not isinstance(res, dict):
-            rows.append((url, lm, 'error', str(res)[:120])); continue
+            try:
+                msg = json.loads(res)['error']['message']
+            except Exception:
+                msg = str(res)
+            rows.append((url, lm, 'erreur API', ' '.join(msg.split())[:160].replace('|', '/'))); continue
         r = res.get('inspectionResult', {}).get('indexStatusResult', {})
         verdict, state = r.get('verdict', '?'), r.get('coverageState', '?')
         rows.append((url, lm, verdict, state))
