@@ -240,6 +240,57 @@ def update_llms(site, a):
         wr(p, s2)
 
 
+EXTRA_PAGES = {
+    'best-facial-bali': ['concerns/dull-tired-skin-glass-skin', 'locations/uluwatu-ungasan', 'locations/uluwatu-bingin'],
+    'facial-price-bali': ['locations/uluwatu-ungasan', 'locations/uluwatu-bingin'],
+    'facial-bingin-padang-padang': ['locations/uluwatu-bingin'],
+    'facial-ungasan-uluwatu': ['locations/uluwatu-ungasan'],
+    'back-facial-bali': ['concerns/acne-breakouts-bali', 'locations/uluwatu-bingin', 'treatments/chest-spot-acne-clear'],
+    'rainy-season-skin-bali': ['concerns/acne-breakouts-bali', 'concerns/dehydrated-skin-bali'],
+    'face-massage-uluwatu': ['concerns/puffiness-jaw-tension', 'treatments/point-face-relaxation-ritual'],
+    'sunburned-face-bali-what-to-do': ['concerns/sun-damaged-skin-bali', 'concerns/sensitive-reactive-skin'],
+    'sun-spots-pigmentation-bali': ['concerns/pigmentation-dark-spots-bali', 'concerns/sun-damaged-skin-bali'],
+    'facial-jimbaran-nusa-dua': ['locations/uluwatu-ungasan'],
+    'hen-party-spa-day-uluwatu': [],
+    'where-to-buy-korean-skincare-bali': ['concerns/dehydrated-skin-bali'],
+    'mens-facial-uluwatu': ['concerns/acne-breakouts-bali'],
+    'balinese-facial-ritual': ['concerns/sensitive-reactive-skin'],
+}
+
+RELATED_SECTION = ('<section class="section" aria-label="Related articles"><div class="container">\n  \n'
+                   '<div class="section-head ">\n  <p class="eyebrow" data-reveal>From the Journal</p>\n'
+                   '  <h2 class="h-display" data-split>Read more</h2>\n  \n  \n</div>\n  <div class="a-grid">\n'
+                   '</div></div></section>\n\n')
+
+
+def add_related_card(site, page, a):
+    """Put the new article first in the page's 'Related articles' grid (max 3 cards)."""
+    p = os.path.join(site, page, 'index.html')
+    if not os.path.exists(p):
+        print('WARN missing page', page); return None
+    s = rd(p)
+    if f'href="/journal/{a["slug"]}/"' in s:
+        return None
+    if 'aria-label="Related articles"' not in s:
+        anchor = '<section class="section section--tint" aria-labelledby="l-faq">'
+        if anchor not in s:
+            print('WARN no place for related articles on', page); return None
+        s = s.replace(anchor, RELATED_SECTION + anchor, 1)
+    m = re.search(r'(aria-label="Related articles">.*?<div class="a-grid">)(.*?)(</div></div></section>)', s, flags=re.S)
+    if not m:
+        print('WARN related grid not parsed on', page); return None
+    cards = re.findall(r'<article class="a-card".*?</article>', m.group(2), flags=re.S)
+    cards = [new_card(a)] + cards[:2]
+    s = s[:m.start(2)] + '\n' + renumber_delays('\n'.join(cards)) + s[m.end(2):]
+    wr(p, s)
+    return os.path.join(page, 'index.html')
+
+
+def link_from_pages(site, a):
+    pages = ['treatments/' + t for t in a['treatments']] + EXTRA_PAGES.get(a['slug'], [])
+    return [x for x in (add_related_card(site, pg, a) for pg in dict.fromkeys(pages)) if x]
+
+
 def publish(site, slug, date):
     a = json.load(open(os.path.join(HERE, 'articles', slug + '.json'), encoding='utf-8'))
     changed = []
@@ -254,6 +305,7 @@ def publish(site, slug, date):
     out = os.path.join(site, 'journal', slug, 'index.html')
     wr(out, page); changed.append(os.path.relpath(out, site))
     update_journal_index(site, a); update_home(site, a); update_sitemap(site, a, date); update_llms(site, a)
+    changed += link_from_pages(site, a)
     changed += ['journal/index.html', 'index.html', 'sitemap.xml', 'llms.txt', 'llms-full.txt']
     return changed
 
@@ -264,8 +316,12 @@ def main():
     ap.add_argument('--due', action='store_true')
     ap.add_argument('--today')
     ap.add_argument('--slug'); ap.add_argument('--date')
+    ap.add_argument('--link-only', action='store_true')
     args = ap.parse_args()
     site = os.path.abspath(args.site)
+    if args.link_only:
+        a = json.load(open(os.path.join(HERE, 'articles', args.slug + '.json'), encoding='utf-8'))
+        print('CHANGED', ' '.join(link_from_pages(site, a))); return
     if args.slug:
         todo = [(args.slug, args.date)]
     else:
