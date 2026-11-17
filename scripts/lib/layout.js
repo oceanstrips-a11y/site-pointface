@@ -116,11 +116,33 @@ function bookingDialog() {
 </dialog>`;
 }
 
+// Instagram feed band, at the end of every page (after "Ready for your glow").
+// Server-rendered tiles use our own photos and link to the profile; main.js swaps
+// in the latest posts when an Instagram feed URL is configured.
+function instagramFeed() {
+  const tiles = ['happy-glowing-skin', 'korean-glass-skin-hydrafacial', 'kobido-lifting-massage', 'dewy-skin-closeup', 'hydrojelly-mask-treatment', 'serum-texture'];
+  return `
+<section class="ig-feed" aria-labelledby="ig-feed-title" data-ig-feed>
+  <div class="container ig-feed__head">
+    <div>
+      <p class="eyebrow">Instagram</p>
+      <h2 class="h-display" id="ig-feed-title">Follow our glow <a class="link" href="${site.instagram}" target="_blank" rel="noopener">${esc(site.instagramHandle)}</a></h2>
+    </div>
+    <a class="btn btn--ghost btn--sm" href="${site.instagram}" target="_blank" rel="noopener">Follow us</a>
+  </div>
+  <div class="ig-feed__grid" data-ig-grid>
+    ${tiles.map((t) => `<a class="ig-feed__tile" href="${site.instagram}" target="_blank" rel="noopener" aria-label="POINT · FACE on Instagram">${img(t, '', { sizes: '(max-width: 760px) 33vw, 17vw' })}</a>`).join('')}
+  </div>
+</section>`;
+}
+
 function page({ path, title, description, body, schema, image, current, bodyClass = '', type = 'website', noindex = false, book = 'data-book' }) {
   const fullTitle = path === '/' ? title : `${title} | POINT · FACE Uluwatu`;
   const ogImage = abs(image ? `/assets/img/${image}.webp` : '/assets/img/og-default.jpg');
   const pfData = JSON.stringify({
-    locations: site.locations.map((l) => ({ id: l.id, name: l.name, whatsapp: l.whatsapp, fresha: l.fresha })),
+    locations: site.locations.map((l) => ({ id: l.id, name: l.name, fullName: l.fullName, street: l.street, whatsapp: l.whatsapp, fresha: l.fresha, placeId: l.googlePlaceId || '' })),
+    googleKey: site.googleMapsApiKey || '',
+    igFeed: site.instagramFeedUrl || '',
   });
   return `<!doctype html>
 <html lang="en">
@@ -158,6 +180,7 @@ ${header(current, book)}
 <main id="main">
 ${body}
 </main>
+${instagramFeed()}
 ${footer(book)}
 ${bookingDialog()}
 <a href="/book/" class="book-fab" ${book}>Book now</a>

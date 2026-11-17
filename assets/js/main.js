@@ -383,38 +383,91 @@
     });
   }
 
-  /* ---------- Live Google reviews (Netlify function /api/reviews) ---------- */
+  /* ---------- Live Google reviews (Maps JavaScript API, 5-star reviews only) ---------- */
   const reviewSections = $$('[data-reviews]');
-  if (reviewSections.length && 'fetch' in window) {
-    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  if (reviewSections.length && data.googleKey) {
+    const esc = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const stars = (n) => { const f = Math.round(n); return `<span class="stars" aria-label="${n} out of 5 stars">${'★'.repeat(f)}<span class="stars__off">${'★'.repeat(5 - f)}</span></span>`; };
-    const locName = (id) => (data.locations.find((l) => l.id === id) || {}).name || '';
-    fetch('/api/reviews', { headers: { Accept: 'application/json' } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((g) => {
-        if (!g || !g.reviews) return;
-        reviewSections.forEach((sec) => {
-          const only = sec.dataset.reviews;
-          const ratings = $('[data-ratings]', sec);
-          const chips = Object.entries(g.summary || {})
-            .filter(([id, s]) => (!only || id === only) && s.google && s.google.rating)
-            .map(([id, s]) => `<a class="rating-chip" href="${esc(s.google.url || '#')}" target="_blank" rel="noopener"><span class="rating-chip__score">${s.google.rating.toFixed(1)}</span><span class="rating-chip__meta">${stars(s.google.rating)}<span>Google · ${esc(locName(id))}${s.google.count ? ` · ${s.google.count} reviews` : ''}</span></span></a>`);
-          if (chips.length && ratings) {
-            $$('.rating-chip--links', ratings).forEach((c) => c.remove());
-            ratings.insertAdjacentHTML('afterbegin', chips.join(''));
-          }
-          const cards = g.reviews
-            .filter((r) => !only || r.location === only)
-            .slice(0, 8)
-            .map((r) => `<figure class="review is-in"><div class="review__top">${stars(r.rating)}<span class="review__source">Google</span></div><blockquote><p>${esc(r.text.length > 420 ? r.text.slice(0, 417).trim() + '…' : r.text)}</p></blockquote><figcaption><span class="review__author">${esc(r.author)}</span><span>${esc(r.dateLabel || '')}${r.locationName ? ' · ' + esc(r.locationName) : ''}</span></figcaption></figure>`);
-          if (cards.length) {
-            $('[data-rail-track]', sec).insertAdjacentHTML('afterbegin', cards.join(''));
-            $('[data-rail]', sec).hidden = false;
-            $('.reviews__controls', sec).hidden = false;
-          }
+    const reviewText = (r) => (r.text && typeof r.text === 'object' ? r.text.text : r.text) || '';
+
+    // Load Google only when a reviews section comes near the screen.
+    let googleReady;
+    const loadGoogle = () => googleReady || (googleReady = new Promise((resolve, reject) => {
+      window.__pfGoogle = resolve;
+      const sc = document.createElement('script');
+      sc.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(data.googleKey)}&loading=async&libraries=places&callback=__pfGoogle`;
+      sc.async = true;
+      sc.onerror = reject;
+      document.head.appendChild(sc);
+    }).then(() => google.maps.importLibrary('places')));
+
+    const placeFor = async (lib, loc) => {
+      if (loc.placeId) return new lib.Place({ id: loc.placeId });
+      const { places } = await lib.Place.searchByText({ textQuery: `${loc.fullName}, ${loc.street}, Bali`, fields: ['id'], maxResultCount: 1 });
+      return places && places[0];
+    };
+    const studioData = {};
+    const loadStudio = (lib, loc) => studioData[loc.id] || (studioData[loc.id] = (async () => {
+      const place = await placeFor(lib, loc);
+      if (!place) return null;
+      await place.fetchFields({ fields: ['rating', 'userRatingCount', 'reviews', 'googleMapsURI'] });
+      return place;
+    })().catch(() => null));
+
+    const fill = async (sec) => {
+      const lib = await loadGoogle();
+      const only = sec.dataset.reviews;
+      const locs = data.locations.filter((l) => !only || l.id === only);
+      const places = await Promise.all(locs.map((l) => loadStudio(lib, l)));
+      const ratings = $('[data-ratings]', sec);
+      const chips = [];
+      const cards = [];
+      places.forEach((pl, i) => {
+        if (!pl) return;
+        const loc = locs[i];
+        if (pl.rating) chips.push(`<a class="rating-chip" href="${esc(pl.googleMapsURI)}" target="_blank" rel="noopener"><span class="rating-chip__score">${pl.rating.toFixed(1)}</span><span class="rating-chip__meta">${stars(pl.rating)}<span>Google · ${esc(loc.fullName)}${pl.userRatingCount ? ` · ${pl.userRatingCount} reviews` : ''}</span></span></a>`);
+        (pl.reviews || []).filter((r) => r.rating === 5 && reviewText(r)).forEach((r) => {
+          const t = reviewText(r);
+          const au = r.authorAttribution || {};
+          const name = au.uri ? `<a href="${esc(au.uri)}" target="_blank" rel="noopener">${esc(au.displayName)}</a>` : esc(au.displayName);
+          cards.push(`<figure class="review is-in"><div class="review__top">${stars(5)}<span class="review__source">Google</span></div><blockquote><p>${esc(t.length > 420 ? t.slice(0, 417).trim() + '…' : t)}</p></blockquote><figcaption><span class="review__author">${name}</span><span>${esc(r.relativePublishTimeDescription || '')} · ${esc(loc.fullName)}</span></figcaption></figure>`);
         });
+      });
+      if (chips.length && ratings) {
+        $$('.rating-chip--links', ratings).forEach((c) => { c.hidden = true; });
+        ratings.insertAdjacentHTML('afterbegin', chips.join(''));
+      }
+      if (cards.length) {
+        $('[data-rail-track]', sec).insertAdjacentHTML('afterbegin', cards.join(''));
+        $('[data-rail]', sec).hidden = false;
+        $('.reviews__controls', sec).hidden = false;
+        sec.insertAdjacentHTML('beforeend', '<p class="container reviews__credit">5-star reviews from Google</p>');
+      }
+    };
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      fill(e.target).catch(() => { /* Fresha ratings stay in place */ });
+    }), { rootMargin: '600px 0px' });
+    reviewSections.forEach((sec) => io.observe(sec));
+  }
+
+  /* ---------- Instagram feed (behold.so JSON), at the bottom of every page ---------- */
+  const igGrid = $('[data-ig-grid]');
+  if (igGrid && data.igFeed && 'fetch' in window) {
+    const escA = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    fetch(data.igFeed)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((feed) => {
+        const posts = (Array.isArray(feed) ? feed : (feed && feed.posts) || []).slice(0, 6);
+        if (!posts.length) return;
+        igGrid.innerHTML = posts.map((post) => {
+          const src = (post.sizes && post.sizes.medium && post.sizes.medium.mediaUrl) || post.thumbnailUrl || post.mediaUrl;
+          const alt = (post.prunedCaption || post.caption || 'POINT · FACE on Instagram').slice(0, 120);
+          return `<a class="ig-feed__tile" href="${escA(post.permalink)}" target="_blank" rel="noopener"><img src="${escA(src)}" alt="${escA(alt)}" loading="lazy" decoding="async"></a>`;
+        }).join('');
       })
-      .catch(() => { /* static Fresha reviews stay in place */ });
+      .catch(() => { /* keep the follow grid */ });
   }
 
   /* ---------- Reviews rail ---------- */

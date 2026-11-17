@@ -814,3 +814,17 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
   .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) { transform: translateY(5px) rotate(45deg); }
   .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
 }
+
+/* Google reviews credit */
+.reviews__credit { font: 500 11px var(--f-ui); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-top: 18px; }
+.review__author a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Instagram feed band (after "Ready for your glow") */
+.ig-feed { padding: clamp(56px, 7vw, 104px) 0 clamp(40px, 5vw, 72px); background: var(--bg); }
+.ig-feed__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(24px, 3vw, 40px); }
+.ig-feed__head .h-display { font-size: clamp(1.8rem, 3.4vw, 3rem); }
+.ig-feed__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.ig-feed__tile { display: block; aspect-ratio: 1; overflow: hidden; background: var(--surface); }
+.ig-feed__tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), opacity .4s; }
+.ig-feed__tile:hover img { transform: scale(1.06); opacity: .9; }
+@media (max-width: 760px) { .ig-feed__grid { grid-template-columns: repeat(3, 1fr); } .ig-feed__head { flex-direction: column; align-items: flex-start; } }

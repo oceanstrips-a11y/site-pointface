@@ -16,6 +16,15 @@ module.exports = {
   instagramHandle: '@pointfacebali',
   tiktok: 'https://www.tiktok.com/@point_face_bali',
   tiktokHandle: '@point_face_bali',
+
+  // Live Google reviews (shown under the studio ratings, 5-star reviews only).
+  // Paste a Google Maps JavaScript API key restricted to https://www.pointfacebali.com/*
+  // (APIs: Maps JavaScript API + Places API (New)). This key is public by design.
+  googleMapsApiKey: '',
+
+  // Instagram feed at the bottom of every page: the JSON feed URL from behold.so
+  // (e.g. 'https://feeds.behold.so/XXXXXXXX'). Empty = a follow grid with our own photos.
+  instagramFeedUrl: '',
   email: '', // TODO: add a public contact email if you want it displayed
   priceNote: 'All prices include 15% government tax & service charge. No additional fees.',
   priceRange: 'IDR 250,000 – 2,250,000',
@@ -39,6 +48,8 @@ module.exports = {
       fresha: 'https://www.fresha.com/a/point-face-bali-ungasan-kec-kuta-sel-kabupaten-badung-jalan-toya-ning-ii-no-99-no6mqclf?pId=2696384',
       // Google Maps share link of the studio (used for "Directions").
       maps: 'https://share.google/cNO72dbWv5qfZQgRg',
+      // Google Place ID (optional: found automatically from the name when empty).
+      googlePlaceId: '',
       // Opening hours (used in Google structured data). Sunday opens at 12:00.
       hours: {
         opens: '10:00', closes: '19:00',
@@ -68,6 +79,7 @@ module.exports = {
       phoneDisplay: '+62 823 3907 8379',
       fresha: 'https://www.fresha.com/en/a/point-face-facial-spa-bingin-pecatu-jl-pantai-cemongkak-no-9-dnxbd6ct?pId=2696384',
       maps: 'https://share.google/bFhLCCwXIVCowcxSQ',
+      googlePlaceId: '',
       hours: {
         opens: '10:00', closes: '19:00',
         label: 'Mon–Sat · 10:00 – 19:00 · Sun · 12:00 – 19:00',

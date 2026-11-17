@@ -147,7 +147,7 @@ function reviewsSection(reviews, { locationId, title = 'Loved in Uluwatu' } = {}
           (s) => `
     <a class="rating-chip" href="${esc(s.url || (s.src === 'google' ? s.loc.maps : s.loc.fresha))}" target="_blank" rel="noopener">
       <span class="rating-chip__score" data-count="${s.rating}" data-decimals="1">${s.rating.toFixed(1)}</span>
-      <span class="rating-chip__meta">${stars(s.rating)}<span>${SOURCE_LABEL[s.src]} · ${s.loc.name}${s.count ? ` · ${s.count} reviews` : ''}</span></span>
+      <span class="rating-chip__meta">${stars(s.rating)}<span>${SOURCE_LABEL[s.src]} · ${s.loc.fullName}${s.count ? ` · ${s.count} reviews` : ''}</span></span>
     </a>`
         )
         .join('')
