@@ -1,4 +1,5 @@
 const site = require('../../src/data/site');
+const instagram = require('../../src/data/instagram.json');
 const { esc, abs, waLink, waText, img } = require('./utils');
 
 const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POINT · FACE"></span>`;
@@ -120,7 +121,10 @@ function bookingDialog() {
 // Server-rendered tiles use our own photos and link to the profile; main.js swaps
 // in the latest posts when an Instagram feed URL is configured.
 function instagramFeed() {
-  const tiles = ['happy-glowing-skin', 'korean-glass-skin-hydrafacial', 'kobido-lifting-massage', 'dewy-skin-closeup', 'hydrojelly-mask-treatment', 'serum-texture'];
+  // Latest posts first (src/data/instagram.json, synced from Instagram), topped up to 6 with our photos.
+  const posts = (instagram.posts || []).slice(0, 6).map((p) => ({ image: p.image, href: p.permalink, alt: p.caption }));
+  const fillers = ['happy-glowing-skin', 'korean-glass-skin-hydrafacial', 'kobido-lifting-massage', 'dewy-skin-closeup', 'hydrojelly-mask-treatment', 'serum-texture'];
+  const tiles = [...posts, ...fillers.slice(0, 6 - posts.length).map((image) => ({ image, href: site.instagram, alt: '' }))];
   return `
 <section class="ig-feed" aria-labelledby="ig-feed-title" data-ig-feed>
   <div class="container">
@@ -132,7 +136,7 @@ function instagramFeed() {
       <a class="ig-feed__btn" href="${site.instagram}" target="_blank" rel="noopener">Follow us on Instagram</a>
     </div>
     <div class="ig-feed__grid" data-ig-grid>
-      ${tiles.map((t) => `<a class="ig-feed__tile" href="${site.instagram}" target="_blank" rel="noopener" aria-label="POINT · FACE on Instagram">${img(t, '', { sizes: '(max-width: 760px) 33vw, 15vw' })}</a>`).join('')}
+      ${tiles.map((t) => `<a class="ig-feed__tile" href="${t.href}" target="_blank" rel="noopener" aria-label="${esc(t.alt || 'POINT · FACE on Instagram')}">${img(t.image, t.alt, { sizes: '(max-width: 760px) 33vw, 15vw' })}</a>`).join('')}
     </div>
   </div>
 </section>`;
