@@ -163,7 +163,7 @@ ${C.studiosSection()}
 <section class="section duo" aria-labelledby="duo-title">
   <div class="container duo__grid">
     <div class="duo__media clip-reveal" data-reveal>
-      <div data-parallax="0.08">${img('duo-package-friends', 'Friends enjoying a duo facial package in Uluwatu', { sizes: '(max-width: 760px) 100vw, 50vw' })}</div>
+      <div data-parallax="0.08">${img('duo-package-friends', 'Two friends with glowing skin after a duo facial package in Uluwatu', { sizes: '(max-width: 760px) 100vw, 50vw' })}</div>
     </div>
     <div class="duo__content">
       <p class="eyebrow" data-reveal>Packages</p>
