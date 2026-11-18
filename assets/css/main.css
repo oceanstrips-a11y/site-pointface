@@ -819,12 +819,16 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .reviews__credit { font: 500 11px var(--f-ui); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-top: 18px; }
 .review__author a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
-/* Instagram feed band (after "Ready for your glow") */
-.ig-feed { padding: clamp(56px, 7vw, 104px) 0 clamp(40px, 5vw, 72px); background: var(--bg); }
-.ig-feed__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(24px, 3vw, 40px); }
-.ig-feed__head .h-display { font-size: clamp(1.8rem, 3.4vw, 3rem); }
-.ig-feed__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
-.ig-feed__tile { display: block; aspect-ratio: 1; overflow: hidden; background: var(--surface); }
+/* Instagram feed band (after "Ready for your glow"): "Follow along" */
+.ig-feed { padding: clamp(48px, 6vw, 88px) 0; background: var(--surface); }
+.ig-feed__head { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: clamp(20px, 2.4vw, 32px); }
+.ig-feed__head .eyebrow { margin-bottom: 10px; color: var(--ink-2); }
+.ig-feed__handle { font: 300 clamp(2rem, 4.4vw, 3.6rem)/1 var(--f-display); letter-spacing: .02em; text-transform: uppercase; }
+.ig-feed__handle a { color: inherit; }
+.ig-feed__btn { flex: none; padding: 16px 28px; border: 1px solid var(--ink); border-radius: 999px; font: 500 11px var(--f-ui); letter-spacing: .2em; text-transform: uppercase; color: var(--ink); transition: background .4s, color .4s, border-color .4s; }
+.ig-feed__btn:hover { background: var(--taupe); border-color: var(--taupe); color: var(--on-image); }
+.ig-feed__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.ig-feed__tile { display: block; aspect-ratio: 1; overflow: hidden; background: var(--bg); }
 .ig-feed__tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), opacity .4s; }
 .ig-feed__tile:hover img { transform: scale(1.06); opacity: .9; }
-@media (max-width: 760px) { .ig-feed__grid { grid-template-columns: repeat(3, 1fr); } .ig-feed__head { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 760px) { .ig-feed__grid { grid-template-columns: repeat(3, 1fr); gap: 6px; } .ig-feed__head { flex-direction: column; align-items: flex-start; } }
