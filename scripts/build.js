@@ -188,17 +188,6 @@ ${C.reviewsSection(reviews)}
   </div>
 </section>
 
-<section class="section" aria-labelledby="faq-title">
-  <div class="container faq-layout">
-    <div>
-      <p class="eyebrow" data-reveal>FAQ</p>
-      <h2 class="h-display" id="faq-title" data-split>Good to know</h2>
-      <a class="link link--arrow" href="/faq/" data-reveal>All questions</a>
-    </div>
-    ${C.faqList(faq.slice(0, 6), { open: true })}
-  </div>
-</section>
-
 ${C.bookingBand()}`;
 
   write(
@@ -213,8 +202,7 @@ ${C.bookingBand()}`;
       bodyClass: 'is-home',
       schema: S.graph(
         S.webPage('/', 'POINT · FACE — Expert Facials in Uluwatu, Bali', site.description, { about: { '@id': abs('/#organization') } }),
-        ...site.locations.map((l) => S.business(l, { treatments: treatments.filter((t) => !t.onlyAt || t.onlyAt === l.id), reviews })),
-        S.faqPage(faq, '/')
+        ...site.locations.map((l) => S.business(l, { treatments: treatments.filter((t) => !t.onlyAt || t.onlyAt === l.id), reviews }))
       ),
     }),
     { priority: 1.0, lastmod: today }
