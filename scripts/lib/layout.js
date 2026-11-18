@@ -123,15 +123,17 @@ function instagramFeed() {
   const tiles = ['happy-glowing-skin', 'korean-glass-skin-hydrafacial', 'kobido-lifting-massage', 'dewy-skin-closeup', 'hydrojelly-mask-treatment', 'serum-texture'];
   return `
 <section class="ig-feed" aria-labelledby="ig-feed-title" data-ig-feed>
-  <div class="container ig-feed__head">
-    <div>
-      <p class="eyebrow">Instagram</p>
-      <h2 class="h-display" id="ig-feed-title">Follow our glow <a class="link" href="${site.instagram}" target="_blank" rel="noopener">${esc(site.instagramHandle)}</a></h2>
+  <div class="container">
+    <div class="ig-feed__head">
+      <div>
+        <p class="eyebrow">Follow along</p>
+        <h2 class="ig-feed__handle" id="ig-feed-title"><a href="${site.instagram}" target="_blank" rel="noopener">${esc(site.instagramHandle)}</a></h2>
+      </div>
+      <a class="ig-feed__btn" href="${site.instagram}" target="_blank" rel="noopener">Follow us on Instagram</a>
     </div>
-    <a class="btn btn--ghost btn--sm" href="${site.instagram}" target="_blank" rel="noopener">Follow us</a>
-  </div>
-  <div class="ig-feed__grid" data-ig-grid>
-    ${tiles.map((t) => `<a class="ig-feed__tile" href="${site.instagram}" target="_blank" rel="noopener" aria-label="POINT · FACE on Instagram">${img(t, '', { sizes: '(max-width: 760px) 33vw, 17vw' })}</a>`).join('')}
+    <div class="ig-feed__grid" data-ig-grid>
+      ${tiles.map((t) => `<a class="ig-feed__tile" href="${site.instagram}" target="_blank" rel="noopener" aria-label="POINT · FACE on Instagram">${img(t, '', { sizes: '(max-width: 760px) 33vw, 15vw' })}</a>`).join('')}
+    </div>
   </div>
 </section>`;
 }
