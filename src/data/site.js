@@ -24,7 +24,7 @@ module.exports = {
 
   // Instagram feed at the bottom of every page: the JSON feed URL from behold.so
   // (e.g. 'https://feeds.behold.so/XXXXXXXX'). Empty = a follow grid with our own photos.
-  instagramFeedUrl: '',
+  instagramFeedUrl: 'https://feeds.behold.so/hTx3CvMl0sVelnPJz5m7',
   email: '', // TODO: add a public contact email if you want it displayed
   priceNote: 'All prices include 15% government tax & service charge. No additional fees.',
   priceRange: 'IDR 250,000 – 2,250,000',
