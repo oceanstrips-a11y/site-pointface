@@ -150,14 +150,21 @@ function reviewsSection(reviews, { locationId, title = 'Loved in Uluwatu' } = {}
       if (s[src] && s[src].rating) summaries.push({ loc: l, src, ...s[src] });
     }
   }
+  // One column per studio: its name on top, then its Google and Fresha ratings.
+  const chip = (s) => `
+      <a class="rating-chip" href="${esc(s.url || (s.src === 'google' ? s.loc.maps : s.loc.fresha))}" target="_blank" rel="noopener">
+        <span class="rating-chip__score" data-count="${s.rating}" data-decimals="1">${s.rating.toFixed(1)}</span>
+        <span class="rating-chip__meta">${stars(s.rating)}<span><strong>${SOURCE_LABEL[s.src]}</strong>${s.count ? ` · ${s.count} reviews` : ''}</span></span>
+      </a>`;
   const summaryHtml = summaries.length
-    ? summaries
+    ? site.locations
+        .filter((l) => summaries.some((s) => s.loc.id === l.id))
         .map(
-          (s) => `
-    <a class="rating-chip" href="${esc(s.url || (s.src === 'google' ? s.loc.maps : s.loc.fresha))}" target="_blank" rel="noopener">
-      <span class="rating-chip__score" data-count="${s.rating}" data-decimals="1">${s.rating.toFixed(1)}</span>
-      <span class="rating-chip__meta">${stars(s.rating)}<span>${SOURCE_LABEL[s.src]} · ${s.loc.fullName}${s.count ? ` · ${s.count} reviews` : ''}</span></span>
-    </a>`
+          (l) => `
+    <div class="rating-studio">
+      <p class="rating-studio__name">${esc(l.fullName)}</p>
+      ${summaries.filter((s) => s.loc.id === l.id).map(chip).join('')}
+    </div>`
         )
         .join('')
     : site.locations
