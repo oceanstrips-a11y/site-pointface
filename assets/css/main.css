@@ -380,6 +380,11 @@ a:hover .img-zoom img, .img-zoom:hover img { transform: scale(1.06); }
 
 /* ---------- Reviews ---------- */
 .ratings { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+.ratings:has(.rating-studio) { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; width: 100%; justify-self: end; }
+@media (min-width: 761px) { .ratings:has(.rating-studio) { width: 620px; max-width: 100%; } .ratings:has(.rating-studio:only-child) { width: 300px; } }
+.rating-studio { display: grid; gap: 10px; align-content: start; }
+.rating-studio__name { font: 500 11px var(--f-ui); letter-spacing: .18em; text-transform: uppercase; padding-bottom: 10px; border-bottom: 1px solid var(--ink); }
+.rating-studio .rating-chip__meta strong { font-weight: 500; color: var(--ink); }
 .rating-chip { display: flex; align-items: center; gap: 14px; border: 1px solid var(--line); padding: 14px 18px; transition: border-color .3s, background .3s; }
 a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .rating-chip__score { font: 400 2.2rem/1 var(--f-mark); letter-spacing: -.03em; }
