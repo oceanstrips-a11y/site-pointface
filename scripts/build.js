@@ -98,34 +98,27 @@ ${C.studiosSection()}
       <p class="eyebrow" data-reveal>Our guests' favourites</p>
       <h2 class="h-display" id="sig-title" data-split>Our signature best sellers</h2>
     </div>
-    ${bestSellers
+    <div class="sig-cards">${bestSellers
       .map(
         ([t, brands, more], i) => `
-    <article class="signature__grid${i % 2 ? ' signature__grid--rev' : ''}">
-      <div class="signature__media">
-        <div class="signature__sticky">
-          <div class="clip-reveal" data-reveal>${img(t.image, `${t.name} facial result`, { sizes: '(max-width: 760px) 100vw, 45vw' })}</div>
-          <span class="tag tag--float">★ Best seller · 0${i + 1}</span>
-        </div>
-      </div>
-      <div class="signature__content">
-        <p class="eyebrow" data-reveal>${esc(catById[t.category].short)} · ${t.duration} min</p>
-        <h3 class="h-display h-display--md signature__name" data-split>${esc(t.name)}</h3>
-        <p class="signature__lede" data-reveal>${esc(t.summary)} Features ${brands}.</p>
-        <div class="signature__cols">
-          <div data-reveal><p class="eyebrow">Key ingredients</p>${C.list(t.ingredients.map(esc))}</div>
-          <div data-reveal style="--d:100ms"><p class="eyebrow">Technologies</p>${C.list(t.technologies.map(esc))}</div>
-          <div data-reveal style="--d:200ms"><p class="eyebrow">Results</p>${C.list(t.results.map(esc))}</div>
-        </div>
-        <p class="signature__price" data-reveal>${t.priceWas ? `<s>${idr(t.priceWas)}</s> ` : ''}<strong>${idr(t.price)}</strong>${t.priceWas ? ' <span class="tag">25% off</span>' : ''}</p>
-        <div class="signature__ctas" data-reveal>
-          <a href="/book/" class="btn btn--solid" ${bookAttrs(t)} data-magnetic>Book this facial</a>
+    <article class="sig-card" data-reveal style="--d:${i * 120}ms">
+      <a class="sig-card__media" href="/treatments/${t.slug}/" tabindex="-1" aria-hidden="true">
+        ${img(t.image, `${t.name} facial result`, { sizes: '(max-width: 760px) 35vw, 30vw' })}
+        <span class="tag tag--float">★ Best seller · 0${i + 1}</span>
+      </a>
+      <div class="sig-card__body">
+        <p class="eyebrow">${esc(catById[t.category].short)} · ${t.duration} min</p>
+        <h3 class="sig-card__name"><a href="/treatments/${t.slug}/">${esc(t.name)}</a></h3>
+        <p class="sig-card__lede">${esc(t.summary)}</p>
+        <p class="sig-card__price">${t.priceWas ? `<s>${idr(t.priceWas)}</s> ` : ''}<strong>${idr(t.price)}</strong></p>
+        <div class="sig-card__ctas">
+          <a href="/book/" class="btn btn--solid btn--sm" ${bookAttrs(t)}>Book</a>
           <a class="link link--arrow" href="/treatments/${t.slug}/">${more}</a>
         </div>
       </div>
     </article>`
       )
-      .join('')}
+      .join('')}</div>
   </div>
 </section>
 
