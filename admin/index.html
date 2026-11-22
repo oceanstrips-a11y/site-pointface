@@ -336,8 +336,6 @@ function analyse(ps){
     let tot=0,raw=0,ot=0;const wk={},offs={};
     days.forEach(ds=>{const c=code(p.id,ds),h=hours(c,p);tot+=h.net;raw+=h.raw;if(info(c,p).type==="w"&&h.net>8)ot+=h.net-8;
       const k=addDays(ds,-dowOf(fromIso(ds)));wk[k]=(wk[k]||0)+h.net;(offs[k]||(offs[k]=[])).push(info(c,p).type==="w"?0:1);});
-    const cap=p.target!=null?p.target+(p.ot||0):null;
-    if(cap!=null&&tot>cap) add("err",p.name+": "+tot+" h this period, cap "+cap+" h");
     if(p.target!=null&&tot<p.target) add("err",p.name+": "+tot+" h, "+(p.target-tot)+" h short of "+p.target+" h");
     if(p.ot&&ot>p.ot) add("err",p.name+": "+ot+" h overtime, maximum "+p.ot+" h");
     if(p.week) Object.entries(wk).forEach(([k,v])=>{if(v>p.week)add("err",p.name+": "+v+" h in the week of "+dLabel(k)+" (max "+p.week+" h)");});
@@ -1271,7 +1269,7 @@ function vPlanning(){
     ps.forEach(p=>{const P=X.people[p.id];
       g+=`<tr><td class="name">${esc(p.name)}<em>${p.locs.map(l=>LOCN[l]).join(" / ")}</em></td>`;
       days.forEach(ds=>{const c=code(p.id,ds),k=info(c,p);g+=`<td class="cell ${k.type} ${k.loc||""}"><select data-ch="cell" data-pid="${p.id}" data-ds="${ds}" aria-label="${esc(p.name)} ${ds}">${optionsFor(p,c)}</select></td>`;});
-      const cap=p.target!=null?p.target+(p.ot?"+"+p.ot:""):null,bad=(p.target!=null&&(P.tot<p.target||P.tot>p.target+(p.ot||0)))||(p.ot&&P.ot>p.ot);
+      const cap=p.target!=null?p.target+(p.ot?"+"+p.ot:""):null,bad=(p.target!=null&&P.tot<p.target)||(p.ot&&P.ot>p.ot);
       g+=`<td class="tot ${bad?"bad":(cap?"good":"")}"><b>${P.tot} h</b><span>${cap?"target "+cap+" h":"tracked"}${P.ot?" · OT "+P.ot:""}</span></td></tr>`;});
   });
   ["U","B"].forEach(L=>{const R=S.rules[L];let r1=`<tr class="sum"><td class="name">${LOCN[L]} · therapists</td>`,r2=`<tr class="sum"><td class="name">${LOCN[L]} · until 7 pm</td>`,r3=`<tr class="sum"><td class="name">${LOCN[L]} · front</td>`;
