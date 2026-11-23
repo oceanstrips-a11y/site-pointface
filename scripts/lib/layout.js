@@ -193,13 +193,13 @@ ${bookingDialog()}
 <a href="/book/" class="book-fab" ${book}>Book now</a>
 ${promo ? `<aside class="promo-pop" data-promo-pop data-promo-id="${promo.id}" data-promo-start="${promo.start}" data-promo-end="${promo.end}" hidden aria-labelledby="promo-pop-title">
   <button class="promo-pop__close" type="button" data-promo-close aria-label="Close">×</button>
-  <a class="promo-pop__img" href="/${promo.slug}/" tabindex="-1" aria-hidden="true">${img('dewy-skin-closeup', '', { sizes: '(max-width: 760px) 96px, 220px' })}</a>
+  <a class="promo-pop__img" href="/${promo.slug}/" tabindex="-1" aria-hidden="true">${img('black-friday-popup', 'Black Friday offer at POINT · FACE: 35% off our best-selling Korean Hydrafacials or gift cards extra bonus', { sizes: '(max-width: 760px) 120px, 260px' })}</a>
   <div class="promo-pop__body">
     <p class="eyebrow">${esc(promo.dates)}</p>
     <p class="promo-pop__title" id="promo-pop-title">Black Friday Offers</p>
     <ul class="promo-pop__offers">
       <li>${esc(promo.discount)} our best-selling Korean Hydrafacials</li>
-      <li>Bonus credit on gift cards</li>
+      <li>Bonus credit on gift cards: up to +25% in free treatments</li>
     </ul>
     <a class="btn btn--solid btn--sm" href="/${promo.slug}/" data-promo-go>See Black Friday offers</a>
   </div>
