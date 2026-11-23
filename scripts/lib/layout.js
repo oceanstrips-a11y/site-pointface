@@ -1,8 +1,7 @@
 const site = require('../../src/data/site');
 const instagram = require('../../src/data/instagram.json');
 const promo = require('../../src/data/promo');
-const { esc, abs, waLink, waText, img, idr } = require('./utils');
-const { treatments } = require('../../src/data/treatments');
+const { esc, abs, waLink, waText, img } = require('./utils');
 
 const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POINT · FACE"></span>`;
 
@@ -194,15 +193,14 @@ ${bookingDialog()}
 <a href="/book/" class="book-fab" ${book}>Book now</a>
 ${promo ? `<aside class="promo-pop" data-promo-pop data-promo-id="${promo.id}" data-promo-start="${promo.start}" data-promo-end="${promo.end}" hidden aria-labelledby="promo-pop-title">
   <button class="promo-pop__close" type="button" data-promo-close aria-label="Close">×</button>
-  <a class="promo-pop__img" href="/${promo.slug}/" tabindex="-1" aria-hidden="true">${img(promo.images.facials, '', { sizes: '(max-width: 760px) 90vw, 420px' })}</a>
+  <a class="promo-pop__img" href="/${promo.slug}/" tabindex="-1" aria-hidden="true">${img('dewy-skin-closeup', '', { sizes: '(max-width: 760px) 96px, 220px' })}</a>
   <div class="promo-pop__body">
     <p class="eyebrow">${esc(promo.dates)}</p>
-    <p class="promo-pop__title" id="promo-pop-title">Black Friday Week: ${esc(promo.discount)} our 3 best-selling Korean Hydrafacials</p>
-    <ul class="promo-pop__prices">${promo.facials
-      .map((slug) => treatments.find((t) => t.slug === slug))
-      .map((t) => `<li><span>${esc(t.name)}</span><span><s>${idr(t.priceWas || t.price)}</s> <strong>${idr(Math.round((t.priceWas || t.price) * (1 - promo.percent / 100)))}</strong></span></li>`)
-      .join('')}</ul>
-    <p class="promo-pop__text">+ up to 25% bonus credit on gift cards.</p>
+    <p class="promo-pop__title" id="promo-pop-title">Black Friday Offers</p>
+    <ul class="promo-pop__offers">
+      <li>${esc(promo.discount)} our best-selling Korean Hydrafacials</li>
+      <li>Bonus credit on gift cards</li>
+    </ul>
     <a class="btn btn--solid btn--sm" href="/${promo.slug}/" data-promo-go>See Black Friday offers</a>
   </div>
 </aside>` : ''}
