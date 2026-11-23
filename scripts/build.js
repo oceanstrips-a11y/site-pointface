@@ -14,6 +14,8 @@ const { esc, stripTags, idr, idrK, img, abs, waLink, waText, fmtDate, freshaFor,
 const S = require('./lib/schema');
 const C = require('./lib/components');
 const { page, wordmark } = require('./lib/layout');
+const promo = require('../src/data/promo');
+const { promoPage } = require('./lib/promo-page');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'public');
@@ -1164,6 +1166,10 @@ home();
 treatmentsIndex();
 treatments.forEach(treatmentPage);
 packagesPage();
+if (promo) {
+  const offer = promoPage(promo);
+  write(offer.path, page(offer.html), { priority: 0.6, lastmod: today });
+}
 concernsIndex();
 concerns.forEach(concernPage);
 locationsIndex();

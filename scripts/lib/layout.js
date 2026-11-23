@@ -1,5 +1,6 @@
 const site = require('../../src/data/site');
 const instagram = require('../../src/data/instagram.json');
+const promo = require('../../src/data/promo');
 const { esc, abs, waLink, waText, img } = require('./utils');
 
 const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POINT · FACE"></span>`;
@@ -190,6 +191,16 @@ ${instagramFeed()}
 ${footer(book)}
 ${bookingDialog()}
 <a href="/book/" class="book-fab" ${book}>Book now</a>
+${promo ? `<aside class="promo-pop" data-promo-pop data-promo-id="${promo.id}" data-promo-start="${promo.start}" data-promo-end="${promo.end}" hidden aria-labelledby="promo-pop-title">
+  <button class="promo-pop__close" type="button" data-promo-close aria-label="Close">×</button>
+  <a class="promo-pop__img" href="/${promo.slug}/" tabindex="-1" aria-hidden="true">${img(promo.images.facials, '', { sizes: '(max-width: 760px) 90vw, 420px' })}</a>
+  <div class="promo-pop__body">
+    <p class="eyebrow">${esc(promo.dates)}</p>
+    <p class="promo-pop__title" id="promo-pop-title">Black Friday Week: ${esc(promo.discount)} our 3 best-selling Korean Hydrafacials</p>
+    <p class="promo-pop__text">+ up to 25% bonus credit on gift cards.</p>
+    <a class="btn btn--solid btn--sm" href="/${promo.slug}/" data-promo-go>See the offer</a>
+  </div>
+</aside>` : ''}
 <aside class="ig-pop" data-ig-pop hidden aria-labelledby="ig-pop-title">
   <button class="ig-pop__close" type="button" data-ig-close aria-label="Close">×</button>
   <div class="ig-pop__img">${img('happy-glowing-skin', '', { sizes: '88px' })}</div>

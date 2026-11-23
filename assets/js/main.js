@@ -257,6 +257,37 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
   }
 
+  /* ---------- Time-limited offer (src/data/promo.js): pop-up + page, by Bali date ---------- */
+  const baliToday = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+  const promoPop = $('[data-promo-pop]');
+  const promoActive = !!promoPop && baliToday >= promoPop.dataset.promoStart && baliToday <= promoPop.dataset.promoEnd;
+  if (promoPop && promoActive && !document.body.classList.contains('is-promo-page')) {
+    const PROMO_KEY = `pf-promo-${promoPop.dataset.promoId}`;
+    let seenPromo = false;
+    try { seenPromo = !!localStorage.getItem(PROMO_KEY); } catch (e) { /* storage blocked */ }
+    const closePromo = () => {
+      try { localStorage.setItem(PROMO_KEY, '1'); } catch (e) { /* storage blocked */ }
+      promoPop.classList.remove('is-open');
+      setTimeout(() => { promoPop.hidden = true; }, 500);
+    };
+    if (!seenPromo) {
+      setTimeout(() => {
+        if (document.body.classList.contains('menu-open')) return;
+        promoPop.hidden = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => promoPop.classList.add('is-open')));
+      }, 2500);
+    }
+    $('[data-promo-close]', promoPop).addEventListener('click', closePromo);
+    $('[data-promo-go]', promoPop).addEventListener('click', closePromo);
+  }
+  // On the offer page itself, say so once the offer is over.
+  const promoPage = $('[data-promo-page]');
+  if (promoPage && baliToday > promoPage.dataset.promoEnd) {
+    const ended = $('[data-promo-ended]', promoPage);
+    if (ended) ended.hidden = false;
+    document.body.classList.add('is-promo-ended');
+  }
+
   /* ---------- Instagram pop-up (after 4 s, then not again for 14 days) ---------- */
   const igPop = $('[data-ig-pop]');
   if (igPop) {
@@ -269,7 +300,8 @@
       igPop.classList.remove('is-open');
       setTimeout(() => { igPop.hidden = true; }, 500);
     };
-    if (Date.now() - lastSeen > IG_PAUSE) {
+    // The offer pop-up takes priority while it runs.
+    if (!promoActive && Date.now() - lastSeen > IG_PAUSE) {
       setTimeout(() => {
         // Never on top of the open menu or booking panel.
         if (document.body.classList.contains('menu-open')) return;
