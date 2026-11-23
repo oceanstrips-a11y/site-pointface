@@ -198,7 +198,7 @@ ${promo ? `<aside class="promo-pop" data-promo-pop data-promo-id="${promo.id}" d
     <p class="eyebrow">${esc(promo.dates)}</p>
     <p class="promo-pop__title" id="promo-pop-title">Black Friday Week: ${esc(promo.discount)} our 3 best-selling Korean Hydrafacials</p>
     <p class="promo-pop__text">+ up to 25% bonus credit on gift cards.</p>
-    <a class="btn btn--solid btn--sm" href="/${promo.slug}/" data-promo-go>See the offer</a>
+    <a class="btn btn--solid btn--sm" href="/${promo.slug}/" data-promo-go>See Black Friday offers</a>
   </div>
 </aside>` : ''}
 <aside class="ig-pop" data-ig-pop hidden aria-labelledby="ig-pop-title">

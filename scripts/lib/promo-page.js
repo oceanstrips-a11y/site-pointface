@@ -50,6 +50,7 @@ ${C.breadcrumb([['Home', '/'], [promo.title, p]])}
         <p class="eyebrow">Korean Hydrafacial · ${t.duration} min</p>
         <h3 class="bf-facial__name"><a href="/treatments/${t.slug}/">${esc(t.name)}</a></h3>
         <p class="bf-facial__text">${esc(t.summary)}</p>
+        <p class="bf-facial__price"><s>${idr(t.priceWas || t.price)}</s> <strong>${idr(Math.round((t.priceWas || t.price) * (1 - promo.percent / 100)))}</strong></p>
         <a href="/book/" class="btn btn--solid btn--sm" ${offerBookAttrs(`Black Friday ${promo.discount} — ${t.name}`, t)}>Book with ${esc(promo.discount.toLowerCase())}</a>
       </article>`
         )
@@ -105,7 +106,7 @@ ${C.bookingBand()}`;
             '@type': 'OfferCatalog',
             name: `${promo.title} (${promo.dates})`,
             itemListElement: [
-              ...facials.map((t) => ({ '@type': 'Offer', name: `${t.name} — ${promo.discount}`, url: abs(`/treatments/${t.slug}/`), validFrom, validThrough, seller: { '@id': abs('/#organization') } })),
+              ...facials.map((t) => ({ '@type': 'Offer', name: `${t.name} — ${promo.discount}`, price: Math.round((t.priceWas || t.price) * (1 - promo.percent / 100)), priceCurrency: 'IDR', url: abs(`/treatments/${t.slug}/`), validFrom, validThrough, seller: { '@id': abs('/#organization') } })),
               ...promo.giftCards.map(([pay, get]) => ({ '@type': 'Offer', name: `Gift card: pay ${idr(pay)}, receive ${idr(get)}`, price: pay, priceCurrency: 'IDR', validFrom, validThrough, seller: { '@id': abs('/#organization') } })),
             ],
           },

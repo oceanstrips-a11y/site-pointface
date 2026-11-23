@@ -13,6 +13,8 @@ module.exports = {
   intro:
     'Rainy season has just started in Bali… but it doesn’t matter, because Black Friday is here at POINT · FACE Ungasan & Bingin.',
   discount: '35% OFF',
+  // Applied to the full price (the struck-through price when a treatment has one).
+  percent: 35,
   facials: ['ultimate-korean-glass-skin-hydralift', 'advanced-collagen-booster', 'k-balance-acne-clear'],
   giftCards: [
     [1500000, 1725000, '+15%'],
