@@ -934,3 +934,7 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .promo-pop__offers li::before { content: '✦'; color: var(--taupe); margin-right: 8px; }
 .promo-pop .promo-pop__title { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
 @media (max-width: 760px) { .promo-pop { grid-template-columns: 96px 1fr; } .promo-pop__img { display: block; } .promo-pop__offers { font-size: 13px; } .promo-pop .promo-pop__title { font-size: 1.4rem; } }
+.promo-pop { grid-template-columns: 260px 1fr; }
+@media (max-width: 760px) { .promo-pop { grid-template-columns: 110px 1fr; } }
+.promo-pop__body { min-width: 0; }
+@media (max-width: 760px) { .promo-pop { grid-template-columns: 96px 1fr; align-items: start; } .promo-pop .btn { width: 100%; justify-content: center; padding-inline: 10px; letter-spacing: .12em; white-space: normal; text-align: center; } .promo-pop .eyebrow { font-size: 10px; padding-right: 8px; } .promo-pop__offers { font-size: 12.5px; } }
