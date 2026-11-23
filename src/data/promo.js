@@ -32,4 +32,6 @@ module.exports = {
     'Gift cards can be purchased via WhatsApp or directly in-store.',
   ],
   images: { facials: 'black-friday-35-off', giftCards: 'black-friday-gift-cards' },
+  // Offer visuals for each facial on the offer page (instead of the usual treatment photo).
+  facialVisuals: { 'ultimate-korean-glass-skin-hydralift': 'bf-ultimate', 'advanced-collagen-booster': 'bf-collagen', 'k-balance-acne-clear': 'bf-kbalance' },
 };

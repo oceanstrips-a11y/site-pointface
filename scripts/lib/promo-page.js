@@ -46,7 +46,7 @@ ${C.breadcrumb([['Home', '/'], [promo.title, p]])}
         .map(
           (t) => `
       <article class="bf-facial" data-reveal>
-        <a class="bf-facial__media" href="/treatments/${t.slug}/" tabindex="-1" aria-hidden="true">${img(t.image, t.name, { sizes: '(max-width: 760px) 100vw, 30vw' })}<span class="tag tag--float">${esc(promo.discount)}</span></a>
+        <a class="bf-facial__media" href="/treatments/${t.slug}/" tabindex="-1" aria-hidden="true">${(promo.facialVisuals || {})[t.slug] ? img(promo.facialVisuals[t.slug], `${t.name}: Black Friday ${promo.discount}`, { sizes: '(max-width: 760px) 120px, 30vw' }) : `${img(t.image, t.name, { sizes: '(max-width: 760px) 100vw, 30vw' })}<span class="tag tag--float">${esc(promo.discount)}</span>`}</a>
         <p class="eyebrow">Korean Hydrafacial · ${t.duration} min</p>
         <h3 class="bf-facial__name"><a href="/treatments/${t.slug}/">${esc(t.name)}</a></h3>
         <p class="bf-facial__text">${esc(t.summary)}</p>

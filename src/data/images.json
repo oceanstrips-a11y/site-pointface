@@ -394,5 +394,29 @@
  "black-friday-popup-sm": [
   360,
   360
+ ],
+ "bf-ultimate": [
+  800,
+  1000
+ ],
+ "bf-ultimate-sm": [
+  400,
+  500
+ ],
+ "bf-collagen": [
+  800,
+  1000
+ ],
+ "bf-collagen-sm": [
+  400,
+  500
+ ],
+ "bf-kbalance": [
+  800,
+  1000
+ ],
+ "bf-kbalance-sm": [
+  400,
+  500
  ]
 }
