@@ -920,3 +920,6 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 }
 .bf-gift > *, .promo-hero > * { min-width: 0; }
 @media (max-width: 760px) { .bf-gift__tiers li { grid-template-columns: 1fr 1fr; } .bf-gift__tiers strong { grid-column: 1 / -1; justify-self: start; } }
+.bf-facial__price { font: 400 14px var(--f-ui); }
+.bf-facial__price s { color: var(--ink-2); margin-right: 6px; }
+.bf-facial__price strong { font-weight: 500; font-size: 17px; }
