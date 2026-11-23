@@ -12,6 +12,12 @@ const offerBookAttrs = (label, t) =>
 
 const waOffer = (l, what) => waLink(l, `Hi Point Face ${l.name.replace('Uluwatu ', '')}! I'd like ${what} (Black Friday offer). Could you tell me your availability?`);
 
+// [full price, offer price]: the exact prices from promo.prices, else the percentage off the full price.
+const offerPrices = (promo, t) => {
+  const full = t.priceWas || t.price;
+  return (promo.prices || {})[t.slug] || [full, Math.round(full * (1 - promo.percent / 100))];
+};
+
 function promoPage(promo) {
   const p = `/${promo.slug}/`;
   const facials = promo.facials.map((slug) => treatments.find((t) => t.slug === slug));
@@ -50,7 +56,7 @@ ${C.breadcrumb([['Home', '/'], [promo.title, p]])}
         <p class="eyebrow">Korean Hydrafacial · ${t.duration} min</p>
         <h3 class="bf-facial__name"><a href="/treatments/${t.slug}/">${esc(t.name)}</a></h3>
         <p class="bf-facial__text">${esc(t.summary)}</p>
-        <p class="bf-facial__price"><s>${idr(t.priceWas || t.price)}</s> <strong>${idr(Math.round((t.priceWas || t.price) * (1 - promo.percent / 100)))}</strong></p>
+        <p class="bf-facial__price"><s>${idr(offerPrices(promo, t)[0])}</s> <strong>${idr(offerPrices(promo, t)[1])}</strong></p>
         <a href="/book/" class="btn btn--solid btn--sm" ${offerBookAttrs(`Black Friday ${promo.discount} — ${t.name}`, t)}>Book with ${esc(promo.discount.toLowerCase())}</a>
       </article>`
         )
@@ -106,7 +112,7 @@ ${C.bookingBand()}`;
             '@type': 'OfferCatalog',
             name: `${promo.title} (${promo.dates})`,
             itemListElement: [
-              ...facials.map((t) => ({ '@type': 'Offer', name: `${t.name} — ${promo.discount}`, price: Math.round((t.priceWas || t.price) * (1 - promo.percent / 100)), priceCurrency: 'IDR', url: abs(`/treatments/${t.slug}/`), validFrom, validThrough, seller: { '@id': abs('/#organization') } })),
+              ...facials.map((t) => ({ '@type': 'Offer', name: `${t.name} — ${promo.discount}`, price: offerPrices(promo, t)[1], priceCurrency: 'IDR', url: abs(`/treatments/${t.slug}/`), validFrom, validThrough, seller: { '@id': abs('/#organization') } })),
               ...promo.giftCards.map(([pay, get]) => ({ '@type': 'Offer', name: `Gift card: pay ${idr(pay)}, receive ${idr(get)}`, price: pay, priceCurrency: 'IDR', validFrom, validThrough, seller: { '@id': abs('/#organization') } })),
             ],
           },

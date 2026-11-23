@@ -16,6 +16,12 @@ module.exports = {
   // Applied to the full price (the struck-through price when a treatment has one).
   percent: 35,
   facials: ['ultimate-korean-glass-skin-hydralift', 'advanced-collagen-booster', 'k-balance-acne-clear'],
+  // Exact prices as on Fresha (full price → Black Friday price), shown on the offer page only.
+  prices: {
+    'ultimate-korean-glass-skin-hydralift': [1733333, 1126667],
+    'advanced-collagen-booster': [1666667, 1083333],
+    'k-balance-acne-clear': [1200000, 780000],
+  },
   giftCards: [
     [1500000, 1725000, '+15%'],
     [2000000, 2400000, '+20%'],
