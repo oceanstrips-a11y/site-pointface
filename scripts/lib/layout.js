@@ -1,7 +1,8 @@
 const site = require('../../src/data/site');
 const instagram = require('../../src/data/instagram.json');
 const promo = require('../../src/data/promo');
-const { esc, abs, waLink, waText, img } = require('./utils');
+const { esc, abs, waLink, waText, img, idr } = require('./utils');
+const { treatments } = require('../../src/data/treatments');
 
 const logo = (cls = '') => `<span class="logo ${cls}" role="img" aria-label="POINT · FACE"></span>`;
 
@@ -197,6 +198,10 @@ ${promo ? `<aside class="promo-pop" data-promo-pop data-promo-id="${promo.id}" d
   <div class="promo-pop__body">
     <p class="eyebrow">${esc(promo.dates)}</p>
     <p class="promo-pop__title" id="promo-pop-title">Black Friday Week: ${esc(promo.discount)} our 3 best-selling Korean Hydrafacials</p>
+    <ul class="promo-pop__prices">${promo.facials
+      .map((slug) => treatments.find((t) => t.slug === slug))
+      .map((t) => `<li><span>${esc(t.name)}</span><span><s>${idr(t.priceWas || t.price)}</s> <strong>${idr(Math.round((t.priceWas || t.price) * (1 - promo.percent / 100)))}</strong></span></li>`)
+      .join('')}</ul>
     <p class="promo-pop__text">+ up to 25% bonus credit on gift cards.</p>
     <a class="btn btn--solid btn--sm" href="/${promo.slug}/" data-promo-go>See Black Friday offers</a>
   </div>
