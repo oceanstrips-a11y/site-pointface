@@ -929,3 +929,8 @@ a.rating-chip:hover { border-color: var(--ink); background: var(--surface); }
 .promo-pop__prices s { color: var(--ink-2); margin-right: 4px; font-size: 11px; }
 .promo-pop__prices strong { font-weight: 500; white-space: nowrap; }
 @media (max-width: 760px) { .promo-pop { grid-template-columns: 1fr; } .promo-pop__img { display: none; } .promo-pop__prices li { font-size: 12px; } }
+
+.promo-pop__offers { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 6px; font: 400 14px/1.35 var(--f-ui); }
+.promo-pop__offers li::before { content: '✦'; color: var(--taupe); margin-right: 8px; }
+.promo-pop .promo-pop__title { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+@media (max-width: 760px) { .promo-pop { grid-template-columns: 96px 1fr; } .promo-pop__img { display: block; } .promo-pop__offers { font-size: 13px; } .promo-pop .promo-pop__title { font-size: 1.4rem; } }
